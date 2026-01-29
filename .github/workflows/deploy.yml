@@ -35,7 +35,7 @@ jobs:
           # The folder where 11ty puts your built files
           local-dir: ./_site/
           # The folder on Hetzner where the internet looks for your site
-          server-dir: ./public_html/my-11ty-blog
+          server-dir: ./public_html/my-11ty-blog/
           # FTPS is secure FTP. 'strict' ensures we don't fall back to insecure connections
           protocol: ftps
           security: strict
