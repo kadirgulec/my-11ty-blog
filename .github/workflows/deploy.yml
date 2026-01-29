@@ -1,0 +1,41 @@
+name: Deploy to Hetzner
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install dependencies
+        # 'npm ci' is faster and cleaner than 'npm install' for CI/CD
+        run: npm ci
+
+      - name: 🏗️ Build Site
+        # This runs the build command we defined in package.json
+        run: npm run build
+
+      - name: 📂 Sync files to Hetzner
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # The folder where 11ty puts your built files
+          local-dir: ./_site/
+          # The folder on Hetzner where the internet looks for your site
+          server-dir: ./public_html/my-11ty-blog
+          # FTPS is secure FTP. 'strict' ensures we don't fall back to insecure connections
+          protocol: ftps
+          security: strict
