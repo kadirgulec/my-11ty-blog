@@ -1,0 +1,66 @@
+<div
+  x-data="experienceCounter('2024-06-01T08:30:00')"
+  x-init="startTimer()"
+  class="space-y-2"
+>
+  <dt class="text-base/7 text-gray-600 dark:text-gray-400">Total Experience</dt>
+  <dd class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white tabular-nums">
+    <span x-text="years">0</span> years
+    <span x-text="months">0</span> months
+    <span x-text="days">0</span> days
+    <span x-text="hours">0</span> hours
+    <span x-text="minutes">0</span> minutes
+    <span x-text="seconds">0</span> seconds
+  </dd>
+</div>
+
+<script>
+function experienceCounter(startDateString) {
+  return {
+    startDate: new Date(startDateString),
+    years: 0,
+    months: 0,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+
+    startTimer() {
+      this.updateCounter();
+      setInterval(() => {
+        this.updateCounter();
+      }, 1000);
+    },
+
+    updateCounter() {
+      const now = new Date();
+      let diff = now - this.startDate;
+
+      // Calculate time units
+      const sec = 1000;
+      const min = sec * 60;
+      const hr = min * 60;
+      const day = hr * 24;
+      const month = day * 30.44; // Average month length
+      const yr = day * 365.25;  // Account for leap years
+
+      this.years = Math.floor(diff / yr);
+      diff %= yr;
+
+      this.months = Math.floor(diff / month);
+      diff %= month;
+
+      this.days = Math.floor(diff / day);
+      diff %= day;
+
+      this.hours = Math.floor(diff / hr);
+      diff %= hr;
+
+      this.minutes = Math.floor(diff / min);
+      diff %= min;
+
+      this.seconds = Math.floor(diff / sec);
+    }
+  }
+}
+</script>
