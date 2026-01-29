@@ -1,0 +1,10 @@
+---
+layout: base.html
+---
+<article class="prose lg:prose-xl bg-white p-8 rounded shadow">
+    <h1 class="text-3xl font-bold mb-4">{{ title }}</h1>
+    <div class="mb-6 text-gray-500 text-sm">
+        Published on {{ date | date: "%B %-d, %Y" }}
+    </div>
+    {{ content }}
+</article>
