@@ -1,0 +1,12 @@
+<div class="mt-32 sm:mt-48">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <h2 class="text-center text-lg/8 font-semibold text-gray-900 dark:text-white">My Technical Stack</h2>
+    <div class="mx-auto mt-10 flex flex-wrap justify-center gap-4 max-w-4xl">
+      {% for skill in skills %}
+          <span class="inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 ring-1 ring-inset ring-gray-500/10 hover:bg-gray-100 dark:hover:bg-gray-700 transition cursor-default">
+            {{ skill }}
+          </span>
+      {% endfor %}
+    </div>
+  </div>
+</div>
