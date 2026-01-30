@@ -5,12 +5,24 @@
 >
   <dt class="text-base/7 text-gray-600 dark:text-gray-400">Total Experience</dt>
   <dd class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white tabular-nums">
-    <span x-text="years">0</span> years
-    <span x-text="months">0</span> months
-    <span x-text="days">0</span> days
-    <span x-text="hours">0</span> hours
-    <span x-text="minutes">0</span> minutes
-    <span x-text="seconds">0</span> seconds
+    <span x-show="years > 0">
+        <span x-text="years"></span> <span x-text="pluralize(years, 'year')"></span>
+      </span>
+
+      <span x-show="months > 0">
+        <span x-text="months"></span> <span x-text="pluralize(months, 'month')"></span>
+      </span>
+
+      <span x-show="days > 0">
+        <span x-text="days"></span> <span x-text="pluralize(days, 'day')"></span>
+      </span>
+
+      <span>
+        <span x-text="minutes"></span> <span x-text="pluralize(minutes, 'minute')"></span>
+      </span>
+      <span>
+        <span x-text="seconds"></span> <span x-text="pluralize(seconds, 'second')"></span>
+      </span>
   </dd>
 </div>
 
@@ -30,6 +42,10 @@ function experienceCounter(startDateString) {
       setInterval(() => {
         this.updateCounter();
       }, 1000);
+    },
+
+    pluralize(value, singular){
+        return value === 1 ? singular : singular + 's'
     },
 
     updateCounter() {
