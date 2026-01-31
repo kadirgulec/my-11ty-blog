@@ -1,0 +1,60 @@
+---
+layout: base.njk
+title: Blog
+pagination:
+  data: collections.post
+  size: 9
+  alias: posts
+  reverse: true
+---
+
+<div class="mx-auto max-w-7xl px-6 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+
+        {% if posts.length > 0 %}
+
+            {# --- 2. Featured Card (The first item: posts[0]) --- #}
+            {% set post = posts[0] %}
+            {% include "components/featured-card.njk" %}
+
+            {# --- 3. Grid Layout (Remaining items: posts.slice(1)) --- #}
+            {% if posts.length > 1 %}
+                <div class="lg:grid lg:grid-cols-6 pt-4 space-y-4 lg:space-y-0 lg:gap-4 max-w-2xl lg:max-w-none mx-auto">
+
+                    {% for post in posts.slice(1) %}
+
+                        {# Logic: First 2 items get col-span-3, others get col-span-2 #}
+                        {% set spanClass = "col-span-2" %}
+                        {% if loop.index <= 2 %}
+                             {% set spanClass = "col-span-3" %}
+                        {% endif %}
+
+                        {# Include the card, passing the calculated class #}
+                        {% set class = spanClass %}
+                        {% include "components/post-card.njk" %}
+
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+
+            {# --- 4. Pagination Links --- #}
+
+            {% if pagination.href.next or pagination.href.previous %}
+
+                <div class="py-10 flex justify-center gap-4">
+                    {% if pagination.href.previous %}
+                        <a href="{{ pagination.href.previous }}" class="button-a">Previous</a>
+                    {% endif %}
+                    {% if pagination.href.next %}
+                        <a href="{{ pagination.href.next }}" class="button-a">Next</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        {% else %}
+            <p class="text-center text-white text-xl">No articles published yet. Check back soon!</p>
+        {% endif %}
+
+    </div>
+</main>

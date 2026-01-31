@@ -1,0 +1,29 @@
+---
+layout: base.njk
+---
+
+<div class="main-container">
+  <div class="mx-auto max-w-3xl text-base leading-7 ">
+
+    <!-- Title and Date -->
+    <p class="text-base font-semibold leading-7 text-indigo-600">{{ date | postDate }}</p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight p-text sm:text-4xl">{{ title }}</h1>
+
+    <!-- Tags Badge List -->
+    <div class="mt-4 flex flex-wrap gap-2">
+      {% for tag in tags %}
+        {% if tag != "post" %}
+          <a href="/tags/{{ tag | slugify }}/" class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10 hover:bg-indigo-100 transition">
+            #{{ tag }}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="mt-10 prose prose-lg prose-indigo mx-auto p-text">
+        {{ content | safe }}
+    </div>
+
+  </div>
+</div>
