@@ -3,75 +3,58 @@ layout: base.njk
 title: Blog
 pagination:
   data: collections.post
-  size: 6
+  size: 9
   alias: posts
   reverse: true
 ---
 
-<div class="mx-auto mt-32 max-w-7xl px-6 lg:px-8">
-  <div class="mx-auto lg:mx-0">
+<div class="mx-auto max-w-7xl px-6 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
 
-    <!-- Header -->
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">From the blog</h2>
-      <p class="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">
-        Technical tutorials, career advice, and project updates.
-      </p>
-    </div>
+        {% if posts.length > 0 %}
 
-    <!-- Grid of Posts -->
-    <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-      {% for post in posts %}
-        <article class="flex flex-col items-start justify-between">
-          <div class="relative w-full">
-            <!-- Random tech image for visual appeal -->
-            <img src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&auto=format&fit=crop&w=3603&q=80" alt="" class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
-            <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
-          </div>
-          <div class="max-w-xl">
-            <div class="mt-8 flex items-center gap-x-4 text-xs">
-              <time datetime="{{ post.date }}" class="text-gray-500">{{ post.date | postDate }}</time>
+            {# --- 2. Featured Card (The first item: posts[0]) --- #}
+            {% set post = posts[0] %}
+            {% include "components/featured-card.njk" %}
 
-              <!-- First Tag Display -->
-              {% for tag in post.data.tags %}
-                {% if tag != "post" %}
-                  <a href="/tags/{{ tag | slugify }}/" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">
-                    {{ tag }}
-                  </a>
-                  <!-- Only show the first tag in the preview card to keep it clean -->
-                {% endif %}
-              {% endfor %}
+            {# --- 3. Grid Layout (Remaining items: posts.slice(1)) --- #}
+            {% if posts.length > 1 %}
+                <div class="lg:grid lg:grid-cols-6 pt-4 space-y-4 lg:space-y-0 lg:gap-4 max-w-2xl lg:max-w-none mx-auto">
 
-            </div>
-            <div class="group relative">
-              <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                <a href="{{ post.url }}">
-                  <span class="absolute inset-0"></span>
-                  {{ post.data.title }}
-                </a>
-              </h3>
-              <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-                {% if post.data.description %}
-                  {{ post.data.description }}
-                {% else %}
-                  {{ post.templateContent | striptags | truncate(150) }}
-                {% endif %}
-              </p>
-            </div>
-          </div>
-        </article>
-      {% endfor %}
-    </div>
+                    {% for post in posts.slice(1) %}
 
-    <!-- Pagination Controls -->
-    <div class="flex justify-center mt-12 gap-4">
-        {% if pagination.href.previous %}
-            <a href="{{ pagination.href.previous }}" class="px-4 py-2 border rounded hover:bg-gray-50">← Previous</a>
+                        {# Logic: First 2 items get col-span-3, others get col-span-2 #}
+                        {% set spanClass = "col-span-2" %}
+                        {% if loop.index <= 2 %}
+                             {% set spanClass = "col-span-3" %}
+                        {% endif %}
+
+                        {# Include the card, passing the calculated class #}
+                        {% set class = spanClass %}
+                        {% include "components/post-card.njk" %}
+
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+
+            {# --- 4. Pagination Links --- #}
+
+            {% if pagination.href.next or pagination.href.previous %}
+
+                <div class="py-10 flex justify-center gap-4">
+                    {% if pagination.href.previous %}
+                        <a href="{{ pagination.href.previous }}" class="button-a">Previous</a>
+                    {% endif %}
+                    {% if pagination.href.next %}
+                        <a href="{{ pagination.href.next }}" class="button-a">Next</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        {% else %}
+            <p class="text-center text-white text-xl">No articles published yet. Check back soon!</p>
         {% endif %}
-        {% if pagination.href.next %}
-            <a href="{{ pagination.href.next }}" class="px-4 py-2 border rounded hover:bg-gray-50">Next →</a>
-        {% endif %}
-    </div>
 
-  </div>
-</div>
+    </div>
+</main>

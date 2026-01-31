@@ -1,4 +1,4 @@
-<div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8 mb-24">
+<div class="main-container">
   <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
     <h2 class="text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl dark:text-white">From the blog</h2>
     <p class="mt-2 text-lg/8 text-gray-600 dark:text-gray-400">Thoughts, tutorials, and updates on my coding journey.</p>
@@ -9,7 +9,8 @@
     {# --- Get 3 latest posts --- #}
     {% set latestPosts = collections.post | reverse %}
     {% for post in latestPosts.slice(0, 3) %}
-        <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pt-80 pb-8 sm:pt-48 lg:pt-80 dark:bg-gray-800 transition hover:scale-[1.01] duration-300">
+        <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pt-80 pb-8 sm:pt-48 lg:pt-80  transition hover:scale-[1.01] duration-300">
+    <img src="/assets/images/hero-1.jpg" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover transition duration-300 hover:scale-105">
 
         <div class="absolute inset-0 -z-10 bg-linear-to-t from-gray-900 via-gray-900/40 dark:from-black/80 dark:via-black/40"></div>
         <div class="absolute inset-0 -z-10 rounded-2xl inset-ring inset-ring-gray-900/10 dark:inset-ring-white/10"></div>
@@ -31,6 +32,6 @@
   </div>
 
   <div class="mt-12 text-center">
-      <a href="/blog/" class="text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500">View all posts <span aria-hidden="true">→</span></a>
+      <a href="/blog/" class="button-a">View all posts</a>
   </div>
 </div>

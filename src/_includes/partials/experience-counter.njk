@@ -3,7 +3,6 @@
   x-init="startTimer()"
   class="space-y-2"
 >
-  <dt class="text-base/7 text-gray-600 dark:text-gray-400">Total Experience</dt>
   <dd class="text-4xl font-semibold tracking-tight text-gray-900 dark:text-white tabular-nums">
     <span x-show="years > 0">
         <span x-text="years"></span> <span x-text="pluralize(years, 'year')"></span>
@@ -24,6 +23,8 @@
         <span x-text="seconds"></span> <span x-text="pluralize(seconds, 'second')"></span>
       </span>
   </dd>
+  <dt class="text-base/7 text-gray-600 dark:text-gray-400">Total Experience</dt>
+
 </div>
 
 <script>
