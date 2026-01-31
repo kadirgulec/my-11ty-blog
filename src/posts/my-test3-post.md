@@ -1,5 +1,6 @@
 ---
 title: My Test3 Setup
+image: /assets/images/hero-1.jpg
 date: 2025-12-20
 description: How I set up 11ty with Tailwind.
 tags:
