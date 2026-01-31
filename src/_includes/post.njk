@@ -1,10 +1,29 @@
 ---
 layout: base.njk
 ---
-<article class="prose lg:prose-xl bg-white p-8 rounded shadow">
-    <h1 class="text-3xl font-bold mb-4">{{ title }}</h1>
-    <div class="mb-6 text-gray-500 text-sm">
-        Published on {{ date | postDate }}
+
+<div class="bg-white px-6 py-32 lg:px-8">
+  <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+
+    <!-- Title and Date -->
+    <p class="text-base font-semibold leading-7 text-indigo-600">{{ date | postDate }}</p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ title }}</h1>
+
+    <!-- Tags Badge List -->
+    <div class="mt-4 flex flex-wrap gap-2">
+      {% for tag in tags %}
+        {% if tag != "post" %}
+          <a href="/tags/{{ tag | slugify }}/" class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10 hover:bg-indigo-100 transition">
+            #{{ tag }}
+          </a>
+        {% endif %}
+      {% endfor %}
     </div>
-    {{ content | safe }}
-</article>
+
+    <!-- Main Content -->
+    <div class="mt-10 prose prose-lg prose-indigo mx-auto text-gray-500">
+        {{ content | safe }}
+    </div>
+
+  </div>
+</div>

@@ -1,6 +1,11 @@
 ---
 title: My First Setup
 date: 2024-05-20
+description: How I set up 11ty with Tailwind.
+tags:
+  - 11ty
+  - Tailwind
+  - JavaScript
 ---
 
 ## Hello from Markdown!

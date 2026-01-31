@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description or 'Kadir Gülec - Software Developer Portfolio' }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kadirguelec.de/{{ page.url }}">
     <link rel="icon" type="image/svg+xm" href="/assets/logo.svg">
     <title>{{ title }}</title>
     <!-- Tailwind CSS Output -->
@@ -10,7 +14,7 @@
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<div class="bg-white dark:bg-gray-900">
+<body class="bg-white dark:bg-gray-900">
   <!-- Header -->
     {% include "header.njk" %}
   <main class="isolate">
