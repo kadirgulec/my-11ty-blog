@@ -1,5 +1,6 @@
 {# --- 1. Define your menu items here --- #}
 {% set navigation = [
+  { name:'Home' , url:'/'},
   { name: 'Blog', url: '/blog/' }
 ] %}
 
@@ -42,12 +43,12 @@
     </div>
 
     <!-- Desktop Navigation Loop -->
-    <div class="hidden lg:flex lg:gap-x-12">
+    <div class="hidden lg:flex lg:gap-x-5">
       {% for item in navigation %}
         <a href="{{ item.url }}"
             class="text-sm/6 font-semibold transition
                        {% if item.url == page.url %}
-                         text-indigo-600 dark:text-indigo-400
+                         text-indigo-600 dark:text-indigo-300
                        {% else %}
                          text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-300
                        {% endif %}"
