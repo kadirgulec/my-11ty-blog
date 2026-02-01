@@ -21,9 +21,11 @@ layout: base.njk
     </div>
 
     <!-- Main Content -->
-    <div class="mt-10 prose prose-lg prose-indigo mx-auto p-text">
+    <div class="mt-10 prose prose-lg dark:prose-invert mx-auto">
         {{ content | safe }}
     </div>
-
+    <div class="mt-4 flex justify-end w-full">
+        <a href="/blog/" class="button-a">Back to all posts</a>
+      </div>
   </div>
 </div>
