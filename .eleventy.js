@@ -1,6 +1,31 @@
+const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
+
 module.exports = function(eleventyConfig) {
 
     eleventyConfig.addPassthroughCopy("src/assets");
+
+    eleventyConfig.addPlugin(feedPlugin, {
+        type: "rss", // or "rss", "json"
+        outputPath: "/feed.xml",
+        collection: {
+            name: "posts", // iterate over `collections.posts`
+            limit: 10,     // 0 means no limit
+        },
+        metadata: {
+            language: "en",
+            title: "Blog Title",
+            subtitle: "My Blog page for Kadir Gülec.",
+            base: "https://kadirguelec.de/",
+            author: {
+                name: "Kadir Gülec",
+                email: "", // Optional
+            }
+        }
+    });
+
+    eleventyConfig.addFilter("isoDate", (dateObj) => {
+        return dateObj.toISOString();
+    });
 
     eleventyConfig.addFilter("postDate", dateObj => {
         return new Date(dateObj).toLocaleDateString('de-DE', {
@@ -15,7 +40,7 @@ module.exports = function(eleventyConfig) {
             timeZone: 'Europe/Berlin',
             year: 'numeric',
             month: '2-digit',
-            day: 'numeric',
+            day: '2-digit',
             hour: '2-digit',
             minute: '2-digit',
             hour12: false
@@ -29,4 +54,6 @@ module.exports = function(eleventyConfig) {
             output: "_site"
         }
     };
+
+
 };

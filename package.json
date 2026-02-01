@@ -20,6 +20,7 @@
     "tailwindcss": "^4.1.18"
   },
   "dependencies": {
+    "@11ty/eleventy-plugin-rss": "^2.0.4",
     "@tailwindplus/elements": "^1.0.22",
     "alpinejs": "^3.15.5"
   }
