@@ -17,7 +17,7 @@
 
             <div class="mb-4 flex flex-wrap gap-2">
                   {% for tag in post.data.tags %}
-                    {% if tag != "post" %}
+                    {% if tag != "post" and tag != 'featured' %}
                       <a href="/tags/{{ tag | slugify }}/" class="inline-flex items-center rounded-md bg-indigo-50/80 backdrop-blur-xs px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10 hover:bg-indigo-100 transition">
                         #{{ tag }}
                       </a>
