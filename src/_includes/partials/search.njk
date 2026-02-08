@@ -1,0 +1,47 @@
+<div class="relative z-50 flex flex-col w-80">
+    <input
+        type="text"
+        id="custom-search-input"
+        placeholder="Search..."
+        class="w-full p-2 rounded-xl dark:bg-gray-800 bg-gray-100 dark:text-white"
+    >
+
+    <div id="custom-results-list" class="mt-2 rounded-xl flex flex-col gap-2 absolute left-0 top-10 w-full bg-white dark:bg-gray-900 max-h-96 overflow-auto"></div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', async (event) => {
+            // 1. Initialize Pagefind
+            const pagefind = await import("/pagefind/pagefind.js");
+
+            const input = document.getElementById('custom-search-input');
+            const resultsDiv = document.getElementById('custom-results-list');
+
+            input.addEventListener('input', async (e) => {
+                const query = e.target.value;
+                if (query.length < 2) {
+                    resultsDiv.innerHTML = "";
+                    return;
+                }
+
+                // 2. Perform the search
+                const search = await pagefind.search(query);
+
+                // 3. Clear old results and process new ones
+                resultsDiv.innerHTML = "";
+
+                // We only take the first 5 results for brevity; adjust as needed
+                for (const result of search.results) {
+                    const data = await result.data();
+
+                    // 4. Create just the link
+                    const link = document.createElement('a');
+                    link.href = data.url;
+                    link.innerText = data.meta.title || data.url;
+                    link.className = "dark:text-white text-black hover:underline block p-3";
+
+                    resultsDiv.appendChild(link);
+                }
+            });
+        });
+    </script>
+</div>
