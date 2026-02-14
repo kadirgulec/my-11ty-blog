@@ -3,6 +3,7 @@ const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
 module.exports = function(eleventyConfig) {
 
     eleventyConfig.addPassthroughCopy("src/assets");
+    eleventyConfig.addPassthroughCopy("src/.htaccess");
 
     eleventyConfig.addPlugin(feedPlugin, {
         type: "rss", // or "rss", "json"
