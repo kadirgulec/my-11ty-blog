@@ -5,7 +5,6 @@ imageAlt: The official logo of Alpine.js, a lightweight JavaScript framework.
 date: 2026-01-15
 description: Adding interactivity to your static site with minimal overhead. Discover the pros, cons, and how to use it effectively.
 tags:
-  - featured
   - AlpineJS
   - JavaScript
   - Frontend
