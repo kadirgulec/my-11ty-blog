@@ -5,6 +5,17 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets");
     eleventyConfig.addPassthroughCopy("src/.htaccess");
 
+    // 1. Copy Splide JS and CSS
+    eleventyConfig.addPassthroughCopy({
+        "node_modules/@splidejs/splide/dist/js/splide.min.js": "assets/libs/splide.min.js",
+        "node_modules/@splidejs/splide/dist/css/splide.min.css": "assets/libs/splide.min.css"
+    });
+
+    // 2. Copy Alpine.js
+    eleventyConfig.addPassthroughCopy({
+        "node_modules/alpinejs/dist/cdn.min.js": "assets/libs/alpine.min.js"
+    });
+
     eleventyConfig.addPlugin(feedPlugin, {
         type: "rss", // or "rss", "json"
         outputPath: "/feed.xml",

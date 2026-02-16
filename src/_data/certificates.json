@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Fachinformatiker für Anwendungsentwicklung",
+    "issuer": "IHK Bonn",
+    "date": "January 2025",
+    "logo": "/assets/images/certificates/ihk-bonn.png",
+    "url": "#",
+    "featured": true
+  },
+  {
+    "name": "Google IT Support Professional Certificate",
+    "issuer": "Coursera / Google",
+    "date": "October 2021",
+    "logo": "/assets/images/certificates/google.png",
+    "url": "https://www.coursera.org/account/accomplishments/professional-cert/67AALB4FRRGM",
+    "featured": true
+  },
+  {
+    "name": "Building Web Applications in PHP",
+    "issuer": "University of Michigan",
+    "date": "November 2023",
+    "logo": "/assets/images/certificates/michigan-uni.png",
+    "url": "https://www.coursera.org/account/accomplishments/verify/9Q2AMMUC5ESX",
+    "featured": true
+  },
+  {
+    "name": "Object-Oriented Design",
+    "issuer": "University of Alberta",
+    "date": "June 2024",
+    "logo": "/assets/images/certificates/alberta-uni.png",
+    "url": "https://www.coursera.org/account/accomplishments/verify/8R77SSRTA4QN",
+    "featured": true
+  },
+
+  {
+    "name": "PHP for Beginners: PHP Crash Course",
+    "issuer": "Web Coding",
+    "date": "September 2023",
+    "logo": "/assets/images/certificates/logo-udemy.svg",
+    "url": "https://www.udemy.com/certificate/UC-c9fcd838-d1fe-49dd-b3c0-f8f4fe8cf5c6/",
+    "featured": true
+  },
+  {
+    "name": "Introduction to CSS3",
+    "issuer": "University of Michigan",
+    "date": "September 2023",
+    "logo": "/assets/images/certificates/michigan-uni.png",
+    "url": "https://www.coursera.org/account/accomplishments/verify/6BU9TQTE5K7J",
+    "featured": false
+  },
+
+  {
+    "name": "TailwindCSS from A to Z: Master TailwindCSS Quickly",
+    "issuer": "Meta Brains",
+    "date": "September 2023",
+    "logo": "/assets/images/certificates/logo-udemy.svg",
+    "url": "https://www.udemy.com/certificate/UC-56eec914-6294-47a1-a0de-cdd6a2d07a42/",
+    "featured": true
+  },
+
+  {
+    "name": "HTML5 & CSS3 Complete Course: Build Websites like a Pro",
+    "issuer": "Meta Brains",
+    "date": "October 2022",
+    "logo": "/assets/images/certificates/logo-udemy.svg",
+    "url": "https://www.udemy.com/certificate/UC-0bb2f5d2-8555-4edc-8111-923989e087ec/",
+    "featured": true
+  },
+
+  {
+    "name": "Programming for Everybody",
+    "issuer": "University of Michigan",
+    "date": "October 2021",
+    "logo": "/assets/images/certificates/michigan-uni.png",
+    "url": "https://www.coursera.org/account/accomplishments/verify/B6ZGFKA29Y9W",
+    "featured": true
+  },
+  {
+    "name": "Python Data Structures",
+    "issuer": "University of Michigan",
+    "date": "October 2021",
+    "logo": "/assets/images/certificates/michigan-uni.png",
+    "url": "https://www.coursera.org/account/accomplishments/verify/DER76UMS7X9V",
+    "featured": true
+  },
+  {
+    "name": "Foundations: Data, Data, Everywhere",
+    "issuer": "Coursera / Google",
+    "date": "November 2021",
+    "logo": "/assets/images/certificates/google.png",
+    "url": "https://www.coursera.org/account/accomplishments/verify/HNULSSJZBD8C",
+    "featured": false
+  },
+  {
+    "name": "Ask Questions to Make Data-Driven Decisions",
+    "issuer": "Coursera / Google",
+    "date": "December 2021",
+    "logo": "/assets/images/certificates/google.png",
+    "url": "https://www.coursera.org/account/accomplishments/verify/AW8H2EHLRP9K",
+    "featured": false
+  }
+]

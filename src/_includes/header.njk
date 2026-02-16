@@ -1,6 +1,7 @@
 {# --- 1. Define your menu items here --- #}
 {% set navigation = [
   { name:'Home' , url:'/'},
+  { name:'Certificates', url:'/certificates/'},
   { name: 'Blog', url: '/blog/' }
 ] %}
 
@@ -85,6 +86,7 @@
                           </svg>
                       </div>
             </a>
+            {% include "partials/dark-mode-switcher.njk" %}
             <button type="button" command="close" commandfor="mobile-menu" class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-200">
               <span class="sr-only">Close menu</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
