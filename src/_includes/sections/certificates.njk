@@ -21,7 +21,7 @@
                         <div class="flex items-center gap-x-4 mb-4">
                             <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-2xl">
                                 {% if cert.logo != null %}
-                                <img src="{{ cert.logo }}" alt="{{ cert.name }} Logo" class="h-full w-full object-contain"/>
+                                    {% image "src" + cert.logo, cert.name + " Logo", "h-full w-full object-contain" %}
 
                                 {% else %} 📜 {% endif %}
                             </div>

@@ -1,4 +1,32 @@
 const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
+const Image = require("@11ty/eleventy-img");
+const path = require('path');
+
+async function imageShortcode(src, alt,cls = "", sizes = "100vw") {
+    let metadata = await Image(src, {
+        widths: [300, 600, 900, 1200, 2000],
+        formats: ["avif", "webp", "jpeg"],
+        urlPath: "/assets/images/",
+        outputDir: "./_site/assets/images/",
+        filenameFormat: function (id, src, width, format, options) {
+            const extension = path.extname(src);
+            const name = path.basename(src, extension);
+            return `${name}-${width}w.${format}`;
+        }
+    });
+
+    let imageAttributes = {
+        alt,
+        sizes,
+        class: cls,
+        loading: "lazy",
+        decoding: "async",
+    }
+
+    return Image.generateHTML(metadata, imageAttributes);
+}
+
+
 
 module.exports = function(eleventyConfig) {
 
@@ -15,6 +43,15 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy({
         "node_modules/alpinejs/dist/cdn.min.js": "assets/libs/alpine.min.js"
     });
+
+    // 2. Add the Async Shortcode
+    eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
+
+    // Make sure it works in Markdown files too
+    eleventyConfig.addLiquidShortcode("image", imageShortcode);
+    eleventyConfig.addJavaScriptFunction("image", imageShortcode);
+
+
 
     eleventyConfig.addPlugin(feedPlugin, {
         type: "rss", // or "rss", "json"
@@ -60,7 +97,13 @@ module.exports = function(eleventyConfig) {
     })
 
     eleventyConfig.addGlobalData("year", () => new Date().getFullYear());
+
+
     return {
+        markdownTemplateEngine: "njk",
+        dataTemplateEngine: "njk",
+        htmlTemplateEngine: "njk",
+
         dir: {
             input: "src",
             output: "_site"

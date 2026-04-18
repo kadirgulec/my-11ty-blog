@@ -1,10 +1,6 @@
 <div class="relative h-[400px] w-full overflow-hidden">
     <!-- Background Image -->
-    <img
-        src="{{ image }}"
-        alt="{{ title }}"
-        class="absolute inset-0 h-full w-full object-cover"
-    >
+    {% image "src" + image, title, "absolute inset-0 h-full w-full object-cover" %}
 
     <!-- Dark Overlay -->
     <div class="absolute inset-0 bg-gray-900/60"></div>

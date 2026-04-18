@@ -18,11 +18,11 @@ description: A collection of my verified credentials, degrees, and continuous le
         <div class="flex flex-col rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
 
             <div class="flex items-center gap-x-4">
-                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-900/30">
-                    {% if cert.logo != null %}
-                        <img src="{{ cert.logo }}" alt="{{ cert.name }}" class="w-full h-full object-contain">
+                <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-900/30">
+                    {% if cert.logo %}
+                        {% image "src" + cert.logo, cert.name, "w-full h-full object-contain" %}
                     {% else %}
-                        <span class="text-xl">📜</span>
+                        <span class="text-2xl">📜</span>
                     {% endif %}
                 </div>
                 <div>
