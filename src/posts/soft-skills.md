@@ -4,6 +4,7 @@ image: /assets/images/hero-1.jpg
 date: 2025-07-22
 description: Why communication is just as important as coding.
 tags:
+  - post
   - Career
   - Advice
   - Soft Skills

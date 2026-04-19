@@ -4,6 +4,7 @@ image: /assets/images/posts/eleventy.jpeg
 date: 2025-02-07
 description: A deep dive into Eleventy, Nunjucks, and GitHub Actions.
 tags:
+  - post
   - 11ty
   - AlpineJS
   - TailwindCSS

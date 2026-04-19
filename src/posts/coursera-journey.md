@@ -4,6 +4,7 @@ image: /assets/images/posts/coursera.svg
 date: 2025-10-02
 description: How I used Coursera to bridge the gap between theory and practice.
 tags:
+  - post
   - featured
   - Coursera
   - Career

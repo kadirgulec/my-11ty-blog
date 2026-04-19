@@ -4,6 +4,7 @@ image: /assets/images/hero-1.jpg
 date: 2026-01-10
 description: Writing JavaScript functionality without writing JavaScript.
 tags:
+  - post
   - Livewire
   - Laravel
   - TALL Stack

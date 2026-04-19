@@ -4,6 +4,7 @@ image: /assets/images/hero-1.jpg
 date: 2025-06-15
 description: Moving from BEM and Bootstrap to Utility-First CSS.
 tags:
+  - post
   - Tailwind
   - CSS
   - Design

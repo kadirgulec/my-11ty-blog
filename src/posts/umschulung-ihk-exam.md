@@ -4,6 +4,7 @@ image: /assets/images/hero-1.jpg
 date: 2025-08-20
 description: A look back at my retraining as a Fachinformatiker.
 tags:
+  - post
   - Career
   - Germany
   - Education

@@ -4,6 +4,7 @@ image: /assets/images/posts/ai-assisted-engineering.jpg
 date: 2026-03-01
 description: AI Assisted Engineering is the new industry standard.
 tags:
+  - post
   - featured
   - AI
   - Productivity

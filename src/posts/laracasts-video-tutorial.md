@@ -4,6 +4,7 @@ image: /assets/images/posts/laracasts.png
 date: 2025-10-15
 description: Why Laracasts is the Netflix for developers and my favorite series.
 tags:
+  - post
   - featured
   - Laravel
   - Learning

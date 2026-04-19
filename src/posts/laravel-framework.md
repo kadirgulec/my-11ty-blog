@@ -4,6 +4,7 @@ image: /assets/images/hero-1.jpg
 date: 2025-12-05
 description: Exploring the Developer Experience (DX) of the Laravel ecosystem.
 tags:
+  - post
   - Laravel
   - PHP
   - Backend
