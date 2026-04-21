@@ -98,6 +98,9 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.addGlobalData("year", () => new Date().getFullYear());
 
+    eleventyConfig.addGlobalData("buildTime", () => {
+        return Date.now();
+    });
 
     return {
         markdownTemplateEngine: "njk",
