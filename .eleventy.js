@@ -2,7 +2,7 @@ const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
 const Image = require("@11ty/eleventy-img");
 const path = require('path');
 
-async function imageShortcode(src, alt,cls = "", sizes = "100vw") {
+async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100vw, 800px") {
     let metadata = await Image(src, {
         widths: [300, 600, 900, 1200, 2000],
         formats: ["avif", "webp", "jpeg"],
@@ -32,17 +32,6 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.addPassthroughCopy("src/assets");
     eleventyConfig.addPassthroughCopy("src/.htaccess");
-
-    // 1. Copy Splide JS and CSS
-    eleventyConfig.addPassthroughCopy({
-        "node_modules/@splidejs/splide/dist/js/splide.min.js": "assets/libs/splide.min.js",
-        "node_modules/@splidejs/splide/dist/css/splide.min.css": "assets/libs/splide.min.css"
-    });
-
-    // 2. Copy Alpine.js
-    eleventyConfig.addPassthroughCopy({
-        "node_modules/alpinejs/dist/cdn.min.js": "assets/libs/alpine.min.js"
-    });
 
     // 2. Add the Async Shortcode
     eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
@@ -98,6 +87,9 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.addGlobalData("year", () => new Date().getFullYear());
 
+    eleventyConfig.addGlobalData("buildTime", () => {
+        return Date.now();
+    });
 
     return {
         markdownTemplateEngine: "njk",
