@@ -2,7 +2,7 @@ const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
 const Image = require("@11ty/eleventy-img");
 const path = require('path');
 
-async function imageShortcode(src, alt,cls = "", sizes = "100vw") {
+async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100vw, 800px") {
     let metadata = await Image(src, {
         widths: [300, 600, 900, 1200, 2000],
         formats: ["avif", "webp", "jpeg"],
