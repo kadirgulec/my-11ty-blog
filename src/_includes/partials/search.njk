@@ -18,7 +18,7 @@
 
     <!-- Modal Content -->
     <div x-show="isOpen"
-         class="fixed inset-0 z-[101] w-screen overflow-y-auto p-4 sm:p-6 md:p-20">
+         class="fixed inset-0 z-[101] w-screen p-4 sm:p-6 md:p-20">
         
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-start sm:p-0">
             <div x-show="isOpen"
@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- Results Section -->
-                <div x-show="results.length > 0" class="max-h-[60vh] custom-scrollbar">
+                <div x-show="results.length > 0" class="max-h-[60vh] overflow-y-auto custom-scrollbar">
                     <div class="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-50 dark:bg-gray-800/50">
                         Results (<span x-text="results.length"></span>)
                     </div>
@@ -170,34 +170,3 @@
         }
     }
 </script>
-
-<style>
-    [x-cloak] { display: none !important; }
-    
-    .search-excerpt mark {
-        background-color: rgba(99, 102, 241, 0.2);
-        color: #6366f1;
-        font-weight: 600;
-        border-radius: 2px;
-        padding: 0 1px;
-    }
-    
-    .dark .search-excerpt mark {
-        background-color: rgba(129, 140, 248, 0.3);
-        color: #a5b4fc;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #e5e7eb;
-        border-radius: 10px;
-    }
-    .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #374151;
-    }
-</style>
