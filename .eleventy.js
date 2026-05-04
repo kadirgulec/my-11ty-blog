@@ -1,6 +1,7 @@
 const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
 const Image = require("@11ty/eleventy-img");
 const path = require('path');
+const cacheBuster = require('@mightyplow/eleventy-plugin-cache-buster');
 
 async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100vw, 800px") {
     let metadata = await Image(src, {
@@ -32,6 +33,11 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.addPassthroughCopy("src/assets");
     eleventyConfig.addPassthroughCopy("src/.htaccess");
+
+    // Add cache buster plugin
+    eleventyConfig.addPlugin(cacheBuster({
+        outputDirectory: '_site'
+    }));
 
     // 2. Add the Async Shortcode
     eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);

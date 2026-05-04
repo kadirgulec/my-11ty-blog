@@ -46,3 +46,27 @@
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #374151;
 }
+
+.splide__pagination {
+     bottom: 0;
+ }
+.splide__pagination__page {
+    background: #d1d5db;
+    border-radius: 9999px;
+    height: 6px;
+    width: 6px;
+    margin: 0 4px;
+    transition: all 0.2s;
+    border: none;
+}
+.dark .splide__pagination__page {
+    background: #4b5563;
+}
+.splide__pagination__page.is-active {
+    background: #4f46e5;
+    width: 24px;
+    transform: none;
+}
+.dark .splide__pagination__page.is-active {
+    background: #818cf8;
+}
