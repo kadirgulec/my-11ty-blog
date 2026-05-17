@@ -49,20 +49,20 @@ module.exports = function(eleventyConfig) {
 
 
     eleventyConfig.addPlugin(feedPlugin, {
-        type: "rss", // or "rss", "json"
+        type: "rss",
         outputPath: "/feed.xml",
         collection: {
-            name: "posts", // iterate over `collections.posts`
-            limit: 10,     // 0 means no limit
+            name: "post",
+            limit: 10,
         },
         metadata: {
             language: "en",
-            title: "Blog Title",
-            subtitle: "My Blog page for Kadir Gülec.",
+            title: "Kadir Gülec — Blog",
+            subtitle: "Notes on web development, the TALL stack, and the road from Umschulung to software developer.",
             base: "https://kadirguelec.de/",
             author: {
                 name: "Kadir Gülec",
-                email: "", // Optional
+                email: "",
             }
         }
     });

@@ -3,19 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% set pageUrl = site.url + page.url %}
+    {% set pageDescription = description or 'Kadir Gülec - Software Developer Portfolio' %}
+    {% set pageImage = site.url + (image or '/assets/images/hero-1.jpg') %}
+
+    <title>{{ title }}{% if page.url != '/' %} | {{ site.author }}{% endif %}</title>
+    <meta name="description" content="{{ pageDescription }}">
+    <meta name="author" content="{{ site.author }}">
+    <link rel="canonical" href="{{ pageUrl }}">
+
     <meta property="og:title" content="{{ title }}">
-    <meta property="og:description" content="{{ description or 'Kadir Gülec - Software Developer Portfolio' }}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kadirguelec.de/{{ page.url }}">
+    <meta property="og:description" content="{{ pageDescription }}">
+    <meta property="og:type" content="{{ 'article' if layout == 'post.njk' else 'website' }}">
+    <meta property="og:url" content="{{ pageUrl }}">
+    <meta property="og:image" content="{{ pageImage }}">
+    {% if imageAlt %}<meta property="og:image:alt" content="{{ imageAlt }}">{% endif %}
+    <meta property="og:site_name" content="{{ site.name }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{{ pageDescription }}">
+    <meta name="twitter:image" content="{{ pageImage }}">
 
     {% if robots %}
-            <meta name="robots" content="{{ robots }}">
+    <meta name="robots" content="{{ robots }}">
     {% endif %}
 
     <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
-    <title>{{ title }}</title>
-
-    <meta name="description" content="{{ description or 'Kadir Gülec - Software Developer Portfolio' }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog" href="{{ site.url }}/feed.xml">
      <script>
         // Check local storage or system preference
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {

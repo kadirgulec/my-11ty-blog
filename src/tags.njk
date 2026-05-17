@@ -11,6 +11,11 @@ pagination:
   addAllPagesToCollections: true
 layout: base.njk
 permalink: /tags/{{ tag | slugify }}/
+excludeFromSitemap: true
+robots: "noindex, follow"
+eleventyComputed:
+  title: "Tag: {{ tag }}"
+  description: "Posts tagged {{ tag }} on Kadir Gülec's blog."
 ---
 
 <div class="main-container">
