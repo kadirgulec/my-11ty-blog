@@ -38,7 +38,7 @@ pagination:
                     </a>
                 </h3>
                 <p class="mt-4 text-gray-300">
-                    {{ post.templateContent | striptags | truncate(200) }}
+                    {{ post.templateContent | striptags | truncate(200) | safe }}
                 </p>
             </article>
 

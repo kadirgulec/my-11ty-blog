@@ -41,7 +41,7 @@ permalink: /tags/{{ tag | slugify }}/
                 </a>
               </h3>
               <p class="mt-5 line-clamp-3 text-sm leading-6 p-text">
-                 {{ post.templateContent | striptags | truncate(150) }}
+                 {{ post.templateContent | striptags | truncate(150) | safe }}
               </p>
             </div>
           </article>

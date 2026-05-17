@@ -1,3 +1,9 @@
+{% macro sliderArrow(direction, svgPath, label) %}
+<button aria-label="{{ label }}" class="splide__arrow splide__arrow--{{ direction }} group/arrow !static !transform-none !h-11 !w-11 !bg-white dark:!bg-gray-800 !border !border-gray-200 dark:!border-gray-700 !rounded-full !shadow-sm hover:!shadow-md hover:!bg-indigo-50 dark:hover:!bg-indigo-900/30 hover:!border-indigo-200 dark:hover:!border-indigo-700 hover:!scale-105 active:!scale-95 !transition-all !duration-200 disabled:!opacity-40 disabled:!cursor-not-allowed disabled:hover:!scale-100 disabled:hover:!bg-white dark:disabled:hover:!bg-gray-800 disabled:hover:!border-gray-200 dark:disabled:hover:!border-gray-700 focus-visible:!outline-2 focus-visible:!outline-offset-2 focus-visible:!outline-indigo-500 flex items-center justify-center">
+    <svg class="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover/arrow:text-indigo-600 dark:group-hover/arrow:text-indigo-400 !transform-none transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ svgPath }}"/></svg>
+</button>
+{% endmacro %}
+
 <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8 mb-24">
   <div id="cert-slider" class="splide group" aria-label="Certificates Slider">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-6">
@@ -5,21 +11,16 @@
             <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">Certificates</h2>
             <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">Professional certifications and academic achievements.</p>
         </div>
-        
+
         <div class="flex items-center gap-6">
-            <a href="/certificates/" class="hidden sm:inline-flex items-center gap-x-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500">
+            <a href="/certificates/" class="group/cta hidden sm:inline-flex items-center gap-x-2 px-4 py-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 rounded-full bg-indigo-50/70 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 ring-1 ring-inset ring-indigo-100 dark:ring-indigo-900/40 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                 View all certificates
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <svg class="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </a>
 
-            <!-- Custom Splide Arrows -->
             <div class="splide__arrows flex gap-2">
-                <button class="splide__arrow splide__arrow--prev !static !transform-none !h-10 !w-10 !bg-white dark:!bg-gray-800 !border !border-gray-200 dark:!border-gray-700 !rounded-full !shadow-sm hover:!bg-gray-50 dark:hover:!bg-gray-700 !transition-all disabled:opacity-30 flex items-center justify-center">
-                    <svg class="h-5 w-5 text-gray-600 dark:text-gray-400 !transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                </button>
-                <button class="splide__arrow splide__arrow--next !static !transform-none !h-10 !w-10 !bg-white dark:!bg-gray-800 !border !border-gray-200 dark:!border-gray-700 !rounded-full !shadow-sm hover:!bg-gray-50 dark:hover:!bg-gray-700 !transition-all disabled:opacity-30 flex items-center justify-center">
-                    <svg class="h-5 w-5 text-gray-600 dark:text-gray-400 !transform-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </button>
+                {{ sliderArrow('prev', 'M15 19l-7-7 7-7', 'Previous certificate') }}
+                {{ sliderArrow('next', 'M9 5l7 7-7 7', 'Next certificate') }}
             </div>
         </div>
     </div>
@@ -29,15 +30,13 @@
         {% for cert in certificates %}
           {% if cert.featured %}
             <li class="splide__slide pb-12">
-                <!-- Card Design -->
                 <div class="group/card flex h-full flex-col justify-between rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-md hover:border-indigo-100 dark:border-gray-800 dark:bg-gray-800/50 dark:hover:border-indigo-900/50 mx-2">
-                    
                     <div>
                         <div class="flex items-start justify-between mb-6">
                             <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gray-50 dark:bg-gray-800 ring-1 ring-gray-100 dark:ring-gray-700 transition-colors group-hover/card:bg-indigo-50 dark:group-hover/card:bg-indigo-900/20 group-hover/card:ring-indigo-100 dark:group-hover/card:ring-indigo-900/30">
                                 {% if cert.logo != null %}
                                     {% image "src" + cert.logo, cert.name + " Logo", "h-10 w-10 object-contain" %}
-                                {% else %} 
+                                {% else %}
                                     <span class="text-2xl">📜</span>
                                 {% endif %}
                             </div>
@@ -52,20 +51,18 @@
                         </h3>
                     </div>
 
-                    {% if cert.url and cert.url != '#' %}
                     <div class="mt-8">
-                        <a href="{{ cert.url }}" target="_blank" class="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-semibold text-gray-700 bg-gray-50 hover:bg-indigo-600 hover:text-white rounded-xl transition-all duration-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-indigo-500 dark:hover:text-white">
-                            Verify Credential
-                            <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                        </a>
+                        {% if cert.url and cert.url != '#' %}
+                            <a href="{{ cert.url }}" target="_blank" class="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-semibold text-gray-700 bg-gray-50 hover:bg-indigo-600 hover:text-white rounded-xl transition-all duration-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-indigo-500 dark:hover:text-white">
+                                Verify Credential
+                                <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        {% else %}
+                            <div class="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-medium text-gray-400 bg-gray-50/50 cursor-not-allowed rounded-xl dark:bg-gray-800/30 dark:text-gray-600">
+                                Degree / Official Document
+                            </div>
+                        {% endif %}
                     </div>
-                    {% else %}
-                    <div class="mt-8">
-                        <div class="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-medium text-gray-400 bg-gray-50/50 cursor-not-allowed rounded-xl dark:bg-gray-800/30 dark:text-gray-600">
-                            Degree / Official Document
-                        </div>
-                    </div>
-                    {% endif %}
                 </div>
             </li>
           {% endif %}
@@ -74,36 +71,30 @@
     </div>
   </div>
 
-  <div class="mt-8 sm:hidden text-center">
-      <a href="/certificates/" class="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
-          View all certificates →
+  <div class="mt-8 sm:hidden flex justify-center">
+      <a href="/certificates/" class="group/cta-m inline-flex items-center gap-x-2 px-5 py-2.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 rounded-full bg-indigo-50 dark:bg-indigo-900/30 ring-1 ring-inset ring-indigo-100 dark:ring-indigo-900/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-all duration-200">
+          View all certificates
+          <svg class="h-4 w-4 transition-transform duration-200 group-hover/cta-m:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </a>
   </div>
 
-  <!-- Initialize Splide -->
   <script>
-    document.addEventListener( 'DOMContentLoaded', function() {
-      new Splide( '#cert-slider', {
-        type   : 'loop',
+    document.addEventListener('DOMContentLoaded', function () {
+      new Splide('#cert-slider', {
+        type: 'loop',
         perPage: 3,
         perMove: 1,
-        gap    : '2rem',
+        gap: '2rem',
         pagination: true,
         arrows: true,
         autoplay: true,
         interval: 5000,
         pauseOnHover: true,
         breakpoints: {
-          1024: {
-            perPage: 2,
-            gap: '1.5rem',
-          },
-          768: {
-            perPage: 1,
-            gap: '1rem',
-          },
-        }
-      } ).mount();
-    } );
+          1024: { perPage: 2, gap: '1.5rem' },
+          768:  { perPage: 1, gap: '1rem' },
+        },
+      }).mount();
+    });
   </script>
 </div>
