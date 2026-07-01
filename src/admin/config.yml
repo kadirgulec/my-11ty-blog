@@ -1,0 +1,26 @@
+backend:
+  name: github
+  repo: kadirgulec/my-11ty-blog
+  branch: master
+  # No base_url / OAuth needed — log in via "Sign in with Token" (fine-grained PAT).
+
+media_folder: "src/assets/images/posts"
+public_folder: "/assets/images/posts"
+
+collections:
+  - name: posts
+    label: "Blog Posts"
+    folder: "src/posts"
+    create: true
+    slug: "{{slug}}"          # matches permalink: /posts/{{ title | slugify }}/
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Title,       name: title,       widget: string }
+      - { label: Date,        name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Featured image", name: image,  widget: image, required: false }
+      - { label: "Image alt", name: imageAlt,    widget: string, required: false }
+      - { label: Description, name: description,  widget: text }
+      - { label: Tags,        name: tags,        widget: list, default: ["post"] }
+      - { label: "Draft (uncheck to publish)", name: draft, widget: boolean, default: true }
+      - { label: Body,        name: body,        widget: markdown }

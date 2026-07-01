@@ -34,6 +34,17 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets");
     eleventyConfig.addPassthroughCopy("src/.htaccess");
 
+    // Ship the Sveltia CMS admin page verbatim (not processed as a Nunjucks template)
+    eleventyConfig.addPassthroughCopy("src/admin");
+
+    // Exclude draft posts from production builds (output, collections, and RSS).
+    // Drafts stay visible during local dev (`--serve`) so you can preview them.
+    eleventyConfig.addPreprocessor("drafts", "*", (data) => {
+        if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") {
+            return false;
+        }
+    });
+
     // Add cache buster plugin
     eleventyConfig.addPlugin(cacheBuster({
         outputDirectory: '_site'
