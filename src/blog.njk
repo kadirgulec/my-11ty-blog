@@ -80,10 +80,10 @@ pagination:
             {% if pagination.href.next or pagination.href.previous %}
                 <div class="py-10 flex justify-center gap-4">
                     {% if pagination.href.previous %}
-                        <a href="{{ pagination.href.previous }}" class="button-a">Previous</a>
+                        <a href="{{ pagination.href.previous }}" class="button-soft">Previous</a>
                     {% endif %}
                     {% if pagination.href.next %}
-                        <a href="{{ pagination.href.next }}" class="button-a">Next</a>
+                        <a href="{{ pagination.href.next }}" class="button-soft">Next</a>
                     {% endif %}
                 </div>
             {% endif %}

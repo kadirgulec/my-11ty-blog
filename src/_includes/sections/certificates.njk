@@ -13,7 +13,7 @@
         </div>
 
         <div class="flex items-center gap-6">
-            <a href="/certificates/" class="group/cta hidden sm:inline-flex items-center gap-x-2 px-4 py-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 rounded-full bg-indigo-50/70 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 ring-1 ring-inset ring-indigo-100 dark:ring-indigo-900/40 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+            <a href="/certificates/" class="group/cta button-soft hidden sm:inline-flex">
                 View all certificates
                 <svg class="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </a>
@@ -53,12 +53,12 @@
 
                     <div class="mt-8">
                         {% if cert.url and cert.url != '#' %}
-                            <a href="{{ cert.url }}" target="_blank" class="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-semibold text-gray-700 bg-gray-50 hover:bg-indigo-600 hover:text-white rounded-xl transition-all duration-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-indigo-500 dark:hover:text-white">
+                            <a href="{{ cert.url }}" target="_blank" class="button-soft w-full justify-center">
                                 Verify Credential
                                 <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                             </a>
                         {% else %}
-                            <div class="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-medium text-gray-400 bg-gray-50/50 cursor-not-allowed rounded-xl dark:bg-gray-800/30 dark:text-gray-600">
+                            <div class="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-medium text-gray-400 bg-gray-50/50 cursor-not-allowed rounded-md dark:bg-gray-800/30 dark:text-gray-600">
                                 Degree / Official Document
                             </div>
                         {% endif %}
@@ -72,7 +72,7 @@
   </div>
 
   <div class="mt-8 sm:hidden flex justify-center">
-      <a href="/certificates/" class="group/cta-m inline-flex items-center gap-x-2 px-5 py-2.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 rounded-full bg-indigo-50 dark:bg-indigo-900/30 ring-1 ring-inset ring-indigo-100 dark:ring-indigo-900/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-all duration-200">
+      <a href="/certificates/" class="group/cta-m button-soft">
           View all certificates
           <svg class="h-4 w-4 transition-transform duration-200 group-hover/cta-m:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </a>

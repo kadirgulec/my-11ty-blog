@@ -6,7 +6,7 @@ layout: base.njk
   <div class="mx-auto max-w-3xl text-base leading-7 ">
 
   <div class="mb-5">
-          <a href="/blog/" class="button-a">Back to all posts</a>
+          <a href="/blog/" class="button-soft">Back to all posts</a>
         </div>
 
     <!-- Title and Date -->
@@ -17,7 +17,7 @@ layout: base.njk
     <div class="mt-4 flex flex-wrap gap-2">
       {% for tag in tags %}
         {% if tag != "post" and tag != "featured" %}
-          <a href="/tags/{{ tag | slugify }}/" class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10 hover:bg-indigo-100 transition">
+          <a href="/tags/{{ tag | slugify }}/" class="tag-pill">
             #{{ tag }}
           </a>
         {% endif %}
@@ -29,7 +29,7 @@ layout: base.njk
         {{ content | safe }}
     </div>
     <div class="mt-4 flex justify-end w-full">
-        <a href="/blog/" class="button-a">Back to all posts</a>
+        <a href="/blog/" class="button-soft">Back to all posts</a>
       </div>
   </div>
 </div>

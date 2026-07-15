@@ -18,7 +18,7 @@
             <div class="mb-4 flex flex-wrap gap-2">
                   {% for tag in post.data.tags %}
                     {% if tag != "post" and tag != 'featured' %}
-                      <a href="/tags/{{ tag | slugify }}/" class="inline-flex items-center rounded-md bg-indigo-50/80 backdrop-blur-xs px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10 hover:bg-indigo-100 transition">
+                      <a href="/tags/{{ tag | slugify }}/" class="tag-pill">
                         #{{ tag }}
                       </a>
                     {% endif %}
@@ -41,6 +41,9 @@
   </div>
 
   <div class="mt-12 text-center">
-      <a href="/blog/" class="button-a">View all posts</a>
+      <a href="/blog/" class="group/cta button-soft">
+          View all posts
+          <svg class="h-4 w-4 transition-transform duration-200 group-hover/cta:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
   </div>
 </div>
