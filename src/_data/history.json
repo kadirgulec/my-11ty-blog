@@ -1,0 +1,60 @@
+[
+  {
+    "role": "Software Developer",
+    "place": "aks-Service GmbH",
+    "date": "2024 – Present",
+    "kind": "work",
+    "logo": "/assets/images/company/aks-service.png",
+    "description": "Developing and maintaining web applications with PHP, Laravel, Livewire and Alpine.js."
+  },
+  {
+    "role": "Apprenticeship",
+    "place": "aks-Service GmbH",
+    "date": "2022 – 2024",
+    "kind": "work",
+    "logo": "/assets/images/company/aks-service.png",
+    "description": "Hands-on training as Fachinformatiker für Anwendungsentwicklung, working on real projects from day one."
+  },
+  {
+    "role": "Umschulung / Software Developer",
+    "place": "EVB Training",
+    "date": "2022 – 2024",
+    "kind": "education",
+    "logo": "/assets/images/university/evb.png",
+    "parallel": true,
+    "description": "Retraining program in software development, completed with the IHK exam."
+  },
+  {
+    "role": "Specialist",
+    "place": "Ministry of Interior",
+    "date": "2009 – 2016",
+    "kind": "work",
+    "logo": "/assets/images/company/InteriorMinistryTR.png",
+    "gapNote": "2016 – 2022 · Relocated to Germany and made a career change into software development",
+    "description": ""
+  },
+  {
+    "role": "Bachelor / Public Administration",
+    "place": "Eskisehir / Anadolu Universitesi",
+    "date": "2009 – 2013",
+    "kind": "education",
+    "logo": "/assets/images/university/anadolu-uni.png",
+    "logoBg": "bg-gray-700",
+    "description": "Completed as a distance-learning degree alongside full-time work."
+  },
+  {
+    "role": "Bachelor / Security Science",
+    "place": "Ankara",
+    "date": "2005 – 2009",
+    "kind": "education",
+    "logo": "/assets/images/university/polis.png",
+    "description": ""
+  },
+  {
+    "role": "Gymnasium",
+    "place": "Ankara",
+    "date": "2001 – 2005",
+    "kind": "education",
+    "description": ""
+  }
+]
