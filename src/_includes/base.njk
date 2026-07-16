@@ -30,6 +30,42 @@
     <meta name="robots" content="{{ robots }}">
     {% endif %}
 
+    {% if page.url == '/' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "{{ site.author }}",
+      "url": "{{ site.url }}",
+      "jobTitle": "Software Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "aks-Service GmbH"
+      },
+      "sameAs": ["https://github.com/kadirgulec"]
+    }
+    </script>
+    {% elif layout == 'post.njk' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": {{ title | dump | safe }},
+      "description": {{ pageDescription | dump | safe }},
+      "url": "{{ pageUrl }}",
+      "image": "{{ pageImage }}",
+      "datePublished": "{{ page.date | isoDate }}",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.author }}",
+        "url": "{{ site.url }}"
+      },
+      "mainEntityOfPage": "{{ pageUrl }}"
+    }
+    </script>
+    {% endif %}
+
     <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog" href="{{ site.url }}/feed.xml">
      <script>
@@ -45,6 +81,8 @@
     <link rel="stylesheet" href="/style.css">
     <!-- Link to the Splide CSS file -->
     <link rel="stylesheet" href="/assets/vendor/splide.min.css">
+    <!-- Prism theme for build-time syntax highlighting -->
+    <link rel="stylesheet" href="/assets/vendor/prism-tomorrow.min.css">
     <!-- Alpine.js -->
     <script defer src="/assets/vendor/alpine.min.js"></script>
 </head>

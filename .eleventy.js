@@ -1,4 +1,5 @@
 const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Image = require("@11ty/eleventy-img");
 const path = require('path');
 const cacheBuster = require('@mightyplow/eleventy-plugin-cache-buster');
@@ -45,6 +46,9 @@ module.exports = function(eleventyConfig) {
         }
     });
 
+    // Build-time syntax highlighting for Markdown code fences (no client JS)
+    eleventyConfig.addPlugin(syntaxHighlight);
+
     // Add cache buster plugin
     eleventyConfig.addPlugin(cacheBuster({
         outputDirectory: '_site'
@@ -80,6 +84,11 @@ module.exports = function(eleventyConfig) {
 
     eleventyConfig.addFilter("isoDate", (dateObj) => {
         return dateObj.toISOString();
+    });
+
+    eleventyConfig.addFilter("readingTime", (content) => {
+        const words = String(content).replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length;
+        return Math.max(1, Math.ceil(words / 200));
     });
 
     eleventyConfig.addFilter("postDate", dateObj => {
