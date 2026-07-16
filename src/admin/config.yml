@@ -24,3 +24,42 @@ collections:
       - { label: Tags,        name: tags,        widget: list, default: ["post"] }
       - { label: "Draft (uncheck to publish)", name: draft, widget: boolean, default: true }
       - { label: Body,        name: body,        widget: markdown }
+
+  - name: data
+    label: "Site Data"
+    files:
+      - name: certificates
+        label: "Certificates"
+        file: "src/_data/certificates.json"
+        media_folder: "/src/assets/images/certificates"
+        public_folder: "/assets/images/certificates"
+        fields:
+          - label: "Certificates"
+            name: items
+            widget: list
+            fields:
+              - { label: Name,     name: name,     widget: string }
+              - { label: Issuer,   name: issuer,   widget: string }
+              - { label: Date,     name: date,     widget: string }
+              - { label: Logo,     name: logo,     widget: image, required: false }
+              - { label: "URL ('#' if none)", name: url, widget: string, default: "#" }
+              - { label: "Featured (show on homepage slider)", name: featured, widget: boolean, default: false, required: false }
+      - name: history
+        label: "Career History"
+        file: "src/_data/history.json"
+        media_folder: "/src/assets/images"
+        public_folder: "/assets/images"
+        fields:
+          - label: "Entries (newest first)"
+            name: items
+            widget: list
+            fields:
+              - { label: Role,  name: role,  widget: string }
+              - { label: Place, name: place, widget: string }
+              - { label: "Date (e.g. 2022 – 2024)", name: date, widget: string }
+              - { label: Kind,  name: kind,  widget: select, options: [work, education] }
+              - { label: Logo,  name: logo,  widget: image, required: false }
+              - { label: "Logo background (Tailwind class, for logos that need a dark circle)", name: logoBg, widget: string, required: false }
+              - { label: Description, name: description, widget: text, required: false }
+              - { label: "Parallel (runs alongside the entry above)", name: parallel, widget: boolean, required: false }
+              - { label: "Milestone note shown above this entry", name: gapNote, widget: string, required: false }

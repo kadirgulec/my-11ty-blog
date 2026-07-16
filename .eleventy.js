@@ -2,6 +2,8 @@ const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const Image = require("@11ty/eleventy-img");
 const path = require('path');
+const fs = require('fs');
+const sharp = require('sharp');
 const cacheBuster = require('@mightyplow/eleventy-plugin-cache-buster');
 
 async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100vw, 800px") {
@@ -30,7 +32,58 @@ async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100
 
 
 
+const xmlEscape = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+const htmlUnescape = (s) => s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+
+// Wrap a title into SVG text lines (max 4 lines of ~22 chars)
+function wrapTitle(title) {
+    const lines = [];
+    let line = "";
+    for (const word of title.split(/\s+/)) {
+        if ((line + " " + word).trim().length > 22 && line) {
+            lines.push(line);
+            line = word;
+        } else {
+            line = (line + " " + word).trim();
+        }
+    }
+    if (line) lines.push(line);
+    if (lines.length > 4) {
+        lines.length = 4;
+        lines[3] += " …";
+    }
+    return lines;
+}
+
+function ogImageSvg(title) {
+    const lines = wrapTitle(title);
+    const text = lines.map((l, i) =>
+        `<text x="80" y="${240 + i * 82}" font-family="DejaVu Sans, Arial, sans-serif" font-size="64" font-weight="bold" fill="#ffffff">${xmlEscape(l)}</text>`
+    ).join("\n");
+    return `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="630" fill="#111827"/>
+        <rect width="1200" height="12" fill="#6366f1"/>
+        <text x="80" y="130" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="bold" fill="#818cf8">BLOG</text>
+        ${text}
+        <text x="80" y="560" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="bold" fill="#818cf8">kadirguelec.de</text>
+        <text x="1120" y="560" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" fill="#9ca3af">Kadir Gülec</text>
+    </svg>`;
+}
+
 module.exports = function(eleventyConfig) {
+
+    // Generate a social share image (1200x630 PNG) for every post after each build
+    eleventyConfig.on("eleventy.after", async ({ results }) => {
+        const posts = results.filter(r => r.url && /^\/posts\/[^/]+\/$/.test(r.url) && r.content);
+        if (!posts.length) return;
+        fs.mkdirSync("./_site/assets/og", { recursive: true });
+        await Promise.all(posts.map(async (post) => {
+            const slug = post.url.split("/")[2];
+            const m = post.content.match(/<meta property="og:title" content="([^"]*)"/);
+            const title = m ? htmlUnescape(m[1]) : slug;
+            await sharp(Buffer.from(ogImageSvg(title))).png().toFile(`./_site/assets/og/${slug}.png`);
+        }));
+    });
 
     eleventyConfig.addPassthroughCopy("src/assets");
     eleventyConfig.addPassthroughCopy("src/.htaccess");

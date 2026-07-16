@@ -1,5 +1,14 @@
 {
   "url": "https://kadirguelec.de",
   "name": "Kadir Gülec Portfolio",
-  "author": "Kadir Gülec"
+  "author": "Kadir Gülec",
+  "email": "info@kadirguelec.de",
+  "github": "https://github.com/kadirgulec",
+  "goatcounter": "",
+  "giscus": {
+    "repo": "kadirgulec/my-11ty-blog",
+    "repoId": "",
+    "category": "",
+    "categoryId": ""
+  }
 }

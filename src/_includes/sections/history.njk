@@ -39,7 +39,7 @@
   <ol role="list" class="relative mx-auto mt-20 max-w-3xl lg:mx-0">
     <div class="absolute bottom-2 left-7 top-2 w-px bg-gray-200 dark:bg-gray-800" aria-hidden="true"></div>
 
-    {% for item in history %}
+    {% for item in history.items %}
       {% if not item.parallel %}
 
         {% if item.gapNote %}
@@ -53,7 +53,7 @@
           </li>
         {% endif %}
 
-        {% set partner = history[loop.index] %}
+        {% set partner = history.items[loop.index] %}
         <li class="relative flex gap-x-6 {% if loop.last %}pb-0{% else %}pb-14{% endif %}">
           {{ marker(item) }}
           <div class="min-w-0 flex-1 pt-1.5">

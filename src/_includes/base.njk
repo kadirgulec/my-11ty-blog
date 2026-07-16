@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang or 'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% set pageUrl = site.url + page.url %}
     {% set pageDescription = description or 'Kadir Gülec - Software Developer Portfolio' %}
-    {% set pageImage = site.url + (image or '/assets/images/hero-1.jpg') %}
+    {% if image %}
+        {% set pageImage = site.url + image %}
+    {% elif layout == 'post.njk' %}
+        {% set pageImage = site.url + '/assets/og/' + page.url.split('/')[2] + '.png' %}
+    {% else %}
+        {% set pageImage = site.url + '/assets/images/hero-1.jpg' %}
+    {% endif %}
 
     <title>{{ title }}{% if page.url != '/' %} | {{ site.author }}{% endif %}</title>
     <meta name="description" content="{{ pageDescription }}">
@@ -67,6 +73,10 @@
     {% endif %}
 
     <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog" href="{{ site.url }}/feed.xml">
      <script>
         // Check local storage or system preference
@@ -87,9 +97,10 @@
     <script defer src="/assets/vendor/alpine.min.js"></script>
 </head>
 <body class="bg-white dark:bg-gray-900 min-h-screen custom-scrollbar">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 button-soft">Skip to content</a>
   <!-- Header -->
     {% include "header.njk" %}
-  <main class="isolate" data-pagefind-body>
+  <main id="main" class="isolate" data-pagefind-body>
     {{ content | safe }}
   </main>
 
@@ -100,5 +111,10 @@
 
 <!-- Splide JS (Local) -->
 <script src="/assets/vendor/splide.min.js"></script>
+
+{% if site.goatcounter %}
+<!-- GoatCounter: privacy-friendly analytics, no cookies -->
+<script data-goatcounter="https://{{ site.goatcounter }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+{% endif %}
 </body>
 </html>

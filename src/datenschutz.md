@@ -2,6 +2,7 @@
 layout: base.njk
 title: Datenschutzerklärung
 robots: noindex
+lang: de
 ---
 
 <div class="mx-auto max-w-3xl px-6 py-24 sm:py-32 lg:px-8 prose dark:prose-invert">
