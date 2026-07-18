@@ -24,6 +24,37 @@
 
 [x-cloak] { display: none !important; }
 
+/* Splide pagination dots — override vendor defaults to match the site */
+.splide__pagination {
+    gap: 6px;
+}
+.splide__pagination__page {
+    width: 8px;
+    height: 8px;
+    margin: 0;
+    border-radius: 9999px;
+    background: var(--color-gray-300);
+    opacity: 1;
+    transition: background-color 0.2s, width 0.2s;
+}
+.splide__pagination__page:hover {
+    background: var(--color-indigo-300);
+}
+.splide__pagination__page.is-active {
+    width: 24px;
+    background: var(--color-indigo-500);
+    transform: none;
+}
+.dark .splide__pagination__page {
+    background: var(--color-gray-600);
+}
+.dark .splide__pagination__page:hover {
+    background: var(--color-indigo-400);
+}
+.dark .splide__pagination__page.is-active {
+    background: var(--color-indigo-400);
+}
+
 .search-excerpt mark {
     background-color: rgba(99, 102, 241, 0.2);
     color: #6366f1;
