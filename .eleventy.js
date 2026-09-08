@@ -91,10 +91,10 @@ module.exports = function(eleventyConfig) {
     // Ship the Sveltia CMS admin page verbatim (not processed as a Nunjucks template)
     eleventyConfig.addPassthroughCopy("src/admin");
 
-    // Exclude draft posts from production builds (output, collections, and RSS).
-    // Drafts stay visible during local dev (`--serve`) so you can preview them.
+    // Exclude draft posts from every build (output, collections, sitemap and RSS),
+    // including local dev. Uncheck "Draft" in the CMS to preview or publish a post.
     eleventyConfig.addPreprocessor("drafts", "*", (data) => {
-        if (data.draft && process.env.ELEVENTY_RUN_MODE === "build") {
+        if (data.draft) {
             return false;
         }
     });
