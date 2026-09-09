@@ -11,7 +11,7 @@ tags:
   - AI
   - Productivity
   - Future
-draft: true
+draft: false
 ---
 
 # The Great Refactoring: 

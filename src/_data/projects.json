@@ -2,14 +2,15 @@
   "items": [
     {
       "title": "CoMon",
+      "titleDe": "",
       "draft": false,
       "status": "live",
       "statusLabel": "LIVE · IN PROGRESS",
       "statusLabelDe": "LIVE · IN ARBEIT",
       "tagline": "Your contracts, meters and household budget — in one place.",
       "taglineDe": "Verträge, Zähler und Haushaltsbudget — an einem Ort.",
-      "description": "CoMon watches your contract renewals and cancellation deadlines, logs your meter readings and fill-ups, and keeps the household budget in balance — then emails you before anything slips.",
-      "descriptionDe": "CoMon überwacht Vertragsverlängerungen und Kündigungsfristen, erfasst Zählerstände und Tankfüllungen und hält das Haushaltsbudget im Gleichgewicht — und schickt eine E-Mail, bevor etwas durchrutscht.",
+      "description": "CoMon watches your contract renewals and cancellation deadlines, logs your meter readings and fill-ups, and keeps the household budget in balance — then emails you before anything slips.\n\nDemo Access: \nUsername: Demo\nPasswort: TestDemo1!",
+      "descriptionDe": "CoMon überwacht Vertragsverlängerungen und Kündigungsfristen, erfasst Zählerstände und Tankfüllungen und hält das Haushaltsbudget im Gleichgewicht — und schickt eine E-Mail, bevor etwas durchrutscht.\n\nZugang zur Demoversion: \nBenutzername: Demo\nPasswort: TestDemo1!",
       "features": [
         {
           "text": "Contracts with renewal and notice-period tracking",
@@ -44,8 +45,8 @@
       ],
       "url": "https://comon.guelec.eu",
       "urlLabel": "comon.guelec.eu",
-      "note": "Demo access on request",
-      "noteDe": "Demo-Zugang auf Anfrage",
+      "note": "Demo access available!",
+      "noteDe": "Demo-Zugang verfügbar!",
       "image": "/assets/images/projects/comon-dashboard.png",
       "imageAlt": "CoMon dashboard showing quick booking, fuel entry, fixed costs and account balances",
       "frame": "browser"
@@ -53,7 +54,7 @@
     {
       "title": "QR Invites",
       "titleDe": "QR-Einladungen",
-      "draft": false,
+      "draft": true,
       "status": "side",
       "statusLabel": "SIDE PROJECT",
       "statusLabelDe": "NEBENPROJEKT",
