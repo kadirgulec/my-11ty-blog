@@ -1,6 +1,7 @@
 ---
 title: Soft Skills are Hard Skills
 date: 2025-07-22
+docLang: en
 image: /assets/images/hero-1.jpg
 imageAlt: ''
 description: Why communication is just as important as coding.
@@ -9,7 +10,7 @@ tags:
   - Career
   - Advice
   - Soft Skills
-draft: false
+draft: true
 ---
 
 ## Beyond the Code
