@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% set pageUrl = site.url + page.url %}
-    {% set pageDescription = description or 'Kadir Gülec - Software Developer Portfolio' %}
+    {% set pageDescription = (description or 'Kadir Gülec - Software Developer Portfolio') | oneLine %}
     {% if image %}
         {% set pageImage = site.url + image %}
     {% elif layout == 'post.njk' %}
-        {% set pageImage = site.url + '/assets/og/' + page.url.split('/')[2] + '.png' %}
+        {% set pageImage = site.url + '/assets/og/' + (page.url | ogSlug) + '.png' %}
     {% else %}
         {% set pageImage = site.url + '/assets/images/hero-1.jpg' %}
     {% endif %}

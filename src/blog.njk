@@ -56,7 +56,7 @@ description: Notes on web development, the TALL stack, and the road from Umschul
                 </h2>
 
                 <p class="m-0 text-fg-muted text-pretty">
-                  {{ lead.data.description or (lead.templateContent | striptags | truncate(200)) }}
+                  {{ (lead.data.description or (lead.templateContent | striptags | truncate(200))) | nl2br | safe }}
                 </p>
 
                 <div class="flex flex-wrap gap-2">

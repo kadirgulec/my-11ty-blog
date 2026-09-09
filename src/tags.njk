@@ -52,7 +52,7 @@ eleventyComputed:
             <a href="{{ post.url }}" class="text-fg transition-colors hover:text-accent">{{ post.data.title }}</a>
           </h2>
           <p class="m-0 line-clamp-3 text-[15px] text-fg-muted">
-            {{ post.data.description or (post.templateContent | striptags | truncate(150)) }}
+            {{ (post.data.description or (post.templateContent | striptags | truncate(150))) | nl2br | safe }}
           </p>
         </article>
       {% endfor %}

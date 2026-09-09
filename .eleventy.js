@@ -32,6 +32,14 @@ async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100
 
 
 
+// "/posts/foo/" -> "foo";  "/de/posts/foo/" -> "de-foo".
+// Keeps every existing English OG filename byte-identical.
+function ogSlug(url) {
+    const parts = (url || "").split("/").filter(Boolean);
+    const slug = parts[parts.length - 1];
+    return parts.length > 2 ? `${parts[0]}-${slug}` : slug;
+}
+
 const xmlEscape = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 const htmlUnescape = (s) => s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 
@@ -74,11 +82,11 @@ module.exports = function(eleventyConfig) {
 
     // Generate a social share image (1200x630 PNG) for every post after each build
     eleventyConfig.on("eleventy.after", async ({ results }) => {
-        const posts = results.filter(r => r.url && /^\/posts\/[^/]+\/$/.test(r.url) && r.content);
+        const posts = results.filter(r => r.url && /^\/(?:[a-z]{2}\/)?posts\/[^/]+\/$/.test(r.url) && r.content);
         if (!posts.length) return;
         fs.mkdirSync("./_site/assets/og", { recursive: true });
         await Promise.all(posts.map(async (post) => {
-            const slug = post.url.split("/")[2];
+            const slug = ogSlug(post.url);
             const m = post.content.match(/<meta property="og:title" content="([^"]*)"/);
             const title = m ? htmlUnescape(m[1]) : slug;
             await sharp(Buffer.from(ogImageSvg(title))).png().toFile(`./_site/assets/og/${slug}.png`);
@@ -182,6 +190,30 @@ module.exports = function(eleventyConfig) {
 
     // Data-file entries can be flagged `draft: true` in the CMS: still editable
     // there, never rendered here. (Blog posts use front matter + a preprocessor.)
+    // CMS "text" widgets store real newlines, which HTML collapses to spaces.
+    // Escape first (the result is injected as markup), then turn the newlines
+    // into <br>. A run of blank lines collapses to a single blank line so a
+    // stray extra Return does not open a big gap.
+    eleventyConfig.addFilter("nl2br", (value) => {
+        if (value === null || value === undefined) return "";
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;")
+            .trim()
+            .replace(/(\r\n|\r|\n){2,}/g, "<br><br>")
+            .replace(/\r\n|\r|\n/g, "<br>");
+    });
+
+    // Descriptions may now be multi-line; meta tags and JSON-LD want one line.
+    eleventyConfig.addFilter("oneLine", (value) =>
+        String(value === null || value === undefined ? "" : value).replace(/\s+/g, " ").trim()
+    );
+
+    eleventyConfig.addFilter("ogSlug", ogSlug);
+
     eleventyConfig.addFilter("published", (items) =>
         (items || []).filter(item => !item.draft)
     );

@@ -2,5 +2,5 @@
   "layout": "post.njk",
   "tags": "post",
   "docLang": "en",
-  "permalink": "/posts/{{ title | slugify }}/"
+  "permalink": "{% if docLang == 'de' %}/de/posts/{{ title | slugify }}/{% else %}/posts/{{ title | slugify }}/{% endif %}"
 }

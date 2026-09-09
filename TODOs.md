@@ -21,7 +21,7 @@
 - [x] **Contact section** — "Get in touch" on the homepage with mailto (info@kadirguelec.de, already public on the Impressum) + GitHub, in `sections/contact.njk`.
 - [x] **A11y/PWA** — skip-to-content link, `apple-touch-icon` + `icon-192/512` (generated from `logo.svg`), `site.webmanifest`, `theme-color` metas, per-page `lang` (Impressum/Datenschutz now `lang: de`).
 - [x] **Dark-only redesign from the Claude Design project** — new palette (`#101418` / accent `#f0801f`), Space Grotesk + IBM Plex Sans/Mono self-hosted in `src/assets/fonts/`, design tokens in `src/css/style.css`. The light/dark switcher is gone; the site is dark-only.
-- [x] **EN/DE language switch** — both variants ship in the HTML, `html[data-lang]` reveals one (`src/_includes/partials/i18n.njk`). Choice persists in `localStorage` under `site-lang`, and `?lang=de` forces it for shareable links. Posts declare `docLang: en|de`; `/blog/` groups them so a reader only sees posts in their language.
+- [x] **EN/DE language switch** — both variants ship in the HTML, `html[data-lang]` reveals one (`src/_includes/partials/i18n.njk`). Choice persists in `localStorage` under `site-lang`, and `?lang=de` forces it for shareable links. Posts declare `docLang: en|de`; `/blog/` groups them so a reader only sees posts in their language. German posts live under `/de/posts/<slug>/` so a translation can keep its original title without colliding with the English permalink.
 - [x] **Projects, skills, certificates and history in Sveltia CMS** — both editable as file collections ("Site Data") in `src/admin/config.yml`. Data files were restructured from a root array to `{ "items": [...] }` for CMS compatibility.
 
 ## Open

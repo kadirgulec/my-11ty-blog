@@ -13,9 +13,12 @@
 
   `de` may be empty — the English string is then used for both languages, which
   is what the CMS-managed data files rely on for untranslated fields.
+
+  Text is escaped and its newlines become <br>, so multi-paragraph CMS fields
+  render as written instead of collapsing into one run-on block.
 #}
 
-{% macro t(en, de) %}<span data-lang-en lang="en">{{ en }}</span><span data-lang-de lang="de">{{ de if de else en }}</span>{% endmacro %}
+{% macro t(en, de) %}<span data-lang-en lang="en">{{ en | nl2br | safe }}</span><span data-lang-de lang="de">{{ (de if de else en) | nl2br | safe }}</span>{% endmacro %}
 
 {#- Same, but for pre-rendered HTML (e.g. markdown output). -#}
 {% macro tHtml(en, de) %}<span data-lang-en lang="en">{{ en | safe }}</span><span data-lang-de lang="de">{{ (de if de else en) | safe }}</span>{% endmacro %}
