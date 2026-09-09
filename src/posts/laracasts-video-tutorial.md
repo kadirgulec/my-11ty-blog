@@ -2,6 +2,7 @@
 title: Mastering Modern PHP with Laracasts
 image: /assets/images/posts/laracasts.png
 date: 2025-10-15
+docLang: en
 description: Why Laracasts is the Netflix for developers and my favorite series.
 tags:
   - post
@@ -11,6 +12,7 @@ tags:
   - PHP
   - Laracasts
   - Education
+draft: false
 ---
 
 # The Best Investment for PHP Developers

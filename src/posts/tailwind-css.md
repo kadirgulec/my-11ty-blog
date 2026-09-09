@@ -2,12 +2,14 @@
 title: Why I Stopped Writing Custom CSS
 image: /assets/images/hero-1.jpg
 date: 2025-06-15
+docLang: en
 description: Moving from BEM and Bootstrap to Utility-First CSS.
 tags:
   - post
   - Tailwind
   - CSS
   - Design
+draft: false
 ---
 
 ## Utility-First Revolution

@@ -2,12 +2,14 @@
 title: Surviving the Umschulung and Acing the IHK Exam
 image: /assets/images/hero-1.jpg
 date: 2025-08-20
+docLang: en
 description: A look back at my retraining as a Fachinformatiker.
 tags:
   - post
   - Career
   - Germany
   - Education
+draft: false
 ---
 
 ## From Newbie to Professional

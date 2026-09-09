@@ -2,6 +2,7 @@
 title: My Coursera Journey and Certificates
 image: /assets/images/posts/coursera.svg
 date: 2025-10-02
+docLang: en
 description: How I used Coursera to bridge the gap between theory and practice.
 tags:
   - post
@@ -12,6 +13,7 @@ tags:
   - Python
   - Data Science
   - Web Development
+draft: false
 ---
 # Continuous Learning
 

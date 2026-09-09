@@ -2,12 +2,14 @@
 title: Why Laravel is Still King of PHP
 image: /assets/images/hero-1.jpg
 date: 2025-12-05
+docLang: en
 description: Exploring the Developer Experience (DX) of the Laravel ecosystem.
 tags:
   - post
   - Laravel
   - PHP
   - Backend
+draft: false
 ---
 
 ## Developer Experience First

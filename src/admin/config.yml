@@ -10,11 +10,36 @@ public_folder: "/assets/images/posts"
 collections:
   - name: posts
     label: "Blog Posts"
+    label_singular: "Blog Post"
     folder: "src/posts"
     create: true
     slug: "{{slug}}"          # matches permalink: /posts/{{ title | slugify }}/
     extension: md
     format: frontmatter
+
+    # The listing shows the featured image, and one line carrying everything
+    # you need to triage a post: draft marker, language, date, title.
+    thumbnail: image
+    summary: "{{draft | ternary('◆ DRAFT — ', '')}}{{docLang | upper}} · {{date | date('YYYY-MM-DD')}} · {{title}}"
+
+    sortable_fields:
+      fields: [date, title, docLang, draft]
+      default:
+        field: date
+        direction: descending
+
+    view_filters:
+      filters:
+        - { name: drafts,    label: "Drafts",    field: draft,   pattern: 'true' }
+        - { name: published, label: "Published", field: draft,   pattern: 'false' }
+        - { name: english,   label: "English",   field: docLang, pattern: 'en' }
+        - { name: german,    label: "Deutsch",   field: docLang, pattern: 'de' }
+
+    view_groups:
+      - { label: "Status", field: draft }
+      - { label: "Language", field: docLang }
+      - { label: "Year", field: date, pattern: '\d{4}' }
+
     fields:
       - { label: Title,       name: title,       widget: string }
       - { label: Date,        name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }

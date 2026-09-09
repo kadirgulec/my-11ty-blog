@@ -3,6 +3,7 @@ title: Alpine.js - The jQuery for the Modern Web
 image: /assets/images/posts/alpine-js.jpg
 imageAlt: The official logo of Alpine.js, a lightweight JavaScript framework.
 date: 2026-01-15
+docLang: en
 description: Adding interactivity to your static site with minimal overhead. Discover the pros, cons, and how to use it effectively.
 tags:
   - post
@@ -10,6 +11,7 @@ tags:
   - JavaScript
   - Frontend
   - Tutorial
+draft: false
 ---
 
 ## The Sprinkle of JavaScript You Actually Need

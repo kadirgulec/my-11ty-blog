@@ -3,6 +3,7 @@ title: Building Dynamic UIs with Livewire
 image: /assets/images/posts/livewire.png
 imageAlt: Oficial livewire logo
 date: 2026-01-10
+docLang: en
 description: Writing JavaScript-grade interactivity without writing JavaScript. A look at how Livewire makes Laravel feel reactive end-to-end.
 tags:
   - post
@@ -10,6 +11,7 @@ tags:
   - Laravel
   - TALL Stack
   - PHP
+draft: false
 ---
 
 ## Full-Stack PHP, Without the Compromise
