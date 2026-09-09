@@ -1,5 +1,8 @@
 {% import "partials/i18n.njk" as i18n %}
 
+{% set visibleProjects = projects.items | published %}
+
+{% if visibleProjects.length %}
 <section id="work" class="section scroll-mt-20">
   <div class="section-body">
 
@@ -9,13 +12,13 @@
     </div>
     <p class="lede mb-12">
       {{ i18n.t(
-        "Two projects I built end to end, outside of client work.",
-        "Zwei Projekte, die ich außerhalb der Arbeit komplett selbst gebaut habe."
+        "Projects I built end to end, outside of client work.",
+        "Projekte, die ich außerhalb der Arbeit komplett selbst gebaut habe."
       ) }}
     </p>
 
     <div class="grid gap-8">
-      {% for project in projects.items %}
+      {% for project in visibleProjects %}
         <article class="card overflow-hidden">
           <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-stretch">
 
@@ -106,3 +109,4 @@
 
   </div>
 </section>
+{% endif %}

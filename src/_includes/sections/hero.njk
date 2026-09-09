@@ -1,9 +1,17 @@
 {% import "partials/i18n.njk" as i18n %}
 
 <section id="top" class="relative overflow-hidden bg-ink">
-  {# The dot grid paints its own #101418 ground and a bottom fade. #}
+  {#
+    The dot grid paints its own #101418 ground and a bottom fade.
+    data-align-to centres the initials on the stat card below them;
+    below data-text-min-width only the ambient dots remain (see dotted-grid.js).
+  #}
   <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-    <canvas data-dotted-grid data-text="KG" class="block size-full"></canvas>
+    <canvas data-dotted-grid
+            data-text="kg"
+            data-align-to="#hero-stats"
+            data-text-min-width="860"
+            class="block size-full"></canvas>
     <div class="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/20 to-ink"></div>
   </div>
 
@@ -41,7 +49,7 @@
         </div>
       </div>
 
-      <dl class="rail m-0 backdrop-blur-[6px]">
+      <dl id="hero-stats" class="rail m-0 backdrop-blur-[6px]">
         <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1.5 px-[18px] py-4">
           <dt class="text-[13.5px] text-fg-dim">{{ i18n.t("Current role", "Aktuell") }}</dt>
           <dd class="m-0 text-right font-display text-[15px] font-medium">Software Developer, aks-Service</dd>

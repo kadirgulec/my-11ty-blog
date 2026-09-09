@@ -27,7 +27,7 @@
       {# Counts are derived from the CMS-managed data files so they cannot drift. #}
       {% set stats = [
         { value: year - 2022, en: "years in software",        de: "Jahre in der Softwareentwicklung" },
-        { value: projects.items | length,     en: "apps running in production", de: "Anwendungen im Live-Betrieb" },
+        { value: projects.items | published | length,     en: "apps running in production", de: "Anwendungen im Live-Betrieb" },
         { value: certificates.items | length, en: "certificates and degrees",   de: "Zertifikate und Abschlüsse" },
         { value: 3, en: "languages spoken", de: "gesprochene Sprachen" }
       ] %}

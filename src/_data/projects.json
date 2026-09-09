@@ -2,6 +2,7 @@
   "items": [
     {
       "title": "CoMon",
+      "draft": false,
       "status": "live",
       "statusLabel": "LIVE · IN PROGRESS",
       "statusLabelDe": "LIVE · IN ARBEIT",
@@ -52,6 +53,7 @@
     {
       "title": "QR Invites",
       "titleDe": "QR-Einladungen",
+      "draft": false,
       "status": "side",
       "statusLabel": "SIDE PROJECT",
       "statusLabelDe": "NEBENPROJEKT",

@@ -49,6 +49,7 @@ collections:
             fields:
               - { label: Title,          name: title,     widget: string }
               - { label: "Title (DE)",   name: titleDe,   widget: string, required: false }
+              - { label: "Draft (uncheck to show on the website)", name: draft, widget: boolean, default: true }
               - label: Status
                 name: status
                 widget: select

@@ -12,28 +12,35 @@
     "use strict";
 
     var clamp01 = function (v) { return Math.max(0, Math.min(1, v)); };
+    var clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
+    var num = function (v, fallback) {
+        var n = parseFloat(v);
+        return isNaN(n) ? fallback : n;
+    };
     var lerp = function (a, b, t) { return a + (b - a) * t; };
     var smoothstep = function (e0, e1, v) {
         var t = clamp01((v - e0) / (e1 - e0));
         return t * t * (3 - 2 * t);
     };
 
-    function buildMask(width, height, text, fontFamily, anchorX, anchorY, scale) {
+    function buildMask(width, height, text, fontFamily, anchorX, anchorY, inkHeight, inkWidth) {
         var c = document.createElement("canvas");
         c.width = Math.max(1, Math.floor(width));
         c.height = Math.max(1, Math.floor(height));
         var g = c.getContext("2d");
         if (!g) return null;
 
-        var size = Math.min(height * scale, width * scale * 0.9);
+        // Space Grotesk's ink spans roughly 0.95em from ascender to descender,
+        // so this is the em size that renders glyphs `inkHeight` tall.
+        var size = inkHeight / 0.95;
         g.textAlign = "center";
         g.textBaseline = "middle";
         g.fillStyle = "#fff";
         for (var i = 0; i < 8; i++) {
             g.font = "700 " + size + "px " + fontFamily;
             var w = g.measureText(text).width;
-            if (w <= width * 0.42) break;
-            size *= (width * 0.42) / w;
+            if (w <= inkWidth) break;
+            size *= inkWidth / w;
         }
         g.font = "700 " + size + "px " + fontFamily;
         g.fillText(text, c.width * anchorX, c.height * anchorY);
@@ -55,9 +62,15 @@
             mouseRadius: 200,
             background: "#101418",
             text: canvas.dataset.text || "KG",
-            anchorX: 0.72,
-            anchorY: 0.3,
-            scale: 0.46,
+            // Fallbacks, used when there is nothing to align to.
+            anchorX: num(canvas.dataset.anchorX, 0.72),
+            anchorY: num(canvas.dataset.anchorY, 0.3),
+            scale: num(canvas.dataset.scale, 0.46),
+            // Selector of the element the initials should sit above and centre on.
+            alignTo: canvas.dataset.alignTo || "",
+            // Below this canvas width the letterform is dropped and only the
+            // ambient dot field remains — see resolveAnchors/build.
+            textMinWidth: num(canvas.dataset.textMinWidth, 0),
             fontFamily: "'Space Grotesk', system-ui, sans-serif",
             dotColor: "152,162,173",
             accentColor: "240,128,31"
@@ -67,7 +80,17 @@
         var rafId = null, retry = null;
         var mouse = { x: 0, y: 0, tx: 0, ty: 0, active: false };
         var reduceQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+        var hoverQuery = window.matchMedia ? window.matchMedia("(hover: hover)") : null;
         var reduce = reduceQuery ? reduceQuery.matches : false;
+
+        // A touch device has no hover, so the only motion left would be the
+        // ambient blink — not worth an rAF loop on someone's battery. Paint a
+        // single static frame there, same as for prefers-reduced-motion.
+        var still = reduce || !(hoverQuery ? hoverQuery.matches : true);
+        function refreshMotion() {
+            reduce = reduceQuery ? reduceQuery.matches : false;
+            still = reduce || !(hoverQuery ? hoverQuery.matches : true);
+        }
 
         function strengthAt(x, y) {
             if (!mask) return 0;
@@ -75,6 +98,37 @@
             if (px < 0 || py < 0 || px >= maskW) return 0;
             var a = mask[(py * maskW + px) * 4 + 3];
             return a === undefined ? 0 : a / 255;
+        }
+
+        // The initials are pinned to a real element (the hero stat card) rather
+        // than to a magic fraction: they centre on it horizontally and are sized
+        // to the gap above it, so the mark stays in proportion at any viewport.
+        function resolveMark(box) {
+            var fallback = {
+                x: opts.anchorX,
+                y: opts.anchorY,
+                inkHeight: height * opts.scale,
+                inkWidth: width * 0.42
+            };
+            if (!opts.alignTo) return fallback;
+
+            var target = document.querySelector(opts.alignTo);
+            if (!target) return fallback;
+
+            var t = target.getBoundingClientRect();
+            if (!t.width || !t.height || !box.width || !box.height) return fallback;
+
+            var gap = t.top - box.top;
+            if (gap <= 0) return fallback;
+
+            return {
+                x: clamp01((t.left + t.width / 2 - box.left) / box.width),
+                // Centred in the band between the top of the hero and the card,
+                // so the mark reads as sitting above it rather than behind it.
+                y: clamp(gap / 2 / box.height, 0.16, 0.5),
+                inkHeight: gap * 0.74,
+                inkWidth: t.width * 0.92
+            };
         }
 
         function build() {
@@ -99,7 +153,12 @@
             canvas.height = Math.floor(height * dpr);
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-            mask = buildMask(width, height, opts.text, opts.fontFamily, opts.anchorX, opts.anchorY, opts.scale);
+            // On a narrow canvas the hero text spans the full width, so any large
+            // glyph collides with it. Keep the ambient dots, drop the initials.
+            var mark = resolveMark(rect.width ? rect : (prect || rect));
+            mask = width >= opts.textMinWidth && mark.inkHeight >= 64
+                ? buildMask(width, height, opts.text, opts.fontFamily, mark.x, mark.y, mark.inkHeight, mark.inkWidth)
+                : null;
             maskW = Math.max(1, Math.floor(width));
 
             dots = [];
@@ -130,12 +189,12 @@
 
             for (var i = 0; i < dots.length; i++) {
                 var dot = dots[i];
-                var blink = reduce
+                var blink = still
                     ? 0.5
                     : Math.pow(Math.sin(time * (0.9 + dot.speed) + dot.phase + dot.x * 0.02 + dot.y * 0.016), 2);
 
                 var target = 0;
-                if (!reduce && mouse.active) {
+                if (!still && mouse.active) {
                     var dx = dot.x - mouse.x, dy = dot.y - mouse.y;
                     var dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < opts.mouseRadius) {
@@ -143,7 +202,7 @@
                         target = n * n;
                     }
                 }
-                dot.m = reduce ? 0 : lerp(dot.m, target, 0.12);
+                dot.m = still ? 0 : lerp(dot.m, target, 0.12);
 
                 var lit = dot.s;
                 var alpha = clamp01(
@@ -166,7 +225,7 @@
         }
 
         function start() {
-            if (reduce) return;
+            if (still) return;
             if (!dots.length) build();
             if (rafId == null) rafId = requestAnimationFrame(tick);
         }
@@ -196,12 +255,12 @@
             }
         }, { rootMargin: "128px" }).observe(canvas);
 
-        if (reduceQuery && reduceQuery.addEventListener) {
-            reduceQuery.addEventListener("change", function (e) {
-                reduce = e.matches;
-                if (reduce) { stop(); draw(performance.now()); } else { start(); }
-            });
+        function onMotionChange() {
+            refreshMotion();
+            if (still) { stop(); draw(performance.now()); } else { start(); }
         }
+        if (reduceQuery && reduceQuery.addEventListener) reduceQuery.addEventListener("change", onMotionChange);
+        if (hoverQuery && hoverQuery.addEventListener) hoverQuery.addEventListener("change", onMotionChange);
         document.addEventListener("visibilitychange", function () {
             document.hidden ? stop() : start();
         });

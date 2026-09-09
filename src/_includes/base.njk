@@ -99,6 +99,14 @@
         })();
     </script>
 
+    {#
+      Start the above-the-fold faces downloading with the CSS rather than after
+      it. Without this the headline first paints in the fallback, then reflows
+      when Space Grotesk arrives — a visible jump on every uncached load.
+    #}
+    <link rel="preload" href="/assets/fonts/space-grotesk-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+
     <!-- Link to the Splide CSS file (before style.css so site overrides win) -->
     <link rel="stylesheet" href="/assets/vendor/splide.min.css">
     <!-- Tailwind CSS Output -->

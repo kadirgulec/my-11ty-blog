@@ -107,6 +107,23 @@ module.exports = function(eleventyConfig) {
         outputDirectory: '_site'
     }));
 
+    // The cache buster appends ?v=<hash> to every <link href>, including the
+    // font preloads — but the @font-face rules inside style.css request the
+    // unhashed URL, so a hashed preload would never match and the browser would
+    // fetch the file twice. Font filenames already encode family/weight/subset
+    // and never change contents, so drop the hash again.
+    //
+    // Registered as a plugin because addPlugin() is deferred: a plain
+    // addTransform() here would run *before* the cache buster, not after.
+    eleventyConfig.addPlugin(function (config) {
+        config.addTransform("unhashFontPreloads", function (content) {
+            if (!(this.page.outputPath || "").endsWith(".html")) return content;
+            return content.replace(/<link\b[^>]*\bas="font"[^>]*>/g, (tag) =>
+                tag.replace(/(href="[^"?]+)\?v=[^"]*"/, '$1"')
+            );
+        });
+    });
+
     // 2. Add the Async Shortcode
     eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
 
@@ -161,6 +178,12 @@ module.exports = function(eleventyConfig) {
     // Nunjucks' selectattr does not reliably apply a test, so filter explicitly.
     eleventyConfig.addFilter("where", (list, key, value) =>
         (list || []).filter(item => item[key] === value)
+    );
+
+    // Data-file entries can be flagged `draft: true` in the CMS: still editable
+    // there, never rendered here. (Blog posts use front matter + a preprocessor.)
+    eleventyConfig.addFilter("published", (items) =>
+        (items || []).filter(item => !item.draft)
     );
 
     eleventyConfig.addFilter("countUnique", (list, attribute) =>
