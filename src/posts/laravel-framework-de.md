@@ -10,7 +10,7 @@ tags:
   - Laravel
   - PHP
   - Backend
-draft: false
+draft: true
 ---
 
 ## Developer Experience zuerst
@@ -18,6 +18,7 @@ draft: false
 Laravel ist nicht einfach nur ein Framework, sondern ein ganzes Ökosystem. Von der lokalen Entwicklung mit **Herd** bis zum Deployment mit **Forge** oder **Vapor** wirkt alles wie aus einem Guss.
 
 ### Funktionen, die ich nicht mehr missen möchte
+
 Nach Laravel möchte ich nicht mehr zu reinem PHP zurück:
 
 *   **Eloquent ORM:** Datenbankabfragen, die sich wie ein Satz lesen.
