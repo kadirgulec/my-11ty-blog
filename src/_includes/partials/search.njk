@@ -1,10 +1,12 @@
+{% import "partials/i18n.njk" as i18n %}
+
 <div x-data="searchComponent()"
      @open-search.window="openModal()"
      @keydown.window.escape="closeModal()"
      @keydown.window.ctrl.k.prevent="openModal()"
      @keydown.window.meta.k.prevent="openModal()"
      x-effect="document.body.classList.toggle('overflow-hidden', isOpen)"
-     class="relative z-[100]"
+     class="relative z-100"
      x-cloak>
 
     <!-- Modal Backdrop -->
@@ -15,13 +17,11 @@
          x-transition:leave="ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
-         class="fixed inset-0 bg-gray-500/75 dark:bg-gray-950/80 backdrop-blur-sm transition-opacity"></div>
+         class="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
 
     <!-- Modal Content -->
-    <div x-show="isOpen"
-         class="fixed inset-0 z-[101] w-screen p-4 sm:p-6 md:p-20">
-        
-        <div class="flex min-h-full items-start justify-center p-4 text-center sm:p-0">
+    <div x-show="isOpen" class="fixed inset-0 z-101 w-screen p-4 sm:p-6 md:p-20">
+        <div class="flex min-h-full items-start justify-center">
             <div x-show="isOpen"
                  x-transition:enter="ease-out duration-300"
                  x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -30,39 +30,35 @@
                  x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                  x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                  @click.away="closeModal()"
-                 class="mx-auto max-w-2xl transform overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all w-full text-left mt-4 sm:mt-20">
+                 class="mx-auto mt-4 w-full max-w-2xl transform overflow-hidden rounded-2xl border border-line-2 bg-surface text-left shadow-[0_32px_80px_rgba(0,0,0,0.6)] transition-all sm:mt-16">
 
                 <!-- Search Input Header -->
-                <div class="relative border-b border-gray-100 dark:border-gray-800">
-                    <svg class="pointer-events-none absolute left-4 top-4 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <div class="relative border-b border-line">
+                    <svg class="pointer-events-none absolute top-4.5 left-4 size-5 text-fg-faint" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
                     </svg>
                     <input type="text"
                            x-ref="searchInput"
-                           class="h-14 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm outline-none"
-                           placeholder="Search blog posts, projects..."
+                           class="h-14 w-full border-0 bg-transparent pr-4 pl-11 text-fg outline-none placeholder:text-fg-faint"
+                           placeholder="Search posts, projects, certificates…"
+                           data-ph-en="Search posts, projects, certificates…"
+                           data-ph-de="Beiträge, Projekte, Zertifikate suchen…"
                            x-model="query"
                            @input.debounce.300ms="performSearch()">
                 </div>
 
-                <!-- Results Section -->
-                <div x-show="results.length > 0" class="max-h-[60vh] overflow-y-auto custom-scrollbar">
-                    <div class="px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider bg-gray-50 dark:bg-gray-800/50">
-                        Results (<span x-text="results.length"></span>)
+                <!-- Results -->
+                <div x-show="results.length > 0" class="custom-scrollbar max-h-[60vh] overflow-y-auto">
+                    <div class="label bg-ink-2 px-4 py-3">
+                        {{ i18n.t("Results", "Treffer") }} (<span x-text="results.length"></span>)
                     </div>
-                    <ul class="divide-y overflow-y-auto divide-gray-50 dark:divide-gray-800" id="options" role="listbox">
+                    <ul class="divide-y divide-line" id="options" role="listbox">
                         <template x-for="result in results" :key="result.url">
                             <li class="relative">
-                                <a :href="result.url" class="flex flex-col px-4 py-4 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 group transition-all duration-200">
-                                    <div class="flex items-center justify-between mb-1">
-                                        <span class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" x-text="result.meta.title"></span>
-                                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900/50 transition-colors uppercase font-medium">Page</span>
-                                    </div>
-                                    <div class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed search-excerpt" x-html="result.excerpt"></div>
-                                    <div class="mt-2 text-[11px] text-gray-400 dark:text-gray-500 flex items-center">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.823a4 4 0 015.656 0l4 4a4 4 0 01-5.656 5.656l-1.103-1.103"></path></svg>
-                                        <span x-text="result.url"></span>
-                                    </div>
+                                <a :href="result.url" class="group flex flex-col gap-1.5 px-4 py-4 transition-colors hover:bg-ink-2">
+                                    <span class="font-display text-[15px] font-semibold text-fg transition-colors group-hover:text-accent" x-text="result.meta.title"></span>
+                                    <span class="search-excerpt line-clamp-2 text-sm leading-relaxed text-fg-muted" x-html="result.excerpt"></span>
+                                    <span class="font-mono text-[11px] text-fg-faint" x-text="result.url"></span>
                                 </a>
                             </li>
                         </template>
@@ -70,41 +66,43 @@
                 </div>
 
                 <!-- Empty state -->
-                <div x-show="query.length >= 2 && results.length === 0 && !loading" class="px-6 py-14 text-center sm:px-14 bg-white dark:bg-gray-900">
-                    <div class="flex justify-center mb-4">
-                        <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-full">
-                            <svg class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-base font-semibold text-gray-900 dark:text-white">No results found</p>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">We couldn't find anything matching "<span x-text="query" class="font-medium text-gray-900 dark:text-gray-200"></span>".</p>
+                <div x-show="query.length >= 2 && results.length === 0 && !loading" class="px-6 py-14 text-center">
+                    <p class="font-display text-base font-semibold text-fg">{{ i18n.t("No results found", "Keine Treffer") }}</p>
+                    <p class="mt-1.5 text-sm text-fg-dim">
+                        {{ i18n.t("Nothing matched", "Nichts gefunden für") }}
+                        “<span class="text-fg" x-text="query"></span>”.
+                    </p>
                 </div>
 
-                <!-- Initial/Idle state -->
-                <div x-show="query.length < 2 && !loading" class="px-6 py-10 text-center bg-white dark:bg-gray-900">
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Type at least 2 characters to start searching...</p>
-                    <div class="mt-4 flex justify-center gap-4 text-[11px] text-gray-400 uppercase tracking-widest font-medium">
-                        <span class="flex items-center"><kbd class="px-1.5 py-0.5 rounded border border-gray-300 dark:border-gray-700 mr-1.5 font-sans bg-gray-50 dark:bg-gray-800 text-gray-500">ESC</kbd> to close</span>
-                        <span class="flex items-center"><kbd class="px-1.5 py-0.5 rounded border border-gray-300 dark:border-gray-700 mr-1.5 font-sans bg-gray-50 dark:bg-gray-800 text-gray-500">ENTER</kbd> to select</span>
+                <!-- Idle state -->
+                <div x-show="query.length < 2 && !loading" class="px-6 py-10 text-center">
+                    <p class="text-sm text-fg-dim">
+                        {{ i18n.t("Type at least 2 characters to start searching.", "Mindestens 2 Zeichen eingeben, um zu suchen.") }}
+                    </p>
+                    <div class="mt-4 flex flex-wrap justify-center gap-4 font-mono text-[11px] tracking-widest text-fg-faint uppercase">
+                        <span class="flex items-center gap-1.5">
+                            <kbd class="rounded border border-line-3 bg-ink-2 px-1.5 py-0.5 font-mono">ESC</kbd>
+                            {{ i18n.t("to close", "schließen") }}
+                        </span>
+                        <span class="flex items-center gap-1.5">
+                            <kbd class="rounded border border-line-3 bg-ink-2 px-1.5 py-0.5 font-mono">ENTER</kbd>
+                            {{ i18n.t("to select", "auswählen") }}
+                        </span>
                     </div>
                 </div>
 
                 <!-- Loading state -->
-                <div x-show="loading" class="px-6 py-14 text-center sm:px-14 bg-white dark:bg-gray-900">
-                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-indigo-500 border-t-transparent mb-4"></div>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Searching our database...</p>
+                <div x-show="loading" class="px-6 py-14 text-center">
+                    <div class="mb-4 inline-block size-8 animate-spin rounded-full border-4 border-accent border-t-transparent"></div>
+                    <p class="text-sm text-fg-dim">{{ i18n.t("Searching…", "Suche läuft…") }}</p>
                 </div>
 
-                <!-- Footer / Shortcuts -->
-                <div class="px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-[11px] text-gray-400">
-                    <div class="flex items-center">
-                        Powered by <span class="ml-1 font-bold text-gray-500 dark:text-gray-300">Pagefind</span>
-                    </div>
-                    <div class="hidden sm:block">
-                        <span class="bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded text-gray-600 dark:text-gray-300 mr-1">↑↓</span> to navigate
-                    </div>
+                <!-- Footer -->
+                <div class="flex items-center justify-between border-t border-line bg-ink-2 px-4 py-3 font-mono text-[11px] text-fg-faint">
+                    <span>{{ i18n.t("Powered by", "Angetrieben von") }} <span class="text-fg-dim">Pagefind</span></span>
+                    <span class="hidden sm:block">
+                        <kbd class="rounded border border-line-3 px-1.5 py-0.5">↑↓</kbd> {{ i18n.t("to navigate", "navigieren") }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -127,6 +125,15 @@
                     await this.pagefind.options({
                         "excerptLength": 20
                     });
+                    await this.pagefind.init();
+                    // Pagefind builds one index per page language. Merge the
+                    // other one so a single search covers the whole site.
+                    const other = document.documentElement.lang === "de" ? "en" : "de";
+                    try {
+                        await this.pagefind.mergeIndex("/pagefind", { language: other });
+                    } catch (e) {
+                        // No index for that language yet — search the current one.
+                    }
                 } catch (e) {
                     console.error("Pagefind failed to load", e);
                 }

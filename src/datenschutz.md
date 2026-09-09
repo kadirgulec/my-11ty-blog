@@ -3,9 +3,10 @@ layout: base.njk
 title: Datenschutzerklärung
 robots: noindex
 lang: de
+docLang: de
 ---
 
-<div class="mx-auto max-w-3xl px-6 py-24 sm:py-32 lg:px-8 prose dark:prose-invert">
+<div class="mx-auto max-w-3xl px-4 py-16 sm:px-5 sm:py-24 prose prose-invert prose-site">
 
 # Datenschutzerklärung
 
@@ -72,10 +73,10 @@ Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenomm
 ### Kontaktanfragen per E-Mail
 Wenn Sie uns per E-Mail kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
 
-### LocalStorage (Dunkelmodus/Dark Mode)
-Diese Website verwendet den lokalen Speicher Ihres Browsers (LocalStorage), um Ihre Präferenz für den Darstellungsmodus (Hell/Dunkel) zu speichern.
-*   **Gespeicherte Daten:** Nur der Wert "light" oder "dark".
-*   **Zweck:** Technisch notwendig, um die gewünschte Darstellung beim Navigieren zwischen den Seiten beizubehalten.
+### LocalStorage (Sprachauswahl)
+Diese Website verwendet den lokalen Speicher Ihres Browsers (LocalStorage), um Ihre Sprachauswahl (Deutsch/Englisch) zu speichern.
+*   **Gespeicherte Daten:** Nur der Wert "de" oder "en" unter dem Schlüssel "site-lang".
+*   **Zweck:** Technisch notwendig, um die gewählte Sprache beim Navigieren zwischen den Seiten beizubehalten.
 *   **Rechtsgrundlage:** Art. 6 Abs. 1 lit. f DSGVO (Berechtigtes Interesse an einer nutzerfreundlichen Darstellung).
 *   Es erfolgt keine Weitergabe an Dritte und kein Tracking.
 

@@ -3,47 +3,75 @@ layout: base.njk
 title: Certificates
 description: A collection of my verified credentials, degrees, and continuous learning achievements.
 ---
+{% import "partials/i18n.njk" as i18n %}
 
-<div class="mx-auto max-w-7xl px-6 pt-24 sm:pt-32 lg:px-8">
-    <div class="mx-auto  lg:mx-0">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">Certificates</h2>
-        <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
-            A collection of my verified credentials, degrees, and continuous learning achievements.
-        </p>
-    </div>
+<section class="section-alt border-t-0">
+  <div class="shell pt-14 pb-10 sm:pt-20 sm:pb-12">
+    <h1 class="display text-[clamp(2rem,4.4vw,3rem)] tracking-[-0.025em]">
+      {{ i18n.t("Certificates", "Zertifikate") }}
+    </h1>
+    <p class="lede mt-4 text-[17px]">
+      {{ i18n.t(
+        "A collection of my verified credentials, degrees, and continuous learning achievements.",
+        "Eine Sammlung meiner geprüften Nachweise, Abschlüsse und laufenden Weiterbildungen."
+      ) }}
+    </p>
 
-    <div class="mx-auto mt-16 grid  grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-        {% for cert in certificates.items %}
-        <!-- Reuse the card design here -->
-        <div class="flex flex-col rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
+    <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+      <div>
+        <dt class="label">{{ i18n.t("Total", "Gesamt") }}</dt>
+        <dd class="mt-1 font-display text-2xl font-semibold text-accent">{{ certificates.items | length }}</dd>
+      </div>
+      <div>
+        <dt class="label">{{ i18n.t("Issuers", "Aussteller") }}</dt>
+        <dd class="mt-1 font-display text-2xl font-semibold text-accent">
+          {{ certificates.items | countUnique("issuer") }}
+        </dd>
+      </div>
+    </dl>
+  </div>
+</section>
 
-            <div class="flex items-center gap-x-4">
-                <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-50 dark:bg-indigo-900/30">
-                    {% if cert.logo %}
-                        {% image "src" + cert.logo, cert.name, "w-full h-full object-contain" %}
-                    {% else %}
-                        <span class="text-2xl">📜</span>
-                    {% endif %}
-                </div>
-                <div>
-                    <div class="text-xs font-medium text-gray-500 dark:text-gray-400">{{ cert.issuer }}</div>
-                    <div class="text-xs text-gray-400">{{ cert.date }}</div>
-                </div>
+<section class="section">
+  <div class="section-body">
+    <ul class="grid list-none grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-5 p-0">
+      {% for cert in certificates.items %}
+        <li class="card flex flex-col p-6 transition-colors hover:border-line-4">
+
+          <div class="flex items-center gap-x-4">
+            {# Issuer logos are mostly dark artwork, so they sit on a light tile. #}
+            <div class="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-line-2 bg-white p-1.5">
+              {% if cert.logo %}
+                {% image "src" + cert.logo, cert.issuer, "h-full w-full object-contain", "48px" %}
+              {% else %}
+                <span class="font-display text-lg font-semibold text-ink" aria-hidden="true">{{ cert.issuer | truncate(1, true, "") }}</span>
+              {% endif %}
             </div>
-
-            <h3 class="mt-4 text-base font-semibold leading-7 tracking-tight text-gray-900 dark:text-white">
-                {{ cert.name }}
-            </h3>
-
-            <div class="mt-4 flex flex-1 items-end">
-                {% if cert.url and cert.url != '#' %}
-                <a href="{{ cert.url }}" target="_blank"
-                   class="button-soft">
-                    Verify Credential
-                </a>
-                {% endif %}
+            <div class="min-w-0">
+              <div class="truncate text-[13.5px] font-medium text-fg-dim">{{ cert.issuer }}</div>
+              <div class="font-mono text-xs text-fg-faint">
+                <span data-lang-en>{{ cert.date | monthYear("en-GB") }}</span
+                ><span data-lang-de>{{ cert.date | monthYear("de-DE") }}</span>
+              </div>
             </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+          </div>
+
+          <h2 class="mt-4 font-display text-base leading-6 font-semibold tracking-[-0.01em] text-fg">
+            {{ cert.name }}
+          </h2>
+
+          <div class="mt-5 flex flex-1 items-end">
+            {% if cert.url and cert.url != '#' %}
+              <a href="{{ cert.url }}" target="_blank" rel="noopener" class="btn-small">
+                {{ i18n.t("Verify credential", "Nachweis prüfen") }} <span aria-hidden="true">↗</span>
+              </a>
+            {% else %}
+              <span class="badge">{{ i18n.t("On file", "Liegt vor") }}</span>
+            {% endif %}
+          </div>
+
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

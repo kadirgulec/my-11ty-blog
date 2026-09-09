@@ -1,0 +1,86 @@
+{
+  "items": [
+    {
+      "title": "CoMon",
+      "status": "live",
+      "statusLabel": "LIVE · IN PROGRESS",
+      "statusLabelDe": "LIVE · IN ARBEIT",
+      "tagline": "Your contracts, meters and household budget — in one place.",
+      "taglineDe": "Verträge, Zähler und Haushaltsbudget — an einem Ort.",
+      "description": "CoMon watches your contract renewals and cancellation deadlines, logs your meter readings and fill-ups, and keeps the household budget in balance — then emails you before anything slips.",
+      "descriptionDe": "CoMon überwacht Vertragsverlängerungen und Kündigungsfristen, erfasst Zählerstände und Tankfüllungen und hält das Haushaltsbudget im Gleichgewicht — und schickt eine E-Mail, bevor etwas durchrutscht.",
+      "features": [
+        {
+          "text": "Contracts with renewal and notice-period tracking",
+          "textDe": "Verträge mit Verlängerungs- und Kündigungsfristen"
+        },
+        {
+          "text": "Meter readings and fuel fill-ups per device or vehicle",
+          "textDe": "Zählerstände und Tankfüllungen pro Gerät oder Fahrzeug"
+        },
+        {
+          "text": "Accounts, fixed costs and spending by category",
+          "textDe": "Konten, Fixkosten und Ausgaben nach Kategorie"
+        },
+        {
+          "text": "Configurable widget dashboard, multi-user households",
+          "textDe": "Konfigurierbares Widget-Dashboard, Haushalte mit mehreren Nutzern"
+        }
+      ],
+      "meta": [
+        {
+          "label": "STACK",
+          "labelDe": "STACK",
+          "value": "Laravel · Livewire · Alpine.js · Tailwind CSS · MySQL",
+          "valueDe": "Laravel · Livewire · Alpine.js · Tailwind CSS · MySQL"
+        },
+        {
+          "label": "ROLE",
+          "labelDe": "ROLLE",
+          "value": "Solo — concept, UI, backend, deployment",
+          "valueDe": "Alleine — Konzept, UI, Backend, Deployment"
+        }
+      ],
+      "url": "https://comon.guelec.eu",
+      "urlLabel": "comon.guelec.eu",
+      "note": "Demo access on request",
+      "noteDe": "Demo-Zugang auf Anfrage",
+      "image": "/assets/images/projects/comon-dashboard.png",
+      "imageAlt": "CoMon dashboard showing quick booking, fuel entry, fixed costs and account balances",
+      "frame": "browser"
+    },
+    {
+      "title": "QR Invites",
+      "titleDe": "QR-Einladungen",
+      "status": "side",
+      "statusLabel": "SIDE PROJECT",
+      "statusLabelDe": "NEBENPROJEKT",
+      "tagline": "One personal invitation link per guest, with RSVPs that actually come back.",
+      "taglineDe": "Ein persönlicher Einladungslink pro Gast — mit Rückmeldungen, die wirklich ankommen.",
+      "description": "Built for a birthday party. Every guest gets a QR code that opens their own invitation page, where they confirm how many people are coming and note allergies or dietary needs. The host sees the headcount and the notes in one list instead of chasing replies across messengers.",
+      "descriptionDe": "Entstanden für eine Geburtstagsfeier. Jeder Gast bekommt einen QR-Code, der seine eigene Einladungsseite öffnet — dort bestätigt er die Personenzahl und notiert Allergien oder Ernährungswünsche. Der Gastgeber sieht Zusagen und Notizen in einer Liste, statt Antworten über Messenger zusammenzusuchen.",
+      "features": [],
+      "meta": [
+        {
+          "label": "STACK",
+          "labelDe": "STACK",
+          "value": "Laravel · Livewire · Tailwind CSS · QR generation",
+          "valueDe": "Laravel · Livewire · Tailwind CSS · QR-Generierung"
+        },
+        {
+          "label": "FOCUS",
+          "labelDe": "FOKUS",
+          "value": "Guest tokens, mobile-first invitation, RSVP tracking",
+          "valueDe": "Gast-Tokens, Mobile-First-Einladung, Zusagen-Tracking"
+        }
+      ],
+      "url": "",
+      "urlLabel": "",
+      "note": "",
+      "noteDe": "",
+      "image": "",
+      "imageAlt": "Mobile invitation page with date, RSVP confirmation and guest count",
+      "frame": "phone"
+    }
+  ]
+}

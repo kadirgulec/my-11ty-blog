@@ -1,0 +1,108 @@
+{% import "partials/i18n.njk" as i18n %}
+
+<section id="work" class="section scroll-mt-20">
+  <div class="section-body">
+
+    <div class="section-head mb-3">
+      <span class="eyebrow">01</span>
+      <h2>{{ i18n.t("Selected work", "Ausgewählte Projekte") }}</h2>
+    </div>
+    <p class="lede mb-12">
+      {{ i18n.t(
+        "Two projects I built end to end, outside of client work.",
+        "Zwei Projekte, die ich außerhalb der Arbeit komplett selbst gebaut habe."
+      ) }}
+    </p>
+
+    <div class="grid gap-8">
+      {% for project in projects.items %}
+        <article class="card overflow-hidden">
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-stretch">
+
+            <div class="flex flex-col gap-[22px] p-[clamp(1.75rem,3vw,2.75rem)]">
+              <div class="flex flex-wrap items-center gap-3">
+                <h3 class="display m-0 text-[28px]">{{ i18n.t(project.title, project.titleDe) }}</h3>
+                {% if project.statusLabel %}
+                  <span class="{{ 'badge-live' if project.status == 'live' else 'badge' }}">
+                    {{ i18n.t(project.statusLabel, project.statusLabelDe) }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <p class="m-0 font-display text-xl leading-[1.4] text-fg text-pretty">
+                {{ i18n.t(project.tagline, project.taglineDe) }}
+              </p>
+
+              <p class="m-0 text-fg-muted text-pretty">
+                {{ i18n.t(project.description, project.descriptionDe) }}
+              </p>
+
+              {% if project.features.length %}
+                <ul class="m-0 grid list-none gap-2.5 p-0">
+                  {% for feature in project.features %}
+                    <li class="flex items-baseline gap-2.5 text-[15px] text-fg-muted">
+                      <span class="font-mono text-accent" aria-hidden="true">&rarr;</span>
+                      <span>{{ i18n.t(feature.text, feature.textDe) }}</span>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+              {% if project.meta.length %}
+                <div class="grid gap-3.5 border-t border-line pt-1.5">
+                  {% for row in project.meta %}
+                    <div class="flex items-baseline gap-3.5">
+                      <span class="min-w-14 font-mono text-[11.5px] tracking-[0.08em] text-fg-faint">
+                        {{ i18n.t(row.label, row.labelDe) }}
+                      </span>
+                      <span class="text-[14.5px] text-fg">{{ i18n.t(row.value, row.valueDe) }}</span>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              {% if project.url or project.note %}
+                <div class="mt-0.5 flex flex-wrap items-center gap-3">
+                  {% if project.url %}
+                    <a href="{{ project.url }}" rel="noopener" class="btn-small">
+                      {{ project.urlLabel or project.url }} <span aria-hidden="true">↗</span>
+                    </a>
+                  {% endif %}
+                  {% if project.note %}
+                    <span class="text-[13.5px] text-fg-faint">{{ i18n.t(project.note, project.noteDe) }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+
+            {# Screenshot well: a browser chrome for wide shots, a phone slab for tall ones. #}
+            <div class="flex items-center bg-well p-[clamp(1.25rem,2.5vw,2.25rem)] {{ 'justify-center' if project.frame == 'phone' }}">
+              {% if project.image %}
+                {% if project.frame == 'phone' %}
+                  <div class="w-full max-w-[280px] overflow-hidden rounded-[22px] border border-line-2 shadow-[0_24px_60px_rgba(0,0,0,0.5)]">
+                    {% image "src" + project.image, project.imageAlt, "block w-full h-auto", "(max-width: 768px) 100vw, 280px" %}
+                  </div>
+                {% else %}
+                  <div class="w-full min-w-0 overflow-hidden rounded-xl border border-line-2 shadow-[0_24px_60px_rgba(0,0,0,0.5)]">
+                    <div class="flex h-[30px] items-center gap-[7px] border-b border-line-2 bg-surface-2 px-3">
+                      <span class="block size-[9px] rounded-full bg-line-4"></span>
+                      <span class="block size-[9px] rounded-full bg-line-4"></span>
+                      <span class="block size-[9px] rounded-full bg-line-4"></span>
+                    </div>
+                    {% image "src" + project.image, project.imageAlt, "block w-full h-auto", "(max-width: 768px) 100vw, 560px" %}
+                  </div>
+                {% endif %}
+              {% else %}
+                <div class="flex aspect-3/4 w-full max-w-[280px] items-center justify-center rounded-[22px] border border-dashed border-line-3 bg-ink px-6 text-center font-mono text-xs tracking-[0.08em] text-fg-faint uppercase">
+                  {{ i18n.t("Screenshot coming soon", "Screenshot folgt") }}
+                </div>
+              {% endif %}
+            </div>
+
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

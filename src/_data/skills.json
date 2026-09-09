@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "title": "Working daily",
+      "titleDe": "Täglich im Einsatz",
+      "accent": true,
+      "items": [
+        "PHP",
+        "Laravel",
+        "Livewire",
+        "Alpine.js",
+        "Tailwind CSS",
+        "MySQL",
+        "Git",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Claude"
+      ]
+    },
+    {
+      "title": "Also comfortable with",
+      "titleDe": "Ebenfalls vertraut",
+      "accent": false,
+      "items": [
+        "Python",
+        "Java",
+        "SQL",
+        "Linux"
+      ]
+    }
+  ]
+}

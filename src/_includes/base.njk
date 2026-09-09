@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ lang or 'en' }}">
+<html lang="{{ docLang or lang or 'en' }}" data-lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,7 +61,7 @@
       "url": "{{ pageUrl }}",
       "image": "{{ pageImage }}",
       "datePublished": "{{ page.date | isoDate }}",
-      "inLanguage": "en",
+      "inLanguage": "{{ docLang or 'en' }}",
       "author": {
         "@type": "Person",
         "name": "{{ site.author }}",
@@ -75,16 +75,28 @@
     <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
     <link rel="manifest" href="/assets/site.webmanifest">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#101418">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog" href="{{ site.url }}/feed.xml">
-     <script>
-        // Check local storage or system preference
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
+
+    <script>
+        // Stamp the reader's language before first paint so the inactive
+        // variant of every bilingual string is hidden without a flash.
+        // Only data-lang changes: `lang` stays the document's own language,
+        // which is what Pagefind keys its search index on. Individual
+        // bilingual fragments carry their own `lang` (see partials/i18n.njk).
+        (function () {
+            // ?lang=de wins over the stored choice, so a link can carry a language.
+            var requested = new URLSearchParams(location.search).get('lang');
+            var stored = null;
+            try { stored = localStorage.getItem('site-lang'); } catch (e) {}
+            var choice = requested === 'de' || requested === 'en' ? requested : stored;
+            var lang = choice === 'de' || choice === 'en' ? choice : 'en';
+            document.documentElement.setAttribute('data-lang', lang);
+            if (requested === lang) {
+                try { localStorage.setItem('site-lang', lang); } catch (e) {}
+            }
+        })();
     </script>
 
     <!-- Link to the Splide CSS file (before style.css so site overrides win) -->
@@ -96,15 +108,15 @@
     <!-- Alpine.js -->
     <script defer src="/assets/vendor/alpine.min.js"></script>
 </head>
-<body class="bg-white dark:bg-gray-900 min-h-screen custom-scrollbar">
-  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 button-soft">Skip to content</a>
-  <!-- Header -->
-    {% include "header.njk" %}
-  <main id="main" class="isolate" data-pagefind-body>
+<body class="custom-scrollbar min-h-screen bg-ink font-sans text-fg">
+  <a href="#main" class="btn-primary sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100">Skip to content</a>
+
+  {% include "header.njk" %}
+
+  <main id="main"{% if not excludeFromSearch %} data-pagefind-body{% endif %}>
     {{ content | safe }}
   </main>
 
-  <!-- Footer -->
   {% include "footer.njk" %}
 
   {% include "partials/search.njk" %}

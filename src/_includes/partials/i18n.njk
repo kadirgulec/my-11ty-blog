@@ -1,0 +1,21 @@
+{#
+  Bilingual text helpers.
+
+  Both language variants are rendered into the HTML; `html[data-lang]` plus the
+  rules in style.css decide which one is visible. That keeps the switch instant
+  and keeps every string in the static output for search and crawlers.
+
+  Each variant carries its own `lang`, so `<html lang>` can stay the document's
+  build-time language — which is what Pagefind keys its index on.
+
+  Usage:  {% import "partials/i18n.njk" as i18n %}
+          {{ i18n.t("Certificates", "Zertifikate") }}
+
+  `de` may be empty — the English string is then used for both languages, which
+  is what the CMS-managed data files rely on for untranslated fields.
+#}
+
+{% macro t(en, de) %}<span data-lang-en lang="en">{{ en }}</span><span data-lang-de lang="de">{{ de if de else en }}</span>{% endmacro %}
+
+{#- Same, but for pre-rendered HTML (e.g. markdown output). -#}
+{% macro tHtml(en, de) %}<span data-lang-en lang="en">{{ en | safe }}</span><span data-lang-de lang="de">{{ (de if de else en) | safe }}</span>{% endmacro %}

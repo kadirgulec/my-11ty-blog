@@ -18,6 +18,13 @@ collections:
     fields:
       - { label: Title,       name: title,       widget: string }
       - { label: Date,        name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - label: "Language (which version of the site this post appears in)"
+        name: docLang
+        widget: select
+        default: en
+        options:
+          - { label: "English", value: en }
+          - { label: "Deutsch", value: de }
       - { label: "Featured image", name: image,  widget: image, required: false }
       - { label: "Image alt", name: imageAlt,    widget: string, required: false }
       - { label: Description, name: description,  widget: text }
@@ -28,6 +35,81 @@ collections:
   - name: data
     label: "Site Data"
     files:
+      # --- Projects ("Selected work" on the homepage) -----------------------
+      - name: projects
+        label: "Projects"
+        file: "src/_data/projects.json"
+        media_folder: "/src/assets/images/projects"
+        public_folder: "/assets/images/projects"
+        fields:
+          - label: "Projects (top to bottom)"
+            name: items
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title,          name: title,     widget: string }
+              - { label: "Title (DE)",   name: titleDe,   widget: string, required: false }
+              - label: Status
+                name: status
+                widget: select
+                default: side
+                options:
+                  - { label: "Live (green badge)", value: live }
+                  - { label: "Side project (grey badge)", value: side }
+              - { label: "Badge text",        name: statusLabel,   widget: string, required: false }
+              - { label: "Badge text (DE)",   name: statusLabelDe, widget: string, required: false }
+              - { label: "Tagline",           name: tagline,       widget: text }
+              - { label: "Tagline (DE)",      name: taglineDe,     widget: text, required: false }
+              - { label: "Description",       name: description,   widget: text }
+              - { label: "Description (DE)",  name: descriptionDe, widget: text, required: false }
+              - label: "Feature bullets"
+                name: features
+                widget: list
+                required: false
+                summary: "{{fields.text}}"
+                fields:
+                  - { label: Text,        name: text,   widget: string }
+                  - { label: "Text (DE)", name: textDe, widget: string, required: false }
+              - label: "Meta rows (STACK, ROLE, FOCUS …)"
+                name: meta
+                widget: list
+                required: false
+                summary: "{{fields.label}}: {{fields.value}}"
+                fields:
+                  - { label: Label,        name: label,   widget: string }
+                  - { label: "Label (DE)", name: labelDe, widget: string, required: false }
+                  - { label: Value,        name: value,   widget: string }
+                  - { label: "Value (DE)", name: valueDe, widget: string, required: false }
+              - { label: "Link URL",        name: url,      widget: string, required: false }
+              - { label: "Link label",      name: urlLabel, widget: string, required: false }
+              - { label: "Note next to the link",      name: note,   widget: string, required: false }
+              - { label: "Note next to the link (DE)", name: noteDe, widget: string, required: false }
+              - { label: "Screenshot",      name: image,    widget: image,  required: false }
+              - { label: "Screenshot alt",  name: imageAlt, widget: string, required: false }
+              - label: "Screenshot frame"
+                name: frame
+                widget: select
+                default: browser
+                options:
+                  - { label: "Browser window (wide screenshots)", value: browser }
+                  - { label: "Phone (tall screenshots)", value: phone }
+
+      # --- Skills ("Stack & credentials") -----------------------------------
+      - name: skills
+        label: "Skills"
+        file: "src/_data/skills.json"
+        fields:
+          - label: "Skill groups"
+            name: groups
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title,        name: title,   widget: string }
+              - { label: "Title (DE)", name: titleDe, widget: string, required: false }
+              - { label: "Highlight (orange pills)", name: accent, widget: boolean, default: false, required: false }
+              - { label: Items,        name: items,   widget: list }
+
+      # --- Certificates ------------------------------------------------------
       - name: certificates
         label: "Certificates"
         file: "src/_data/certificates.json"
@@ -37,13 +119,16 @@ collections:
           - label: "Certificates"
             name: items
             widget: list
+            summary: "{{fields.name}} — {{fields.issuer}}"
             fields:
               - { label: Name,     name: name,     widget: string }
               - { label: Issuer,   name: issuer,   widget: string }
-              - { label: Date,     name: date,     widget: string }
+              - { label: "Date (e.g. January 2025 — localised automatically)", name: date, widget: string }
               - { label: Logo,     name: logo,     widget: image, required: false }
               - { label: "URL ('#' if none)", name: url, widget: string, default: "#" }
-              - { label: "Featured (show on homepage slider)", name: featured, widget: boolean, default: false, required: false }
+              - { label: "Featured (show in the homepage shortlist)", name: featured, widget: boolean, default: false, required: false }
+
+      # --- Career history ("Path") -------------------------------------------
       - name: history
         label: "Career History"
         file: "src/_data/history.json"
@@ -53,13 +138,25 @@ collections:
           - label: "Entries (newest first)"
             name: items
             widget: list
+            summary: "{{fields.date}} — {{fields.role}}"
             fields:
-              - { label: Role,  name: role,  widget: string }
-              - { label: Place, name: place, widget: string }
-              - { label: "Date (e.g. 2022 – 2024)", name: date, widget: string }
-              - { label: Kind,  name: kind,  widget: select, options: [work, education] }
+              - { label: Role,          name: role,    widget: string }
+              - { label: "Role (DE)",   name: roleDe,  widget: string, required: false }
+              - { label: Place,         name: place,   widget: string }
+              - { label: "Place (DE)",  name: placeDe, widget: string, required: false }
+              - { label: "Date (e.g. 2022 – 2024)", name: date,   widget: string }
+              - { label: "Date (DE)",               name: dateDe, widget: string, required: false }
+              - label: Kind
+                name: kind
+                widget: select
+                options:
+                  - { label: "Experience (left column)", value: work }
+                  - { label: "Education (right column)", value: education }
+              - { label: "Current role (highlights the date in orange)", name: current, widget: boolean, default: false, required: false }
               - { label: Logo,  name: logo,  widget: image, required: false }
               - { label: "Logo background (Tailwind class, for logos that need a dark circle)", name: logoBg, widget: string, required: false }
-              - { label: Description, name: description, widget: text, required: false }
+              - { label: Description,        name: description,   widget: text, required: false }
+              - { label: "Description (DE)", name: descriptionDe, widget: text, required: false }
               - { label: "Parallel (runs alongside the entry above)", name: parallel, widget: boolean, required: false }
-              - { label: "Milestone note shown above this entry", name: gapNote, widget: string, required: false }
+              - { label: "Milestone note shown above this entry",      name: gapNote,   widget: string, required: false }
+              - { label: "Milestone note (DE)",                        name: gapNoteDe, widget: string, required: false }

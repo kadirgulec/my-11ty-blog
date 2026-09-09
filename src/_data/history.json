@@ -2,61 +2,85 @@
   "items": [
     {
       "role": "Software Developer",
+      "roleDe": "Softwareentwickler",
       "place": "aks-Service GmbH",
       "date": "2024 – Present",
+      "dateDe": "2024 – heute",
+      "current": true,
       "kind": "work",
       "logo": "/assets/images/company/aks-service.png",
-      "description": "Developing and maintaining web applications with PHP, Laravel, Livewire and Alpine.js."
+      "description": "Building and maintaining web applications with PHP, Laravel, Livewire and Alpine.js.",
+      "descriptionDe": "Entwicklung und Wartung von Webanwendungen mit PHP, Laravel, Livewire und Alpine.js."
     },
     {
       "role": "Apprenticeship",
+      "roleDe": "Ausbildung",
       "place": "aks-Service GmbH",
       "date": "2022 – 2024",
+      "dateDe": "2022 – 2024",
       "kind": "work",
       "logo": "/assets/images/company/aks-service.png",
-      "description": "Hands-on training as Fachinformatiker für Anwendungsentwicklung, working on real projects from day one."
-    },
-    {
-      "role": "Umschulung / Software Developer",
-      "place": "EVB Training",
-      "date": "2022 – 2024",
-      "kind": "education",
-      "logo": "/assets/images/university/evb.png",
-      "parallel": true,
-      "description": "Retraining program in software development, completed with the IHK exam."
+      "description": "Hands-on training as Fachinformatiker für Anwendungsentwicklung, on real projects from day one.",
+      "descriptionDe": "Praxisausbildung zum Fachinformatiker für Anwendungsentwicklung — echte Projekte ab dem ersten Tag."
     },
     {
       "role": "Specialist",
-      "place": "Ministry of Interior",
+      "roleDe": "Sachbearbeiter",
+      "place": "Ministry of Interior, Turkey",
+      "placeDe": "Innenministerium, Türkei",
       "date": "2009 – 2016",
+      "dateDe": "2009 – 2016",
       "kind": "work",
       "logo": "/assets/images/company/InteriorMinistryTR.png",
+      "description": "Administrative casework in a public institution. Relocated to Germany in 2016.",
+      "descriptionDe": "Verwaltungsarbeit im öffentlichen Dienst. 2016 Umzug nach Deutschland.",
       "gapNote": "2016 – 2022 · Relocated to Germany and made a career change into software development",
-      "description": ""
+      "gapNoteDe": "2016 – 2022 · Umzug nach Deutschland und Quereinstieg in die Softwareentwicklung"
     },
     {
-      "role": "Bachelor / Public Administration",
-      "place": "Eskisehir / Anadolu Universitesi",
+      "role": "Retraining, Software Development",
+      "roleDe": "Umschulung, Softwareentwicklung",
+      "place": "EVB Training",
+      "date": "2022 – 2024",
+      "dateDe": "2022 – 2024",
+      "kind": "education",
+      "logo": "/assets/images/university/evb.png",
+      "parallel": true,
+      "description": "Completed with the IHK exam, Bonn 2025.",
+      "descriptionDe": "Abgeschlossen mit der IHK-Prüfung, Bonn 2025."
+    },
+    {
+      "role": "B.A. Public Administration",
+      "roleDe": "B.A. Verwaltungswissenschaft",
+      "place": "Anadolu Üniversitesi, Eskişehir",
       "date": "2009 – 2013",
+      "dateDe": "2009 – 2013",
       "kind": "education",
       "logo": "/assets/images/university/anadolu-uni.png",
-      "logoBg": "bg-gray-700",
-      "description": "Completed as a distance-learning degree alongside full-time work."
+      "logoBg": "bg-line-3",
+      "description": "Distance degree alongside full-time work.",
+      "descriptionDe": "Fernstudium parallel zur Vollzeitstelle."
     },
     {
-      "role": "Bachelor / Security Science",
+      "role": "B.Sc. Security Science",
+      "roleDe": "B.Sc. Sicherheitswissenschaft",
       "place": "Ankara",
       "date": "2005 – 2009",
+      "dateDe": "2005 – 2009",
       "kind": "education",
       "logo": "/assets/images/university/polis.png",
-      "description": ""
+      "description": "",
+      "descriptionDe": ""
     },
     {
       "role": "Gymnasium",
+      "roleDe": "Gymnasium",
       "place": "Ankara",
       "date": "2001 – 2005",
+      "dateDe": "2001 – 2005",
       "kind": "education",
-      "description": ""
+      "description": "",
+      "descriptionDe": ""
     }
   ]
 }

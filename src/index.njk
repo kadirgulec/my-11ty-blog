@@ -1,46 +1,16 @@
 ---
 layout: base.njk
 title: Kadir Gülec - Software Developer
-skills:
- - HTML
- - CSS
- - JavaScript
- - GIT
- - Python
- - Linux
- - SQL
- - Java
- - PHP
- - Laravel
- - Tailwind CSS
- - Livewire
- - Alpine.JS
+description: Software developer at aks-Service GmbH — PHP, Laravel, Livewire and Alpine.js. Career changer, Fachinformatiker AE (IHK Bonn 2025).
 ---
 
-    <!-- Hero section -->
-    {% include "sections/hero.njk" %}
+{% include "sections/hero.njk" %}
+{% include "sections/work.njk" %}
+{% include "sections/about-me.njk" %}
+{% include "sections/path.njk" %}
+{% include "sections/stack.njk" %}
+{% include "sections/soft-skills.njk" %}
+{% include "sections/blog-preview.njk" %}
+{% include "sections/contact.njk" %}
 
-    <!-- About Me section -->
-    {% include "sections/about-me.njk" %}
-
-    <!-- Certificates section -->
-    {% include "sections/certificates.njk" %}
-
-    <!-- Image section -->
-    <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-      {% image "src/assets/images/php-html-css-js.jpg", "", "aspect-5/2 w-full object-cover outline-1 -outline-offset-1 outline-black/5 xl:rounded-3xl dark:outline-white/10" %}
-    </div>
-
-    <!-- Soft SKills Section -->
-    {% include "sections/soft-skills.njk" %}
-
-    <!-- Tech Stack section -->
-    {% include "sections/skills.njk" %}
-    <!-- History section -->
-    {% include "sections/history.njk" %}
-    <!-- Projects section -->
-    {# {% include "sections/projects.njk" %} #}
-    <!-- Blog section -->
-    {% include "sections/blog-preview.njk" %}
-    <!-- Contact section -->
-    {% include "sections/contact.njk" %}
+<script src="/assets/js/dotted-grid.js" defer></script>

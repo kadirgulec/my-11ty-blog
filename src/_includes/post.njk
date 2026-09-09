@@ -1,79 +1,86 @@
 ---
 layout: base.njk
 ---
+{% import "partials/i18n.njk" as i18n %}
 
-<div class="main-container">
-  <div class="mx-auto max-w-3xl text-base leading-7 ">
+{% set dateLocale = "de-DE" if docLang == "de" else "en-GB" %}
 
-  <div class="mb-5">
-          <a href="/blog/" class="button-soft">Back to all posts</a>
-        </div>
+<article class="section border-t-0">
+  <div class="shell py-12 sm:py-16">
+    <div class="mx-auto max-w-3xl">
 
-    <!-- Title and Date -->
-    <p class="text-base font-semibold leading-7 p-text">{{ date | postDate }} · {{ content | readingTime }} min read</p>
-    <h1 class="mt-2 text-3xl font-bold tracking-tight p-text sm:text-4xl">{{ title }}</h1>
+      <a href="/blog/" class="link-arrow mb-8">
+        <span aria-hidden="true">&larr;</span> {{ i18n.t("All posts", "Alle Beiträge") }}
+      </a>
 
-    <!-- Tags Badge List -->
-    <div class="mt-4 flex flex-wrap gap-2">
-      {% for tag in tags %}
-        {% if tag != "post" and tag != "featured" %}
-          <a href="/tags/{{ tag | slugify }}/" class="tag-pill">
-            #{{ tag }}
-          </a>
-        {% endif %}
-      {% endfor %}
-    </div>
-
-    <!-- Main Content -->
-    <div class="mt-10 prose prose-lg dark:prose-invert mx-auto">
-        {{ content | safe }}
-    </div>
-    <div class="mt-4 flex justify-end w-full">
-        <a href="/blog/" class="button-soft">Back to all posts</a>
+      <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[12.5px] text-fg-faint">
+        <time datetime="{{ page.date | isoDate }}">{{ page.date | postDate(dateLocale) }}</time>
+        <span>·</span>
+        <span>{{ content | readingTime }} min {{ i18n.t("read", "Lesezeit") }}</span>
+        <span class="badge">{{ (docLang or "en") | upper }}</span>
       </div>
 
-    <!-- Previous / Next post navigation -->
-    {% set previousPost = collections.post | getPreviousCollectionItem %}
-    {% set nextPost = collections.post | getNextCollectionItem %}
-    {% if previousPost or nextPost %}
-      <nav aria-label="Post navigation" class="mt-12 grid gap-4 border-t border-gray-200 pt-8 sm:grid-cols-2 dark:border-gray-800">
-        {% if previousPost %}
-          <a href="{{ previousPost.url }}" class="group rounded-md p-4 ring-1 ring-gray-200 transition hover:ring-indigo-300 dark:ring-gray-800 dark:hover:ring-indigo-700">
-            <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">&larr; Previous post</p>
-            <p class="mt-1 text-sm font-semibold text-gray-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">{{ previousPost.data.title }}</p>
-          </a>
-        {% else %}
-          <span></span>
-        {% endif %}
-        {% if nextPost %}
-          <a href="{{ nextPost.url }}" class="group rounded-md p-4 text-right ring-1 ring-gray-200 transition hover:ring-indigo-300 dark:ring-gray-800 dark:hover:ring-indigo-700">
-            <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Next post &rarr;</p>
-            <p class="mt-1 text-sm font-semibold text-gray-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">{{ nextPost.data.title }}</p>
-          </a>
-        {% endif %}
-      </nav>
-    {% endif %}
+      <h1 class="display mt-3 text-[clamp(2rem,4.4vw,2.875rem)] leading-[1.1] tracking-[-0.025em] text-pretty">
+        {{ title }}
+      </h1>
 
-    {% if site.giscus.repoId %}
-      <!-- Comments via giscus (GitHub Discussions) -->
-      <section class="mt-12 border-t border-gray-200 pt-8 dark:border-gray-800" aria-label="Comments">
-        <script src="https://giscus.app/client.js"
-                data-repo="{{ site.giscus.repo }}"
-                data-repo-id="{{ site.giscus.repoId }}"
-                data-category="{{ site.giscus.category }}"
-                data-category-id="{{ site.giscus.categoryId }}"
-                data-mapping="pathname"
-                data-strict="0"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-theme="preferred_color_scheme"
-                data-lang="en"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async>
-        </script>
-      </section>
-    {% endif %}
+      {% set postTags = tags | visibleTags %}
+      {% if postTags.length %}
+        <div class="mt-5 flex flex-wrap gap-2">
+          {% for tag in postTags %}
+            <a href="/tags/{{ tag | slugify }}/" class="tag-pill">#{{ tag }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="prose prose-invert prose-site prose-lg mt-10 max-w-none">
+        {{ content | safe }}
+      </div>
+
+      {# --- Previous / next --- #}
+      {% set previousPost = collections.post | getPreviousCollectionItem %}
+      {% set nextPost = collections.post | getNextCollectionItem %}
+      {% if previousPost or nextPost %}
+        <nav aria-label="Post navigation" class="mt-14 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
+          {% if previousPost %}
+            <a href="{{ previousPost.url }}" class="card group p-4 transition-colors hover:border-accent">
+              <p class="label m-0">&larr; {{ i18n.t("Previous", "Vorheriger") }}</p>
+              <p class="mt-1.5 font-display text-[15px] font-semibold text-fg transition-colors group-hover:text-accent">{{ previousPost.data.title }}</p>
+            </a>
+          {% else %}
+            <span></span>
+          {% endif %}
+          {% if nextPost %}
+            <a href="{{ nextPost.url }}" class="card group p-4 text-right transition-colors hover:border-accent">
+              <p class="label m-0">{{ i18n.t("Next", "Nächster") }} &rarr;</p>
+              <p class="mt-1.5 font-display text-[15px] font-semibold text-fg transition-colors group-hover:text-accent">{{ nextPost.data.title }}</p>
+            </a>
+          {% endif %}
+        </nav>
+      {% endif %}
+
+      {% if site.giscus.repoId %}
+        <!-- Comments via giscus (GitHub Discussions) -->
+        <section class="mt-12 border-t border-line pt-8" aria-label="Comments">
+          <script src="https://giscus.app/client.js"
+                  data-repo="{{ site.giscus.repo }}"
+                  data-repo-id="{{ site.giscus.repoId }}"
+                  data-category="{{ site.giscus.category }}"
+                  data-category-id="{{ site.giscus.categoryId }}"
+                  data-mapping="pathname"
+                  data-strict="0"
+                  data-reactions-enabled="1"
+                  data-emit-metadata="0"
+                  data-input-position="bottom"
+                  data-theme="dark"
+                  data-lang="en"
+                  data-loading="lazy"
+                  crossorigin="anonymous"
+                  async>
+          </script>
+        </section>
+      {% endif %}
+
+    </div>
   </div>
-</div>
+</article>

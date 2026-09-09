@@ -1,24 +1,50 @@
-<div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
-      <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-        <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">About Me</h2>
-        <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
-          <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
-            <p class="text-xl/8 text-gray-600 dark:text-gray-300"> My journey into IT is driven by a genuine curiosity for how things work—leading me to build projects ranging from desktop simulations to dynamic websites.</p>
-            <p class="mt-10 max-w-xl text-base/7 text-gray-700 dark:text-gray-400">Bringing a background of dedicated service from my previous career in public institutions, I offer a unique blend of professional discipline, reliability, and rapid technical learning.</p>
-          </div>
-          <div class="lg:flex lg:flex-auto lg:justify-center">
-            <dl class="w-64 space-y-8 xl:w-80">
-              <div class="flex flex-col-reverse gap-y-4">
-                <dt class="text-base/7 text-gray-600 dark:text-gray-400">Lines of Code</dt>
-                <dd class="text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">100k+</dd>
-              </div>
-              <div class="flex flex-col-reverse gap-y-4">
-                <dt class="text-base/7 text-gray-600 dark:text-gray-400">Projects Completed</dt>
-                <dd class="text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">15+</dd>
-              </div>
-              {% include "partials/experience-counter.njk" %}
-            </dl>
-          </div>
+{% import "partials/i18n.njk" as i18n %}
+
+<section id="about" class="section-alt scroll-mt-20">
+  <div class="section-body">
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] gap-[clamp(2.25rem,5vw,3.5rem)]">
+
+      <div>
+        <div class="section-head mb-6">
+          <span class="eyebrow">02</span>
+          <h2>{{ i18n.t("About me", "Über mich") }}</h2>
         </div>
+
+        <p class="mb-[18px] max-w-[60ch] text-[17px] text-fg-muted text-pretty">
+          {{ i18n.t(
+            "My way into IT came from a plain question: how does this actually work? Answering it turned into desktop simulations, then dynamic websites, then the apps above.",
+            "Mein Weg in die IT begann mit einer einfachen Frage: Wie funktioniert das eigentlich? Aus dem Beantworten wurden Desktop-Simulationen, dann dynamische Websites und schließlich die Anwendungen oben."
+          ) }}
+        </p>
+        <p class="max-w-[60ch] text-[17px] text-fg-muted text-pretty">
+          {{ i18n.t(
+            "Before that I spent seven years as a specialist at the Turkish Ministry of Interior. That background shows up in how I work: documented, reliable, calm about deadlines — and used to learning a new system quickly because the job required it.",
+            "Davor war ich sieben Jahre Sachbearbeiter im türkischen Innenministerium. Das prägt meine Arbeitsweise: dokumentiert, verlässlich, ruhig bei Fristen — und gewohnt, neue Systeme schnell zu lernen, weil der Job es verlangt hat."
+          ) }}
+        </p>
       </div>
+
+      {# Counts are derived from the CMS-managed data files so they cannot drift. #}
+      {% set stats = [
+        { value: year - 2022, en: "years in software",        de: "Jahre in der Softwareentwicklung" },
+        { value: projects.items | length,     en: "apps running in production", de: "Anwendungen im Live-Betrieb" },
+        { value: certificates.items | length, en: "certificates and degrees",   de: "Zertifikate und Abschlüsse" },
+        { value: 3, en: "languages spoken", de: "gesprochene Sprachen" }
+      ] %}
+
+      {# self-start: without it the rail stretches and its hairline colour shows as dead space. #}
+      <dl class="rail m-0 grid-cols-2 self-start">
+        {% for stat in stats %}
+          <div class="px-[22px] py-[26px]">
+            <dt class="sr-only">{{ stat.en }}</dt>
+            <dd class="m-0">
+              <span class="block font-display text-[34px] leading-none font-semibold tracking-[-0.02em] text-accent">{{ stat.value }}</span>
+              <span class="mt-1.5 block text-[13.5px] text-fg-dim">{{ i18n.t(stat.en, stat.de) }}</span>
+            </dd>
+          </div>
+        {% endfor %}
+      </dl>
+
     </div>
+  </div>
+</section>

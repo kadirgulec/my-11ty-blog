@@ -3,9 +3,10 @@ layout: base.njk
 title: Impressum
 robots: noindex
 lang: de
+docLang: de
 ---
 
-<div class="mx-auto max-w-3xl px-6 py-24 sm:py-32 lg:px-8 prose dark:prose-invert">
+<div class="mx-auto max-w-3xl px-4 py-16 sm:px-5 sm:py-24 prose prose-invert prose-site">
 
 # Impressum
 

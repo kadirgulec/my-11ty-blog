@@ -1,59 +1,60 @@
-<div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
-  <div class="mx-auto max-w-non lg:mx-0">
-    <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">Soft Skills</h2>
-    <p class="mt-6 text-lg/8 text-gray-700 dark:text-gray-300">
-      Technical skills build the product, but soft skills build the career. Here is what I bring to the team beyond code.
+{% import "partials/i18n.njk" as i18n %}
+
+{% set softSkills = [
+  {
+    en: "Rapid Learning", de: "Schnelles Lernen",
+    enBody: "Technology changes fast, and so do I. I have a proven ability to pick up new languages and frameworks quickly, turning curiosity into competence.",
+    deBody: "Technologie verändert sich schnell — ich auch. Neue Sprachen und Frameworks nehme ich zügig auf und mache aus Neugier Können."
+  },
+  {
+    en: "Reliability & Discipline", de: "Verlässlichkeit & Disziplin",
+    enBody: "My background in public institutions instilled a strong sense of professional discipline. I deliver what I promise, on time and with care.",
+    deBody: "Der öffentliche Dienst hat mir professionelle Disziplin mitgegeben. Ich liefere, was ich zusage — pünktlich und sorgfältig."
+  },
+  {
+    en: "Problem Solving", de: "Problemlösung",
+    enBody: "I don't just write code; I solve logic puzzles. I enjoy breaking down complex issues into manageable steps to find the most efficient solution.",
+    deBody: "Ich schreibe nicht nur Code, ich löse Logikrätsel. Komplexe Probleme zerlege ich gern in überschaubare Schritte und finde den effizientesten Weg."
+  },
+  {
+    en: "Adaptability", de: "Anpassungsfähigkeit",
+    enBody: "Whether it is a legacy codebase or a cutting-edge stack, I adapt to the environment. I am comfortable shifting gears when project requirements evolve.",
+    deBody: "Ob Legacy-Codebase oder moderner Stack — ich passe mich der Umgebung an und wechsle problemlos die Richtung, wenn sich Anforderungen ändern."
+  },
+  {
+    en: "Communication", de: "Kommunikation",
+    enBody: "Great software is built by teams who talk. I value clear, open communication and believe in sharing knowledge to lift the whole team up.",
+    deBody: "Gute Software entsteht in Teams, die miteinander sprechen. Ich setze auf klare, offene Kommunikation und teile Wissen, um das ganze Team zu stärken."
+  },
+  {
+    en: "Curiosity", de: "Neugier",
+    enBody: "“How does this work?” is my favorite question. I dig deep to understand the underlying mechanics of the tools I use, rather than just scratching the surface.",
+    deBody: "„Wie funktioniert das?“ ist meine Lieblingsfrage. Ich grabe tief, um die Mechanik meiner Werkzeuge wirklich zu verstehen, statt an der Oberfläche zu bleiben."
+  }
+] %}
+
+<section id="soft-skills" class="section scroll-mt-20">
+  <div class="section-body">
+
+    <div class="section-head mb-3">
+      <span class="eyebrow">05</span>
+      <h2>Soft Skills</h2>
+    </div>
+    <p class="lede mb-10">
+      {{ i18n.t(
+        "Technical skills build the product, but soft skills build the career. Here is what I bring to the team beyond code.",
+        "Fachwissen baut das Produkt, Soft Skills die Karriere. Das bringe ich über den Code hinaus ins Team."
+      ) }}
     </p>
+
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5">
+      {% for skill in softSkills %}
+        <div class="card p-6">
+          <h3 class="mb-2 font-display text-[17px] font-semibold">{{ i18n.t(skill.en, skill.de) }}</h3>
+          <p class="m-0 text-[14.5px] text-fg-dim text-pretty">{{ i18n.t(skill.enBody, skill.deBody) }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
   </div>
-  <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base/7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-
-    <!-- Skill 1 -->
-    <div>
-      <dt class="font-semibold text-gray-900 dark:text-white">Rapid Learning</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400">
-        Technology changes fast, and so do I. I have a proven ability to pick up new languages and frameworks quickly, turning curiosity into competence.
-      </dd>
-    </div>
-
-    <!-- Skill 2 -->
-    <div>
-      <dt class="font-semibold text-gray-900 dark:text-white">Reliability & Discipline</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400">
-        My background in public institutions instilled a strong sense of professional discipline. I deliver what I promise, on time and with care.
-      </dd>
-    </div>
-
-    <!-- Skill 3 -->
-    <div>
-      <dt class="font-semibold text-gray-900 dark:text-white">Problem Solving</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400">
-        I don't just write code; I solve logic puzzles. I enjoy breaking down complex issues into manageable steps to find the most efficient solution.
-      </dd>
-    </div>
-
-    <!-- Skill 4 -->
-    <div>
-      <dt class="font-semibold text-gray-900 dark:text-white">Adaptability</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400">
-        Whether it is a legacy codebase or a cutting-edge stack, I adapt to the environment. I am comfortable shifting gears when project requirements evolve.
-      </dd>
-    </div>
-
-    <!-- Skill 5 -->
-    <div>
-      <dt class="font-semibold text-gray-900 dark:text-white">Communication</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400">
-        Great software is built by teams who talk. I value clear, open communication and believe in sharing knowledge to lift the whole team up.
-      </dd>
-    </div>
-
-    <!-- Skill 6 -->
-    <div>
-      <dt class="font-semibold text-gray-900 dark:text-white">Curiosity</dt>
-      <dd class="mt-1 text-gray-600 dark:text-gray-400">
-        "How does this work?" is my favorite question. I dig deep to understand the underlying mechanics of the tools I use, rather than just scratching the surface.
-      </dd>
-    </div>
-
-  </dl>
-</div>
+</section>

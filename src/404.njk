@@ -4,21 +4,25 @@ layout: base.njk
 permalink: 404.html
 eleventyExcludeFromCollections: true
 ---
-<div class="main-container">
-    <div class="grid place-items-center">
-        <div class="text-center">
-            <p class="text-7xl font-semibold text-indigo-600 dark:text-indigo-400">404</p>
-            <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white">Page not
-                found</h1>
-            <p class="mt-6 text-base leading-7 text-gray-600 dark:text-gray-400">
-                Sorry, we couldn’t find the page you’re looking for.
-            </p>
+{% import "partials/i18n.njk" as i18n %}
 
-            <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a href="/" class="button-soft">
-                    Go back home
-                </a>
-            </div>
-        </div>
+<section class="section border-t-0">
+  <div class="shell grid place-items-center py-[clamp(5rem,14vw,10rem)] text-center">
+    <div>
+      <p class="font-display text-[clamp(4rem,12vw,7rem)] leading-none font-semibold tracking-[-0.03em] text-accent">404</p>
+      <h1 class="display mt-4 text-[clamp(1.5rem,4vw,2.25rem)]">
+        {{ i18n.t("Page not found", "Seite nicht gefunden") }}
+      </h1>
+      <p class="mt-4 text-fg-muted">
+        {{ i18n.t(
+          "Sorry, we couldn’t find the page you’re looking for.",
+          "Diese Seite konnten wir leider nicht finden."
+        ) }}
+      </p>
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <a href="/" class="btn-primary">{{ i18n.t("Go back home", "Zur Startseite") }}</a>
+        <a href="/blog/" class="btn-ghost">{{ i18n.t("Read the blog", "Zum Blog") }}</a>
+      </div>
     </div>
-</div>
+  </div>
+</section>

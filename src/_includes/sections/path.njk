@@ -1,0 +1,62 @@
+{% import "partials/i18n.njk" as i18n %}
+
+{#
+  Two tracks side by side: work on the left, education on the right.
+  Both are driven by history.json, split on the `kind` field.
+#}
+{% macro track(entries, labelEn, labelDe) %}
+  <div>
+    <h3 class="label m-0 mb-6 border-b border-line pb-3">{{ i18n.t(labelEn, labelDe) }}</h3>
+    <ol class="m-0 grid list-none gap-[26px] p-0">
+      {% for entry in entries %}
+        <li>
+          {% if entry.gapNote %}
+            <p class="mb-4 border-l-2 border-line-2 pl-3 text-[13px] text-fg-faint text-pretty">
+              {{ i18n.t(entry.gapNote, entry.gapNoteDe) }}
+            </p>
+          {% endif %}
+
+          <div class="mb-1.5 flex flex-wrap items-center gap-x-2.5 font-mono text-[12.5px] {{ 'text-accent' if entry.current else 'text-fg-faint' }}">
+            {{ i18n.t(entry.date, entry.dateDe) }}
+            {% if entry.parallel %}
+              <span class="badge py-0.5 text-[10.5px]">{{ i18n.t("parallel", "parallel") }}</span>
+            {% endif %}
+          </div>
+
+          <div class="font-display text-lg font-semibold">{{ i18n.t(entry.role, entry.roleDe) }}</div>
+          <div class="mb-2 text-[14.5px] text-fg-dim">{{ i18n.t(entry.place, entry.placeDe) }}</div>
+
+          {% if entry.description %}
+            <p class="m-0 text-[15px] text-fg-muted text-pretty">
+              {{ i18n.t(entry.description, entry.descriptionDe) }}
+            </p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+{% endmacro %}
+
+<section id="path" class="section scroll-mt-20">
+  <div class="section-body">
+
+    <div class="section-head mb-3">
+      <span class="eyebrow">03</span>
+      <h2>{{ i18n.t("Path", "Werdegang") }}</h2>
+    </div>
+    <p class="lede mb-12">
+      {{ i18n.t(
+        "Work on the left, education on the right — two tracks that overlapped for most of it.",
+        "Links die Arbeit, rechts die Ausbildung — zwei Stränge, die sich meist überlappt haben."
+      ) }}
+    </p>
+
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] gap-[clamp(2rem,4vw,3rem)]">
+      {% set workEntries = history.items | where("kind", "work") %}
+      {% set eduEntries = history.items | where("kind", "education") %}
+      {{ track(workEntries, "Experience", "Berufserfahrung") }}
+      {{ track(eduEntries, "Education", "Ausbildung") }}
+    </div>
+
+  </div>
+</section>
