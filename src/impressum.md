@@ -1,7 +1,6 @@
 ---
 layout: base.njk
 title: Impressum
-robots: noindex
 lang: de
 docLang: de
 ---

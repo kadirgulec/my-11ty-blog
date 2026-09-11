@@ -6,12 +6,20 @@
 
     {% set pageUrl = site.url + page.url %}
     {% set pageDescription = (description or 'Kadir Gülec - Software Developer Portfolio') | oneLine %}
+    {#
+      `generatedCard` tracks whether the share image is one of the build-time
+      1200x630 cards. A front-matter `image` is any shape, so its dimensions
+      must not be declared below.
+    #}
     {% if image %}
         {% set pageImage = site.url + image %}
+        {% set generatedCard = false %}
     {% elif layout == 'post.njk' %}
         {% set pageImage = site.url + '/assets/og/' + (page.url | ogSlug) + '.png' %}
+        {% set generatedCard = true %}
     {% else %}
-        {% set pageImage = site.url + '/assets/images/hero-1.jpg' %}
+        {% set pageImage = site.url + '/assets/og/home.png' %}
+        {% set generatedCard = true %}
     {% endif %}
 
     <title>{{ title }}{% if page.url != '/' %} | {{ site.author }}{% endif %}</title>
@@ -24,6 +32,10 @@
     <meta property="og:type" content="{{ 'article' if layout == 'post.njk' else 'website' }}">
     <meta property="og:url" content="{{ pageUrl }}">
     <meta property="og:image" content="{{ pageImage }}">
+    {% if generatedCard %}
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    {% endif %}
     {% if imageAlt %}<meta property="og:image:alt" content="{{ imageAlt }}">{% endif %}
     <meta property="og:site_name" content="{{ site.name }}">
 
@@ -41,14 +53,43 @@
     {
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": "{{ site.url }}/#person",
       "name": "{{ site.author }}",
       "url": "{{ site.url }}",
-      "jobTitle": "Software Developer",
+      "email": "mailto:{{ site.email }}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}/assets/og/logo.png",
+        "width": 1024,
+        "height": 1024,
+        "caption": "{{ site.author }} — Logo"
+      },
+      "jobTitle": ["Webentwickler", "Software Developer"],
+      "description": {{ pageDescription | dump | safe }},
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "{{ site.address.postalCode }}",
+        "addressLocality": "{{ site.address.locality }}",
+        "addressRegion": "{{ site.address.region }}",
+        "addressCountry": "{{ site.address.country }}"
+      },
+      "areaServed": {{ site.areaServed | dump | safe }},
+      "knowsAbout": {{ site.knowsAbout | dump | safe }},
+      "knowsLanguage": ["de", "tr", "en"],
       "worksFor": {
         "@type": "Organization",
         "name": "aks-Service GmbH"
       },
-      "sameAs": ["https://github.com/kadirgulec"]
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Fachinformatiker für Anwendungsentwicklung",
+        "credentialCategory": "IHK-Abschluss",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "IHK Bonn/Rhein-Sieg"
+        }
+      },
+      "sameAs": ["{{ site.github }}"]
     }
     </script>
     {% elif layout == 'post.njk' %}

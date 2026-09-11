@@ -11,6 +11,15 @@
 
     <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
       <span class="text-[13.5px] text-fg-faint">&copy; {{ year }} Kadir Gülec</span>
+      {#
+        Name, locality and mail on every page — the site's NAP block, and the
+        only location signal outside the Impressum.
+      #}
+      <address class="m-0 text-[13.5px] not-italic text-fg-faint">
+        {{ i18n.t("Web developer in", "Webentwickler in") }} {{ site.address.postalCode }} {{ site.address.locality }}
+        <span class="text-fg-faint/60">·</span>
+        <a href="mailto:{{ site.email }}" class="transition-colors hover:text-fg">{{ site.email }}</a>
+      </address>
       <span class="font-mono text-[11.5px] text-fg-faint/70">
         {{ i18n.t("Updated", "Aktualisiert") }} {% lastUpdated %}
       </span>

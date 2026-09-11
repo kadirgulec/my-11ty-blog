@@ -14,6 +14,9 @@
 
 - [x] **JSON-LD structured data** — `Person` schema on the homepage, `BlogPosting` on posts (`base.njk`).
 - [x] **Auto-generated OG images per post** — build hook in `.eleventy.js` renders a 1200×630 PNG per post (title on dark card) into `/assets/og/<slug>.png` via sharp. Posts with an `image` in frontmatter keep their own.
+- [x] **Local SEO for "Webentwickler Düren"** — homepage title/description rewritten around the target keywords; `Person` JSON-LD extended with `PostalAddress` (52351 Düren), `areaServed`, `knowsAbout`, `knowsLanguage` and `hasCredential` (data lives in `src/_data/site.json`); "Düren" added to the hero chip, hero lede and About copy, plus a NAP `<address>` block in the footer. Impressum is indexable again (Datenschutz stays `noindex`).
+- [x] **Sitemap and robots hygiene** — the sitemap now lists HTML output only, so `/feed.xml` and the Sveltia `/admin/` app dropped out (25 → 23 URLs); `robots.txt` disallows `/admin/`.
+- [x] **Branded default share card** — `/assets/og/home.png` (1200×630, logo + name + role + Düren) replaces the stock `hero-1.jpg` fallback for every page without its own image, and `/assets/og/logo.png` (1024×1024) backs the `Person` schema's `image`. Both are generated in the `eleventy.after` hook from `logo.svg`, whose fill is forced white because a rasteriser never evaluates its `prefers-color-scheme` rule.
 - [x] **Privacy-friendly analytics (GoatCounter)** — snippet in `base.njk`, config-gated. ⚠️ To activate: create a free account at https://www.goatcounter.com, then set your site code (the `xxx` in `xxx.goatcounter.com`) as `goatcounter` in `src/_data/site.json`. Mention it in the Datenschutzerklärung.
 
 ## Polish & correctness
@@ -27,6 +30,12 @@
 ## Open
 
 - [ ] **QR Invites screenshot** — the design project's `assets/invite-card.png` exceeded the 256 KiB import limit and came back truncated, so it was not committed. Upload it via the CMS (Site Data → Projects → QR Invites → Screenshot); until then the card shows a "Screenshot coming soon" placeholder.
+
+## Open — SEO follow-ups
+
+- [ ] **German landing pages + `hreflang`** — there is no `/de/` homepage or `/de/blog/`, and no `hreflang` anywhere, so the EN/DE post pairs are not linked as translations. The homepage ships both languages in one `lang="en"` document with CSS hiding one, which dilutes relevance for both.
+- [ ] **Canonical host redirect** — `src/.htaccess` only sets `ErrorDocument`; no www→non-www or http→https rule.
+- [ ] **A German page about the work itself** — the blog is all English technical/career writing, so nothing targets a local service intent.
 
 ## Ideas for later
 

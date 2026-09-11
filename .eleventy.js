@@ -63,6 +63,49 @@ function wrapTitle(title) {
     return lines;
 }
 
+const OG_INK = "#101418";
+const OG_ACCENT = "#f0801f";
+const OG_MUTED = "#98a2ad";
+
+// The logo paints itself black and only flips to white inside a
+// prefers-color-scheme query, which a rasteriser never evaluates. Force the
+// fill so the mark stays legible on the dark cards.
+function whiteLogoSvg() {
+    const svg = fs.readFileSync("./src/assets/logo.svg", "utf8");
+    return svg.replace(/<style>[\s\S]*?<\/style>/, "<style>path { fill: #ffffff; }</style>");
+}
+
+function logoBuffer(size) {
+    return sharp(Buffer.from(whiteLogoSvg())).resize(size, size).png().toBuffer();
+}
+
+// Default share card for every page that is not a post and brings no image of
+// its own — the homepage above all.
+async function writeHomeCard(destination) {
+    const logo = await logoBuffer(150);
+    const card = `<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1200" height="630" fill="${OG_INK}"/>
+        <rect width="1200" height="12" fill="${OG_ACCENT}"/>
+        <text x="80" y="332" font-family="DejaVu Sans, Arial, sans-serif" font-size="76" font-weight="bold" fill="#ffffff">Kadir G\u00fclec</text>
+        <text x="80" y="402" font-family="DejaVu Sans, Arial, sans-serif" font-size="38" fill="${OG_MUTED}">Webentwickler &amp; Software Developer</text>
+        <text x="80" y="470" font-family="DejaVu Sans, Arial, sans-serif" font-size="32" font-weight="bold" fill="${OG_ACCENT}">D\u00fcren \u00b7 PHP \u00b7 Laravel \u00b7 Livewire \u00b7 Alpine.js</text>
+        <text x="80" y="572" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="bold" fill="${OG_ACCENT}">kadirguelec.de</text>
+    </svg>`;
+    await sharp(Buffer.from(card))
+        .composite([{ input: logo, top: 78, left: 80 }])
+        .png()
+        .toFile(destination);
+}
+
+// Square mark on the site ground, referenced as the Person schema's image.
+async function writeLogoCard(destination) {
+    const logo = await logoBuffer(620);
+    await sharp({ create: { width: 1024, height: 1024, channels: 4, background: OG_INK } })
+        .composite([{ input: logo, gravity: "centre" }])
+        .png()
+        .toFile(destination);
+}
+
 function ogImageSvg(title) {
     const lines = wrapTitle(title);
     const text = lines.map((l, i) =>
@@ -80,11 +123,17 @@ function ogImageSvg(title) {
 
 module.exports = function(eleventyConfig) {
 
-    // Generate a social share image (1200x630 PNG) for every post after each build
+    // Generate the social share images after each build: the branded default
+    // card, the square logo, and a 1200x630 PNG per post.
     eleventyConfig.on("eleventy.after", async ({ results }) => {
+        fs.mkdirSync("./_site/assets/og", { recursive: true });
+        await Promise.all([
+            writeHomeCard("./_site/assets/og/home.png"),
+            writeLogoCard("./_site/assets/og/logo.png"),
+        ]);
+
         const posts = results.filter(r => r.url && /^\/(?:[a-z]{2}\/)?posts\/[^/]+\/$/.test(r.url) && r.content);
         if (!posts.length) return;
-        fs.mkdirSync("./_site/assets/og", { recursive: true });
         await Promise.all(posts.map(async (post) => {
             const slug = ogSlug(post.url);
             const m = post.content.match(/<meta property="og:title" content="([^"]*)"/);
