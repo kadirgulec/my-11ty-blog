@@ -4,14 +4,23 @@ eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{% for page in collections.all %}
-  {% if not page.data.excludeFromSitemap and page.url %}
+{%- for entry in collections.all %}
+  {#
+    HTML pages only. The RSS feed and the Sveltia CMS admin app travel through
+    the same collection but have no business in a sitemap. `entry` rather than
+    `page`, so the loop does not shadow Eleventy's own `page` object.
+  #}
+  {%- if entry.url
+        and entry.outputPath
+        and entry.outputPath.endsWith(".html")
+        and not entry.url.startsWith("/admin/")
+        and not entry.data.excludeFromSitemap %}
   <url>
-    <loc>{{ site.url }}{{ page.url | url }}</loc>
-    <lastmod>{{ page.date | isoDate }}</lastmod>
-    <changefreq>{{ page.data.changefreq or "monthly" }}</changefreq>
-    <priority>{{ page.data.priority or "0.5" }}</priority>
+    <loc>{{ site.url }}{{ entry.url | url }}</loc>
+    <lastmod>{{ entry.date | isoDate }}</lastmod>
+    <changefreq>{{ entry.data.changefreq or "monthly" }}</changefreq>
+    <priority>{{ entry.data.priority or "0.5" }}</priority>
   </url>
-  {% endif %}
-{% endfor %}
+  {%- endif %}
+{%- endfor %}
 </urlset>

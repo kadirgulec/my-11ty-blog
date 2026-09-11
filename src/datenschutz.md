@@ -49,7 +49,7 @@ Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
 
 Kadir Gülec
 
-52451 Düren
+52351 Düren
 
 E-Mail: info@kadirguelec.de
 

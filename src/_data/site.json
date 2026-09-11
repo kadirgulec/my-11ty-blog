@@ -5,6 +5,24 @@
   "email": "info@kadirguelec.de",
   "github": "https://github.com/kadirgulec",
   "goatcounter": "",
+  "address": {
+    "locality": "Düren",
+    "postalCode": "52351",
+    "region": "Nordrhein-Westfalen",
+    "country": "DE"
+  },
+  "areaServed": ["Düren", "Aachen", "Köln", "Rheinland", "Nordrhein-Westfalen"],
+  "knowsAbout": [
+    "Webentwicklung",
+    "Full-Stack-Entwicklung",
+    "PHP",
+    "Laravel",
+    "Livewire",
+    "Alpine.js",
+    "Tailwind CSS",
+    "MySQL",
+    "Eleventy"
+  ],
   "giscus": {
     "repo": "kadirgulec/my-11ty-blog",
     "repoId": "",
