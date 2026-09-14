@@ -1,0 +1,6 @@
+{
+  "layout": "project.njk",
+  "tags": "projectPage",
+  "docLang": "en",
+  "permalink": "{% if docLang == 'de' %}/de/projects/{{ project | slugify }}/{% else %}/projects/{{ project | slugify }}/{% endif %}"
+}

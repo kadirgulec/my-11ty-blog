@@ -57,6 +57,58 @@ collections:
       - { label: "Draft (uncheck to publish)", name: draft, widget: boolean, default: true }
       - { label: Body,        name: body,        widget: markdown }
 
+  # --- Project detail pages ------------------------------------------------
+  # Optional long-form write-ups, one per language, for projects that cannot be
+  # handed out as a live demo. A card links here only once its page exists.
+  - name: project-pages
+    label: "Project Pages"
+    label_singular: "Project Page"
+    folder: "src/project-pages"
+    create: true
+    # Titles repeat across languages ("CoMon" / "CoMon"), so a title-derived
+    # slug would collide the EN/DE pair onto one filename. Key on the join
+    # field plus the language instead.
+    slug: "{{fields.project}}-{{fields.docLang}}"
+    extension: md
+    format: frontmatter
+    media_folder: "/src/assets/images/projects"
+    public_folder: "/assets/images/projects"
+    thumbnail: image
+    summary: "{{draft | ternary('◆ DRAFT — ', '')}}{{docLang | upper}} · {{project}} · {{title}}"
+    sortable_fields:
+      fields: [project, docLang, draft]
+    view_filters:
+      filters:
+        - { name: drafts,  label: "Drafts",  field: draft,   pattern: 'true' }
+        - { name: english, label: "English", field: docLang, pattern: 'en' }
+        - { name: german,  label: "Deutsch", field: docLang, pattern: 'de' }
+    fields:
+      # Picked from the existing projects, so the link can never be mistyped.
+      # Shows the project's title, stores its detailSlug.
+      - label: "Project (which card this page belongs to)"
+        name: project
+        widget: relation
+        collection: data
+        file: projects
+        display_fields: ["{{items.*.title}}"]
+        search_fields: ["{{items.*.title}}"]
+        value_field: "items.*.detailSlug"
+        dropdown_threshold: 1
+      - label: "Language (which version of the site this page appears in)"
+        name: docLang
+        widget: select
+        default: en
+        options:
+          - { label: "English", value: en }
+          - { label: "Deutsch", value: de }
+      - { label: "Page title",   name: title,       widget: string }
+      - { label: Date,           name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Description,    name: description, widget: text }
+      - { label: "Share image",  name: image,       widget: image,  required: false }
+      - { label: "Image alt",    name: imageAlt,    widget: string, required: false }
+      - { label: "Draft (uncheck to publish)", name: draft, widget: boolean, default: true }
+      - { label: Body,           name: body,        widget: markdown }
+
   - name: data
     label: "Site Data"
     files:
@@ -74,6 +126,12 @@ collections:
             fields:
               - { label: Title,          name: title,     widget: string }
               - { label: "Title (DE)",   name: titleDe,   widget: string, required: false }
+              - label: "Detail page slug (leave empty if this project has no write-up)"
+                name: detailSlug
+                widget: string
+                required: false
+                hint: "Lowercase, dashes, no spaces — e.g. comon. Becomes /projects/comon/. Then add the page under 'Project Pages'."
+                pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Lowercase letters, numbers and dashes only"]
               - { label: "Draft (uncheck to show on the website)", name: draft, widget: boolean, default: true }
               - label: Status
                 name: status
