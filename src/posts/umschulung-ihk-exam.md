@@ -1,15 +1,16 @@
 ---
 title: Surviving the Umschulung and Acing the IHK Exam
-image: /assets/images/hero-1.jpg
 date: 2025-08-20
 docLang: en
+image: /assets/images/hero-1.jpg
+imageAlt: ''
 description: A look back at my retraining as a Fachinformatiker.
 tags:
   - post
   - Career
   - Germany
   - Education
-draft: false
+draft: true
 ---
 
 ## From Newbie to Professional
@@ -17,6 +18,7 @@ draft: false
 The path to becoming a **Fachinformatiker (Anwendungsentwicklung)** was intense. The "Umschulung" compresses a 3-year apprenticeship into just 2 years.
 
 ### The Final Project
+
 For my IHK exam, I had to develop a real-world application. The documentation phase was actually harder than the coding itself!
 
 *   **Project:** A customer management system.
