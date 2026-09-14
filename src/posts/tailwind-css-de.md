@@ -10,7 +10,7 @@ tags:
   - Tailwind
   - CSS
   - Design
-draft: false
+draft: true
 ---
 
 ## Die Utility-First-Revolution
@@ -18,6 +18,7 @@ draft: false
 Anfangs fand ich Tailwind schlicht hässlich. `class="p-4 bg-red-500 text-white rounded hover:bg-red-600"`? Das fühlte sich an wie Inline-Styles.
 
 ### Der Aha-Moment
+
 Dann habe ich es ausprobiert.
 
 1.  **Kein Kontextwechsel:** Ich springe nicht mehr zwischen HTML- und CSS-Datei hin und her.
