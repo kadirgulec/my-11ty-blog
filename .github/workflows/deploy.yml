@@ -5,6 +5,14 @@ on:
     branches:
       - master
 
+# The CMS saves each post as its own commit, so a batch of edits can queue several
+# deploys at once. They all sync against the same remote state file, and a delete
+# from one run then hits a path another run already removed. Queue them instead;
+# never cancel a running deploy, or it stops before writing back the state file.
+concurrency:
+  group: ftp-deploy
+  cancel-in-progress: false
+
 jobs:
   web-deploy:
     name: 🎉 Deploy
@@ -25,7 +33,7 @@ jobs:
         run: npm run build
 
       - name: 📂 Sync files to Hetzner
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
