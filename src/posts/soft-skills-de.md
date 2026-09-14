@@ -10,7 +10,7 @@ tags:
   - Career
   - Advice
   - Soft Skills
-draft: false
+draft: true
 ---
 
 ## Mehr als nur Code
