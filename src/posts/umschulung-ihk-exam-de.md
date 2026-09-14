@@ -10,7 +10,7 @@ tags:
   - Career
   - Germany
   - Education
-draft: false
+draft: true
 ---
 
 ## Vom Neuling zum Profi
@@ -18,6 +18,7 @@ draft: false
 Der Weg zum **Fachinformatiker für Anwendungsentwicklung** war intensiv. Die Umschulung presst eine dreijährige Ausbildung in nur zwei Jahre.
 
 ### Das Abschlussprojekt
+
 Für die IHK-Prüfung musste ich eine echte Anwendung entwickeln. Die Dokumentation war am Ende tatsächlich schwieriger als das Programmieren!
 
 *   **Projekt:** Ein Kundenverwaltungssystem.
