@@ -1,6 +1,8 @@
 const { feedPlugin } = require("@11ty/eleventy-plugin-rss");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
-const Image = require("@11ty/eleventy-img");
+// eleventy-img v7 is ESM-only. Node's require(esm) hands back the module
+// namespace, so the callable lives on .default (generateHTML hangs off it).
+const Image = require("@11ty/eleventy-img").default;
 const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
