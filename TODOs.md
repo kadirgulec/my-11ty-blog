@@ -25,6 +25,7 @@
 - [x] **A11y/PWA** — skip-to-content link, `apple-touch-icon` + `icon-192/512` (generated from `logo.svg`), `site.webmanifest`, `theme-color` metas, per-page `lang` (Impressum/Datenschutz now `lang: de`).
 - [x] **Dark-only redesign from the Claude Design project** — new palette (`#101418` / accent `#f0801f`), Space Grotesk + IBM Plex Sans/Mono self-hosted in `src/assets/fonts/`, design tokens in `src/css/style.css`. The light/dark switcher is gone; the site is dark-only.
 - [x] **EN/DE language switch** — both variants ship in the HTML, `html[data-lang]` reveals one (`src/_includes/partials/i18n.njk`). Choice persists in `localStorage` under `site-lang`, and `?lang=de` forces it for shareable links. Posts declare `docLang: en|de`; `/blog/` groups them so a reader only sees posts in their language. German posts live under `/de/posts/<slug>/` so a translation can keep its original title without colliding with the English permalink.
+- [x] **Optional detail pages for projects** — a project can have a long-form write-up at `/projects/<slug>/` (and `/de/projects/<slug>/`) for work that cannot be handed out as a live demo. Set "Detail page slug" on the project, then add the page under **Project Pages** in the CMS; the card links to it only once the page is published. Projects without one are unchanged.
 - [x] **Projects, skills, certificates and history in Sveltia CMS** — both editable as file collections ("Site Data") in `src/admin/config.yml`. Data files were restructured from a root array to `{ "items": [...] }` for CMS compatibility.
 
 ## Open

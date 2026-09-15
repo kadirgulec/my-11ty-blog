@@ -239,6 +239,25 @@ module.exports = function(eleventyConfig) {
         (list || []).filter(item => item[key] === value)
     );
 
+    // Only some projects earn a write-up. A project names its page through
+    // `detailSlug`; the page names its project through `project`. Both sides use
+    // the slug rather than the title, so renaming a project in the CMS never
+    // moves a published URL.
+    eleventyConfig.addFilter("projectPage", (pages, slug, lang = "en") =>
+        slug ? (pages || []).find(page =>
+            page.data.project === slug && (page.data.docLang || "en") === lang
+        ) : undefined
+    );
+
+    // The reverse lookup, so a detail page can re-show the badge, tagline and
+    // meta rows its card already carries instead of restating them. Returns
+    // undefined for an unknown or draft project — the layout then renders the
+    // body alone rather than failing the build, which is what a half-finished
+    // page in the CMS should do.
+    eleventyConfig.addFilter("projectEntry", (items, slug) =>
+        slug ? (items || []).find(item => !item.draft && item.detailSlug === slug) : undefined
+    );
+
     // Data-file entries can be flagged `draft: true` in the CMS: still editable
     // there, never rendered here. (Blog posts use front matter + a preprocessor.)
     // CMS "text" widgets store real newlines, which HTML collapses to spaces.

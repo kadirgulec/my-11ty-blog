@@ -19,6 +19,13 @@
 
     <div class="grid gap-8">
       {% for project in visibleProjects %}
+        {#
+          Only some projects have a write-up. `detailSlug` names it; the page
+          itself may still be draft, so test for the rendered page, not the flag.
+          German falls back to the English page when only one was written.
+        #}
+        {% set detailEn = collections.projectPage | projectPage(project.detailSlug, "en") %}
+        {% set detailDe = (collections.projectPage | projectPage(project.detailSlug, "de")) or detailEn %}
         <article class="card overflow-hidden">
           <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-stretch">
 
@@ -64,8 +71,16 @@
                 </div>
               {% endif %}
 
-              {% if project.url or project.note %}
+              {% if project.url or project.note or detailEn %}
                 <div class="mt-0.5 flex flex-wrap items-center gap-3">
+                  {% if detailEn %}
+                    <a href="{{ detailEn.url }}" class="btn-small" data-lang-en lang="en">
+                      Read the write-up <span aria-hidden="true">&rarr;</span>
+                    </a>
+                    <a href="{{ detailDe.url }}" class="btn-small" data-lang-de lang="de">
+                      Mehr erfahren <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  {% endif %}
                   {% if project.url %}
                     <a href="{{ project.url }}" rel="noopener" class="btn-small">
                       {{ project.urlLabel or project.url }} <span aria-hidden="true">↗</span>

@@ -29,7 +29,7 @@
 
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description" content="{{ pageDescription }}">
-    <meta property="og:type" content="{{ 'article' if layout == 'post.njk' else 'website' }}">
+    <meta property="og:type" content="{{ 'article' if layout in ['post.njk', 'project.njk'] else 'website' }}">
     <meta property="og:url" content="{{ pageUrl }}">
     <meta property="og:image" content="{{ pageImage }}">
     {% if generatedCard %}
@@ -109,6 +109,24 @@
         "url": "{{ site.url }}"
       },
       "mainEntityOfPage": "{{ pageUrl }}"
+    }
+    </script>
+    {% elif layout == 'project.njk' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": {{ title | dump | safe }},
+      "description": {{ pageDescription | dump | safe }},
+      "url": "{{ pageUrl }}",
+      "image": "{{ pageImage }}",
+      "datePublished": "{{ page.date | isoDate }}",
+      "inLanguage": "{{ docLang or 'en' }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.author }}",
+        "url": "{{ site.url }}"
+      }
     }
     </script>
     {% endif %}

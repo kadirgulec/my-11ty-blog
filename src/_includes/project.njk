@@ -1,0 +1,83 @@
+---
+layout: base.njk
+---
+{% import "partials/i18n.njk" as i18n %}
+
+{#
+  A detail page for one entry in src/_data/projects.json — the long version of a
+  homepage card, for projects that cannot simply be handed out as a live demo.
+
+  `project` (front matter) holds the card's `detailSlug`. The badge, tagline and
+  meta rows are looked back up from the card rather than restated here, so they
+  stay in one place. `entry` is undefined while a page points at a project that
+  is missing or still draft; the body then renders on its own.
+#}
+{% set entry = projects.items | projectEntry(project) %}
+
+<article class="section border-t-0">
+  <div class="shell py-12 sm:py-16">
+    <div class="mx-auto max-w-3xl">
+
+      <a href="/#work" class="link-arrow mb-8">
+        <span aria-hidden="true">&larr;</span> {{ i18n.t("All work", "Alle Projekte") }}
+      </a>
+
+      {#
+        The card's own strings ship in both languages, and they are already
+        indexed on the homepage — keep the duplicate out of the search index so
+        a hit on this page means a hit in the write-up itself.
+      #}
+      <div data-pagefind-ignore>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          {% if entry.statusLabel %}
+            <span class="{{ 'badge-live' if entry.status == 'live' else 'badge' }}">
+              {{ i18n.t(entry.statusLabel, entry.statusLabelDe) }}
+            </span>
+          {% endif %}
+          <span class="badge">{{ (docLang or "en") | upper }}</span>
+        </div>
+
+        <h1 class="display mt-3 text-[clamp(2rem,4.4vw,2.875rem)] leading-[1.1] tracking-[-0.025em] text-pretty">
+          {{ title }}
+        </h1>
+
+        {% if entry.tagline %}
+          <p class="mt-4 font-display text-xl leading-[1.4] text-fg text-pretty">
+            {{ i18n.t(entry.tagline, entry.taglineDe) }}
+          </p>
+        {% endif %}
+
+        {% if entry.meta.length %}
+          <div class="mt-7 grid gap-3.5 border-t border-line pt-6">
+            {% for row in entry.meta %}
+              <div class="flex items-baseline gap-3.5">
+                <span class="min-w-14 font-mono text-[11.5px] tracking-[0.08em] text-fg-faint">
+                  {{ i18n.t(row.label, row.labelDe) }}
+                </span>
+                <span class="text-[14.5px] text-fg">{{ i18n.t(row.value, row.valueDe) }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if entry.url or entry.note %}
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            {% if entry.url %}
+              <a href="{{ entry.url }}" rel="noopener" class="btn-small">
+                {{ entry.urlLabel or entry.url }} <span aria-hidden="true">&#8599;</span>
+              </a>
+            {% endif %}
+            {% if entry.note %}
+              <span class="text-[13.5px] text-fg-faint">{{ i18n.t(entry.note, entry.noteDe) }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="prose prose-invert prose-site prose-lg mt-10 max-w-none">
+        {{ content | safe }}
+      </div>
+
+    </div>
+  </div>
+</article>
