@@ -7,18 +7,15 @@ on:
   workflow_dispatch:
 
 # The CMS saves each post as its own commit, so a batch of edits can queue several
-# deploys at once. They all sync against the same remote state file, and a delete
-# from one run then hits a path another run already removed. Queue them instead;
-# never cancel a running deploy, or it stops before writing back the state file.
+# deploys at once. Queue them instead of running them side by side, so two rsyncs
+# never write into public_html at the same time.
 concurrency:
-  group: ftp-deploy
+  group: deploy
   cancel-in-progress: false
 
 jobs:
-  # Build once and hand the same _site/ to every server, so both always serve
-  # identical output and the image pipeline only runs a single time.
-  build:
-    name: 🏗️ Build
+  deploy:
+    name: ☁️ Deploy to HestiaCP
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
@@ -34,50 +31,6 @@ jobs:
 
       - name: 🏗️ Build Site
         run: npm run build
-
-      - name: 📤 Upload build
-        uses: actions/upload-artifact@v7
-        with:
-          name: site
-          path: ./_site/
-          # Without this the artifact silently drops .htaccess.
-          include-hidden-files: true
-          retention-days: 1
-
-  deploy-hetzner:
-    name: 🎉 Deploy to Hetzner
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Download build
-        uses: actions/download-artifact@v8
-        with:
-          name: site
-          path: ./_site/
-
-      - name: 📂 Sync files to Hetzner
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-
-          local-dir: ./_site/
-          server-dir: ./public_html/my-11ty-blog/
-
-          protocol: ftps
-          security: strict
-
-  deploy-hestia:
-    name: ☁️ Deploy to HestiaCP
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Download build
-        uses: actions/download-artifact@v8
-        with:
-          name: site
-          path: ./_site/
 
       - name: 🔑 Set up SSH
         run: |

@@ -15,8 +15,8 @@ This approach offers:
 ## 🛠 Tech Stack
 * **Static Site Generator:** 11ty (Eleventy)
 * **Styling:** CSS / Tailwind
-* **Hosting / Infrastructure:** Hetzner (FTPS) and a HestiaCP cloud server (SSH/rsync)
-* **CI/CD Pipeline:** Fully automated deployments via **GitHub Actions** (Code pushed to the `master` branch is built once and deployed to both servers in parallel).
+* **Hosting / Infrastructure:** HestiaCP cloud server (SSH/rsync)
+* **CI/CD Pipeline:** Fully automated deployments via **GitHub Actions** (Code pushed to the `master` branch is automatically built and deployed to the HestiaCP server).
 
 ## 🚀 Local Development
 
