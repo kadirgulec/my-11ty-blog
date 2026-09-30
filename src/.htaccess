@@ -1,1 +1,10 @@
 ErrorDocument 404 /404.html
+
+# kadirguelec.de is retired: send every request on the old host, path and
+# query string included, permanently to the same page on the new domain.
+# Both servers get this file; the condition makes it a no-op on the new one.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^(www\.)?kadirguelec\.de$ [NC]
+    RewriteRule ^(.*)$ https://kadir.guelec.eu/$1 [R=301,L]
+</IfModule>
