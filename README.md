@@ -1,6 +1,6 @@
 # 🌐 Personal Portfolio & Blog
 
-This repository contains the source code for my personal developer portfolio and blog, live at: **[https://kadirguelec.de](https://kadirguelec.de)**
+This repository contains the source code for my personal developer portfolio and blog, live at: **[https://kadir.guelec.eu](https://kadir.guelec.eu)**
 
 ## 🏗 Why 11ty (Eleventy) and not Laravel?
 While my primary expertise is backend development with the **TALL Stack (Laravel / Livewire)**, I strongly believe in choosing the right tool for the job. 
@@ -15,8 +15,8 @@ This approach offers:
 ## 🛠 Tech Stack
 * **Static Site Generator:** 11ty (Eleventy)
 * **Styling:** CSS / Tailwind
-* **Hosting / Infrastructure:** Hetzner
-* **CI/CD Pipeline:** Fully automated deployments via **GitHub Actions** (Code pushed to the `main` branch is automatically built and deployed to the Hetzner server).
+* **Hosting / Infrastructure:** Hetzner (FTPS) and a HestiaCP cloud server (SSH/rsync)
+* **CI/CD Pipeline:** Fully automated deployments via **GitHub Actions** (Code pushed to the `master` branch is built once and deployed to both servers in parallel).
 
 ## 🚀 Local Development
 

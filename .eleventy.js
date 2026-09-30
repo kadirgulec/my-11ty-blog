@@ -7,6 +7,10 @@ const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
 const cacheBuster = require('@mightyplow/eleventy-plugin-cache-buster');
+const site = require('./src/_data/site.json');
+
+// "https://kadir.guelec.eu" -> "kadir.guelec.eu", printed on the OG cards.
+const SITE_HOST = new URL(site.url).host;
 
 async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100vw, 800px") {
     let metadata = await Image(src, {
@@ -91,7 +95,7 @@ async function writeHomeCard(destination) {
         <text x="80" y="332" font-family="DejaVu Sans, Arial, sans-serif" font-size="76" font-weight="bold" fill="#ffffff">Kadir G\u00fclec</text>
         <text x="80" y="402" font-family="DejaVu Sans, Arial, sans-serif" font-size="38" fill="${OG_MUTED}">Webentwickler &amp; Software Developer</text>
         <text x="80" y="470" font-family="DejaVu Sans, Arial, sans-serif" font-size="32" font-weight="bold" fill="${OG_ACCENT}">D\u00fcren \u00b7 PHP \u00b7 Laravel \u00b7 Livewire \u00b7 Alpine.js</text>
-        <text x="80" y="572" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="bold" fill="${OG_ACCENT}">kadirguelec.de</text>
+        <text x="80" y="572" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="bold" fill="${OG_ACCENT}">${SITE_HOST}</text>
     </svg>`;
     await sharp(Buffer.from(card))
         .composite([{ input: logo, top: 78, left: 80 }])
@@ -118,7 +122,7 @@ function ogImageSvg(title) {
         <rect width="1200" height="12" fill="#f0801f"/>
         <text x="80" y="130" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="bold" fill="#f0801f" letter-spacing="3">BLOG</text>
         ${text}
-        <text x="80" y="560" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="bold" fill="#f0801f">kadirguelec.de</text>
+        <text x="80" y="560" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="bold" fill="#f0801f">${SITE_HOST}</text>
         <text x="1120" y="560" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" fill="#98a2ad">Kadir Gülec</text>
     </svg>`;
 }
@@ -203,7 +207,7 @@ module.exports = function(eleventyConfig) {
             language: "en",
             title: "Kadir Gülec — Blog",
             subtitle: "Notes on web development, the TALL stack, and the road from Umschulung to software developer.",
-            base: "https://kadirguelec.de/",
+            base: `${site.url}/`,
             author: {
                 name: "Kadir Gülec",
                 email: "",
