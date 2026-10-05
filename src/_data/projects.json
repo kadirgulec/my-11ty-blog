@@ -53,6 +53,58 @@
       "frame": "browser"
     },
     {
+      "title": "kadir.gulec.tr",
+      "titleDe": "",
+      "detailSlug": "kadir-gulec-tr",
+      "draft": false,
+      "status": "live",
+      "statusLabel": "LIVE",
+      "statusLabelDe": "LIVE",
+      "tagline": "A hand-drawn digital notebook: what I write, watch and aim for — in Turkish.",
+      "taglineDe": "Ein handgezeichnetes digitales Notizbuch: was ich schreibe, schaue und mir vornehme — auf Türkisch.",
+      "description": "My personal site in my first language. Posts, the films and series I watch and my goals live in one notebook with paper, tape and pencil strokes. Readers can create an account, follow a film, a goal or a project and get an e-mail or a push notification when something happens. Behind it sits a Livewire back office I use every day to tick off habits.",
+      "descriptionDe": "Meine persönliche Seite in meiner Muttersprache. Beiträge, die Filme und Serien, die ich schaue, und meine Ziele leben in einem Notizbuch aus Papier, Klebeband und Bleistiftstrichen. Leser können ein Konto anlegen, einem Film, einem Ziel oder einem Projekt folgen und bekommen eine E-Mail oder eine Push-Benachrichtigung, wenn sich etwas tut. Dahinter steht ein Livewire-Backoffice, mit dem ich jeden Tag meine Gewohnheiten abhake.",
+      "features": [
+        {
+          "text": "Habit chains counted per day, week or month, with reminders before a week slips",
+          "textDe": "Gewohnheitsketten pro Tag, Woche oder Monat, mit Erinnerung, bevor eine Woche kippt"
+        },
+        {
+          "text": "Goals that are public, censored or hidden — censored words never reach the browser",
+          "textDe": "Ziele öffentlich, zensiert oder versteckt — zensierte Wörter erreichen nie den Browser"
+        },
+        {
+          "text": "Films and series with ratings, spoiler-safe reviews and a watchlist",
+          "textDe": "Filme und Serien mit Bewertungen, spoilersicheren Kritiken und einer Merkliste"
+        },
+        {
+          "text": "Follows, e-mail digests and push notifications as an installable PWA",
+          "textDe": "Folgen, E-Mail-Zusammenfassungen und Push-Benachrichtigungen als installierbare PWA"
+        }
+      ],
+      "meta": [
+        {
+          "label": "STACK",
+          "labelDe": "STACK",
+          "value": "Laravel 13 · Livewire 4 · Alpine.js · Tailwind CSS · MariaDB",
+          "valueDe": "Laravel 13 · Livewire 4 · Alpine.js · Tailwind CSS · MariaDB"
+        },
+        {
+          "label": "ROLE",
+          "labelDe": "ROLLE",
+          "value": "Solo — concept, design, backend, deployment",
+          "valueDe": "Alleine — Konzept, Design, Backend, Deployment"
+        }
+      ],
+      "url": "https://kadir.gulec.tr",
+      "urlLabel": "kadir.gulec.tr",
+      "note": "The site itself is in Turkish.",
+      "noteDe": "Die Seite selbst ist auf Türkisch.",
+      "image": "/assets/images/projects/kgtr-home.png",
+      "imageAlt": "kadir.gulec.tr homepage: a paper notebook with coloured tabs, a hand-drawn logo and the latest film and post pinned with tape",
+      "frame": "browser"
+    },
+    {
       "title": "QR Invites",
       "titleDe": "QR-Einladungen",
       "draft": true,
