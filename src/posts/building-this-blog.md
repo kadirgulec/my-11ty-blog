@@ -1,7 +1,7 @@
 ---
 title: How I Built This Static Blog
 image: /assets/images/posts/eleventy.jpeg
-date: 2025-02-07
+date: 2026-02-07
 docLang: en
 description: A deep dive into Eleventy, Nunjucks, and GitHub Actions.
 tags:

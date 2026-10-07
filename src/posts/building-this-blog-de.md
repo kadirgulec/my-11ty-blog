@@ -1,6 +1,6 @@
 ---
 title: Wie ich diesen statischen Blog gebaut habe
-date: 2025-02-07
+date: 2026-02-07
 docLang: de
 image: /assets/images/posts/eleventy.jpeg
 imageAlt: ''
