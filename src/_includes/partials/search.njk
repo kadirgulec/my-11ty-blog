@@ -128,9 +128,16 @@
                     await this.pagefind.init();
                     // Pagefind builds one index per page language. Merge the
                     // other one so a single search covers the whole site.
+                    // The path must be absolute: Pagefind skips (with only a
+                    // console warning) any merge path that is a prefix of the
+                    // primary's "/pagefind/", so "/pagefind" never merged.
                     const other = document.documentElement.lang === "de" ? "en" : "de";
                     try {
-                        await this.pagefind.mergeIndex("/pagefind", { language: other });
+                        await this.pagefind.mergeIndex(`${location.origin}/pagefind/`, {
+                            language: other,
+                            // Keep result URLs root-relative like the primary's.
+                            baseUrl: "/"
+                        });
                     } catch (e) {
                         // No index for that language yet — search the current one.
                     }
@@ -167,7 +174,15 @@
                     return;
                 }
 
-                const search = await this.pagefind.search(this.query);
+                // Posts and project pages come in an EN and a DE version, each
+                // tagged with a `lang` filter. Drop the version in the language
+                // the reader did not pick. Untagged pages (homepage, blog,
+                // certificates, the German-only legal pages) always stay in.
+                const readerLang = document.documentElement.dataset.lang === "de" ? "de" : "en";
+                const otherLang = readerLang === "de" ? "en" : "de";
+                const search = await this.pagefind.search(this.query, {
+                    filters: { lang: { none: [otherLang] } }
+                });
                 const resultsData = await Promise.all(
                     search.results.slice(0, 20).map(r => r.data())
                 );

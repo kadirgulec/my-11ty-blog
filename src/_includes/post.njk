@@ -5,7 +5,11 @@ layout: base.njk
 
 {% set dateLocale = "de-DE" if docLang == "de" else "en-GB" %}
 
-<article class="section border-t-0">
+{#
+  Every post exists in English and German. The filter lets the search
+  hide the twin that is not in the reader's language (partials/search.njk).
+#}
+<article class="section border-t-0" data-pagefind-filter="lang:{{ docLang }}">
   <div class="shell py-12 sm:py-16">
     <div class="mx-auto max-w-3xl">
 
