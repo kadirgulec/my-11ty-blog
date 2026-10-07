@@ -215,8 +215,14 @@
 /*
  * Article body. prose-invert gets us light-on-dark; these variables retune it
  * to the site palette and swap the accent from Tailwind's default to orange.
+ *
+ * It lives in the utilities layer on purpose: the typography plugin emits
+ * `.prose` there, and a later layer beats any selector in an earlier one. In
+ * the components layer every rule below that `.prose` also sets — the colour
+ * variables, the backticks around inline code, its weight — silently lost.
+ * Inside the same layer the specificities tie, and these rules come later.
  */
-@layer components {
+@layer utilities {
     .prose-site {
         --tw-prose-invert-body: var(--color-fg-muted);
         --tw-prose-invert-headings: var(--color-fg);
