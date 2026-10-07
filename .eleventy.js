@@ -187,6 +187,23 @@ module.exports = function(eleventyConfig) {
         });
     });
 
+    // Bilingual markup ships both variants (partials/i18n.njk), and Pagefind
+    // indexed both, so excerpts ran the languages together ("5 min
+    // readLesezeit", "…under control.Ich baue…"). Hide the variant that does
+    // not match <html lang> — the language Pagefind files the page under.
+    // German posts have their own pages, so they stay findable. Pagefind's
+    // exclude_selectors cannot do this: it only matches inside the indexed
+    // body, so `html[lang="en"] [data-lang-de]` never fires.
+    eleventyConfig.addTransform("pagefindIgnoreOtherLanguage", function (content) {
+        if (!(this.page.outputPath || "").endsWith(".html")) return content;
+        const lang = (content.match(/<html\b[^>]*\slang="([a-z]+)"/) || [])[1];
+        const other = lang === "de" ? "en" : "de";
+        return content.replace(
+            new RegExp(`(<[a-zA-Z][^>]*?\\s)data-lang-${other}(?=[\\s>])`, "g"),
+            `$1data-lang-${other} data-pagefind-ignore="all"`
+        );
+    });
+
     // 2. Add the Async Shortcode
     eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
 
