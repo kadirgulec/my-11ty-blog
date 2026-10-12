@@ -4,7 +4,7 @@ date: 2025-10-15
 docLang: de
 image: /assets/images/posts/laracasts.png
 imageAlt: ''
-description: Warum Laracasts das Netflix für Entwickler ist — und welche Serien ich empfehle.
+description: "Die Laracasts-Serien, die mein PHP und Laravel geprägt haben: OOP-Prinzipien, Laravel From Scratch, die API Master Class, PhpStorm und was als Nächstes kommt."
 tags:
   - post
   - featured

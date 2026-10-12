@@ -16,6 +16,10 @@
 - [x] **Auto-generated OG images per post** — build hook in `.eleventy.js` renders a 1200×630 PNG per post (title on dark card) into `/assets/og/<slug>.png` via sharp. Posts with an `image` in frontmatter keep their own.
 - [x] **Local SEO for "Webentwickler Düren"** — homepage title/description rewritten around the target keywords; `Person` JSON-LD extended with `PostalAddress` (52351 Düren), `areaServed`, `knowsAbout`, `knowsLanguage` and `hasCredential` (data lives in `src/_data/site.json`); "Düren" added to the hero chip, hero lede and About copy, plus a NAP `<address>` block in the footer. Impressum is indexable again (Datenschutz stays `noindex`).
 - [x] **Sitemap and robots hygiene** — the sitemap now lists HTML output only, so `/feed.xml` and the Sveltia `/admin/` app dropped out (25 → 23 URLs); `robots.txt` disallows `/admin/`.
+- [x] **Site name and favicon in Google** — results showed "guelec.eu" and a generic globe. The homepage now carries `WebSite` JSON-LD (`name`: Kadir Gülec), and `/assets/favicon-192.png` (white mark on `#101418`, rendered from `logo.svg`) sits next to the SVG icon, because Google's favicon docs do not list SVG.
+- [x] **hreflang for EN/DE pairs** — posts and project pages link their translation via `<link rel="alternate" hreflang>` (+ `x-default` → English), `og:locale`, and a visible "Auf Deutsch lesen / Read in English" link. Pairs match on `translationKey`, else the project slug, else the filename without `-de`/`-en` (filter `translations` in `.eleventy.js`). The CMS names new files after the title, so new pairs need the "Translation key" field set on both versions.
+- [x] **One `<h1>` per post** — eight posts opened with a `# Heading` under the layout's title `<h1>`; the `demoteH1` filter renders body h1s as h2 in `post.njk`/`project.njk`.
+- [x] **SEO audit fixes (2026-10-12)** — meta descriptions of eight posts rewritten to ~150 characters (were 53–80); `/blog/` title now names its topics; `noindex` pages (Datenschutz) dropped out of the sitemap; SVG featured images (Coursera) fall back to the generated card for `og:image`, since social platforms do not render SVG; footer "Updated" line now meets WCAG contrast. Lighthouse: performance 100, SEO 100, best practices 100.
 - [x] **Branded default share card** — `/assets/og/home.png` (1200×630, logo + name + role + Düren) replaces the stock `hero-1.jpg` fallback for every page without its own image, and `/assets/og/logo.png` (1024×1024) backs the `Person` schema's `image`. Both are generated in the `eleventy.after` hook from `logo.svg`, whose fill is forced white because a rasteriser never evaluates its `prefers-color-scheme` rule.
 - [x] **Privacy-friendly analytics (GoatCounter)** — snippet in `base.njk`, config-gated. ⚠️ To activate: create a free account at https://www.goatcounter.com, then set your site code (the `xxx` in `xxx.goatcounter.com`) as `goatcounter` in `src/_data/site.json`. Mention it in the Datenschutzerklärung.
 
@@ -37,8 +41,10 @@
 
 ## Open — SEO follow-ups
 
-- [ ] **German landing pages + `hreflang`** — there is no `/de/` homepage or `/de/blog/`, and no `hreflang` anywhere, so the EN/DE post pairs are not linked as translations. The homepage ships both languages in one `lang="en"` document with CSS hiding one, which dilutes relevance for both.
-- [ ] **Canonical host redirect** — `src/.htaccess` only sets `ErrorDocument`; no www→non-www or http→https rule.
+- [ ] **German landing pages** — there is no `/de/` homepage or `/de/blog/` (posts and project pages have `hreflang` now). The homepage ships both languages in one `lang="en"` document with CSS hiding one, which dilutes relevance for both.
+- [ ] **HTTP → HTTPS redirect** — `http://kadir.guelec.eu/…` answers 200 instead of redirecting. Enable "automatic HTTPS redirection" for the web domain in HestiaCP (nginx-level, no `.htaccess` rule needed). `kadirguelec.de` already 301s to the new host.
+- [ ] **Outdated "How I Built This Static Blog" post** — still describes Hetzner webhosting and an FTP deploy; the site now deploys to HestiaCP via rsync.
+- [ ] **4 MB share image** — `assets/images/posts/ai-assisted-engineering.jpg` is the `og:image` of both AI posts; shrinking it to ~1200 px wide would keep it well under the platforms' 5 MB limits.
 - [ ] **A German page about the work itself** — the blog is all English technical/career writing, so nothing targets a local service intent.
 
 ## Ideas for later

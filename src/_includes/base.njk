@@ -11,7 +11,8 @@
       1200x630 cards. A front-matter `image` is any shape, so its dimensions
       must not be declared below.
     #}
-    {% if image %}
+    {# Facebook, LinkedIn and X do not render SVG share images; those posts get the generated card. #}
+    {% if image and not (image | lower).endsWith('.svg') %}
         {% set pageImage = site.url + image %}
         {% set generatedCard = false %}
     {% elif layout == 'post.njk' %}
@@ -26,6 +27,26 @@
     <meta name="description" content="{{ pageDescription }}">
     <meta name="author" content="{{ site.author }}">
     <link rel="canonical" href="{{ pageUrl }}">
+    {#
+      Posts and project pages exist in English and German. hreflang tells Google
+      they are translations of each other, not duplicates, and which one to show
+      a reader. Every version lists all of them, itself included; English is the
+      fallback for any other language.
+    #}
+    {% set pageLang = docLang or lang or 'en' %}
+    {% if layout == 'post.njk' %}
+        {% set versions = collections.post | translations(page.inputPath) %}
+    {% elif layout == 'project.njk' %}
+        {% set versions = collections.projectPage | translations(page.inputPath) %}
+    {% else %}
+        {% set versions = [] %}
+    {% endif %}
+    {% for version in versions %}
+    <link rel="alternate" hreflang="{{ version.data.docLang or 'en' }}" href="{{ site.url }}{{ version.url }}">
+    {% if (version.data.docLang or 'en') == 'en' %}
+    <link rel="alternate" hreflang="x-default" href="{{ site.url }}{{ version.url }}">
+    {% endif %}
+    {% endfor %}
 
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description" content="{{ pageDescription }}">
@@ -38,6 +59,10 @@
     {% endif %}
     {% if imageAlt %}<meta property="og:image:alt" content="{{ imageAlt }}">{% endif %}
     <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:locale" content="{{ 'de_DE' if pageLang == 'de' else 'en_US' }}">
+    {% for version in versions %}{% if (version.data.docLang or 'en') != pageLang %}
+    <meta property="og:locale:alternate" content="{{ 'de_DE' if version.data.docLang == 'de' else 'en_US' }}">
+    {% endif %}{% endfor %}
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ title }}">

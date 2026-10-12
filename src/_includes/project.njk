@@ -39,6 +39,13 @@ layout: base.njk
             </span>
           {% endif %}
           <span class="badge">{{ (docLang or "en") | upper }}</span>
+          {#- The same text in the other language, written in that language. -#}
+          {% for version in collections.projectPage | translations(page.inputPath) %}{% if version.url != page.url %}
+            {% set versionLang = version.data.docLang or "en" %}
+            <a href="{{ version.url }}" hreflang="{{ versionLang }}" lang="{{ versionLang }}" data-pagefind-ignore class="font-mono text-[12.5px] text-fg-faint transition-colors hover:text-accent">
+              {{ "Auf Deutsch lesen" if versionLang == "de" else "Read in English" }} &rarr;
+            </a>
+          {% endif %}{% endfor %}
         </div>
 
         <h1 class="display mt-3 text-[clamp(2rem,4.4vw,2.875rem)] leading-[1.1] tracking-[-0.025em] text-pretty">
@@ -79,7 +86,7 @@ layout: base.njk
       </div>
 
       <div class="prose prose-invert prose-site prose-lg mt-10 max-w-none">
-        {{ content | safe }}
+        {{ content | demoteH1 | safe }}
       </div>
 
     </div>

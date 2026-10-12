@@ -3,7 +3,7 @@ title: Mastering Modern PHP with Laracasts
 image: /assets/images/posts/laracasts.png
 date: 2025-10-15
 docLang: en
-description: Why Laracasts is the Netflix for developers and my favorite series.
+description: "The Laracasts series that shaped how I write PHP and Laravel: OOP principles, Laravel From Scratch, the API Master Class, PhpStorm, and what is next on my list."
 tags:
   - post
   - featured

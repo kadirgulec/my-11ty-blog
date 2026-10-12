@@ -4,7 +4,7 @@ date: 2026-03-01
 docLang: de
 image: /assets/images/posts/ai-assisted-engineering.jpg
 imageAlt: ''
-description: KI-gestützte Entwicklung ist der neue Branchenstandard.
+description: "Vibe Coding liefert Prototypen, keine Produktivsysteme. Warum KI-gestützte Entwicklung mit dem Entwickler als Architekt und Reviewer der neue Standard ist."
 tags:
   - post
   - featured

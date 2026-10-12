@@ -328,6 +328,29 @@ module.exports = function(eleventyConfig) {
         (posts || []).filter(post => (post.data.docLang || "en") === lang)
     );
 
+    // A post and its translation share a key: `translationKey` when set (the
+    // CMS names files after the title, so new pairs need it), else the project
+    // slug for project pages, else the filename without its -de/-en suffix.
+    const translationKey = (item) =>
+        item.data.translationKey || item.data.project || item.page.fileSlug.replace(/-(de|en)$/, "");
+
+    // Every language version of the page at `inputPath`, itself included, for
+    // hreflang and the "read in…" link. Empty while a page has no translation.
+    eleventyConfig.addFilter("translations", (items, inputPath) => {
+        const self = (items || []).find(item => item.inputPath === inputPath);
+        if (!self) return [];
+        const key = translationKey(self);
+        const versions = items.filter(item => translationKey(item) === key);
+        return versions.length > 1 ? versions : [];
+    });
+
+    // The layout already renders the title as the page's <h1>, so a "# Heading"
+    // in a post body would make a second one. Markdown escapes "<" inside code,
+    // so only real heading tags match.
+    eleventyConfig.addFilter("demoteH1", (html) =>
+        String(html || "").replace(/<(\/?)h1(?=[\s>])/g, "<$1h2")
+    );
+
     eleventyConfig.addShortcode("lastUpdated", () => {
         return new Date().toLocaleDateString('de-DE', {
             timeZone: 'Europe/Berlin',

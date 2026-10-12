@@ -14,7 +14,8 @@ eleventyExcludeFromCollections: true
         and entry.outputPath
         and entry.outputPath.endsWith(".html")
         and not entry.url.startsWith("/admin/")
-        and not entry.data.excludeFromSitemap %}
+        and not entry.data.excludeFromSitemap
+        and not ("noindex" in (entry.data.robots or "")) %}
   <url>
     <loc>{{ site.url }}{{ entry.url | url }}</loc>
     <lastmod>{{ entry.date | isoDate }}</lastmod>

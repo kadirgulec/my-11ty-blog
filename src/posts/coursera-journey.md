@@ -3,7 +3,7 @@ title: My Coursera Journey and Certificates
 image: /assets/images/posts/coursera.svg
 date: 2025-10-02
 docLang: en
-description: How I used Coursera to bridge the gap between theory and practice.
+description: "Google IT Support, Python for Everybody, PHP web apps and Object Oriented Design: the Coursera certificates I earned, and three lessons beyond the code."
 tags:
   - post
   - featured

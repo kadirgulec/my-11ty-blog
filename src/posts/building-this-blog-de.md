@@ -4,7 +4,7 @@ date: 2026-02-07
 docLang: de
 image: /assets/images/posts/eleventy.jpeg
 imageAlt: ''
-description: Ein tiefer Blick auf Eleventy, Nunjucks und GitHub Actions.
+description: "Warum dieser Blog statisch ist: Eleventy und Nunjucks für die Seiten, Tailwind CSS v4 und Alpine.js für die Oberfläche, GitHub Actions fürs Deployment."
 tags:
   - post
   - 11ty

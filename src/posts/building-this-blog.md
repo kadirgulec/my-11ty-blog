@@ -3,7 +3,7 @@ title: How I Built This Static Blog
 image: /assets/images/posts/eleventy.jpeg
 date: 2026-02-07
 docLang: en
-description: A deep dive into Eleventy, Nunjucks, and GitHub Actions.
+description: "Why I built this blog as a static site: Eleventy and Nunjucks for the pages, Tailwind CSS v4 and Alpine.js for the UI, and GitHub Actions to deploy every push."
 tags:
   - post
   - 11ty
