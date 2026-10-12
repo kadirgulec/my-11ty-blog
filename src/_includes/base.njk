@@ -49,6 +49,16 @@
     {% endif %}
 
     {% if page.url == '/' %}
+    {# Google reads the site name shown above results from WebSite data on the homepage. #}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ site.author }}",
+      "alternateName": ["{{ site.name }}", "{{ site.url | replace('https://', '') }}"],
+      "url": "{{ site.url }}/"
+    }
+    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -131,6 +141,7 @@
     </script>
     {% endif %}
 
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
     <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
     <link rel="manifest" href="/assets/site.webmanifest">
