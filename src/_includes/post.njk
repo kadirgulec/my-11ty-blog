@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 ---
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 {% set dateLocale = "de-DE" if docLang == "de" else "en-GB" %}
 
@@ -13,7 +13,7 @@ layout: base.njk
   <div class="shell py-12 sm:py-16">
     <div class="mx-auto max-w-3xl">
 
-      <a href="/blog/" class="link-arrow mb-8">
+      <a href="{{ '/blog/' | localeUrl(docLang) }}" class="link-arrow mb-8">
         <span aria-hidden="true">&larr;</span> {{ i18n.t("All posts", "Alle Beiträge") }}
       </a>
 
@@ -85,7 +85,7 @@ layout: base.njk
                   data-emit-metadata="0"
                   data-input-position="bottom"
                   data-theme="dark"
-                  data-lang="en"
+                  data-lang="{{ docLang or 'en' }}"
                   data-loading="lazy"
                   crossorigin="anonymous"
                   async>

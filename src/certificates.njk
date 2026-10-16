@@ -1,20 +1,32 @@
 ---
 layout: base.njk
-title: Certificates
-description: A collection of my verified credentials, degrees, and continuous learning achievements.
+# One page per language: /certificates/ and /de/certificates/.
+pagination:
+  data: locales
+  size: 1
+  alias: docLang
+  addAllPagesToCollections: true
+locales: [en, de]
+permalink: "{{ '/de' if docLang == 'de' }}/certificates/"
+titles:
+  en: Certificates
+  de: Zertifikate
+descriptions:
+  en: A collection of my verified credentials, degrees, and continuous learning achievements.
+  de: Eine Sammlung meiner geprüften Nachweise, Abschlüsse und laufenden Weiterbildungen.
+eleventyComputed:
+  title: "{{ titles[docLang] | safe }}"
+  description: "{{ descriptions[docLang] | safe }}"
 ---
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 <section class="section-alt border-t-0">
   <div class="shell pt-14 pb-10 sm:pt-20 sm:pb-12">
     <h1 class="display text-[clamp(2rem,4.4vw,3rem)] tracking-[-0.025em]">
-      {{ i18n.t("Certificates", "Zertifikate") }}
+      {{ title }}
     </h1>
     <p class="lede mt-4 text-[17px]">
-      {{ i18n.t(
-        "A collection of my verified credentials, degrees, and continuous learning achievements.",
-        "Eine Sammlung meiner geprüften Nachweise, Abschlüsse und laufenden Weiterbildungen."
-      ) }}
+      {{ description }}
     </p>
 
     <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
@@ -50,8 +62,7 @@ description: A collection of my verified credentials, degrees, and continuous le
             <div class="min-w-0">
               <div class="truncate text-[13.5px] font-medium text-fg-dim">{{ cert.issuer }}</div>
               <div class="font-mono text-xs text-fg-faint">
-                <span data-lang-en>{{ cert.date | monthYear("en-GB") }}</span
-                ><span data-lang-de>{{ cert.date | monthYear("de-DE") }}</span>
+                {{ cert.date | monthYear("de-DE" if docLang == "de" else "en-GB") }}
               </div>
             </div>
           </div>

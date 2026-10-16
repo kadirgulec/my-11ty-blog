@@ -1,4 +1,4 @@
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 {#
   `compact` marks the items that survive in the narrow header. Work and Path are
@@ -15,7 +15,7 @@
 <header class="sticky top-0 z-50 border-b border-line bg-ink/[0.88] backdrop-blur-md">
   <div class="shell flex flex-nowrap items-center gap-x-3 py-3 sm:gap-x-4 md:gap-x-6">
 
-    <a href="/" class="-m-1.5 shrink-0 p-1.5 text-fg transition-colors hover:text-white">
+    <a href="{{ '/' | localeUrl(docLang) }}" class="-m-1.5 shrink-0 p-1.5 text-fg transition-colors hover:text-white">
       <span class="sr-only">Kadir Gülec — {{ i18n.t("Home", "Startseite") }}</span>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"
            preserveAspectRatio="xMidYMid meet" class="size-9" aria-hidden="true">
@@ -30,10 +30,11 @@
     <nav aria-label="Global"
          class="-mx-1 mr-auto flex min-w-0 flex-nowrap items-center gap-x-3 overflow-x-auto px-1 [scrollbar-width:none] sm:gap-x-4 md:gap-x-[22px] [&::-webkit-scrollbar]:hidden">
       {% for item in navigation %}
-        <a href="{{ item.url }}"
-           {% if item.url == page.url %}aria-current="page"{% endif %}
+        {% set itemUrl = item.url | localeUrl(docLang) %}
+        <a href="{{ itemUrl }}"
+           {% if itemUrl == page.url %}aria-current="page"{% endif %}
            class="text-[14.5px] whitespace-nowrap transition-colors hover:text-fg
-                  {{ 'text-fg' if item.url == page.url else 'text-fg-dim' }}
+                  {{ 'text-fg' if itemUrl == page.url else 'text-fg-dim' }}
                   {{ '' if item.compact else 'hidden md:inline' }}">
           {{ i18n.t(item.en, item.de) }}
         </a>
@@ -43,18 +44,38 @@
     <button type="button"
             data-open-search
             class="-m-2 shrink-0 p-2 text-fg-dim transition-colors hover:text-fg"
+            {% if docLang %}
+            title="{{ 'Suche (Strg+K)' if docLang == 'de' else 'Search (Ctrl+K)' }}"
+            {% else %}
             title="Search (Ctrl+K)"
             data-title-en="Search (Ctrl+K)"
-            data-title-de="Suche (Strg+K)">
+            data-title-de="Suche (Strg+K)"
+            {% endif %}>
       <span class="sr-only">{{ i18n.t("Search", "Suche") }}</span>
       <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
       </svg>
     </button>
 
+    {#
+      A page written in one language links to its counterpart, so the switch is
+      a plain link Google can follow. Without one (Impressum, Datenschutz), it
+      falls back to the other language's homepage. `versions` comes from
+      base.njk. Pages without a language (tags, 404) keep the in-place toggle.
+    #}
     <div class="lang-switch shrink-0" role="group" aria-label="Language">
-      <button type="button" data-set-lang="en" lang="en">EN</button>
-      <button type="button" data-set-lang="de" lang="de">DE</button>
+      {% for switchLang in ["en", "de"] %}
+        {% if docLang %}
+          {% set counterpart = versions | byLang(switchLang) | first %}
+          {% if switchLang == docLang %}{% set switchUrl = page.url %}
+          {% elif counterpart %}{% set switchUrl = counterpart.url %}
+          {% else %}{% set switchUrl = '/' | localeUrl(switchLang) %}{% endif %}
+          <a href="{{ switchUrl }}" data-set-lang="{{ switchLang }}" hreflang="{{ switchLang }}" lang="{{ switchLang }}"
+             {% if switchLang == docLang %}aria-current="page"{% endif %}>{{ switchLang | upper }}</a>
+        {% else %}
+          <button type="button" data-set-lang="{{ switchLang }}" lang="{{ switchLang }}">{{ switchLang | upper }}</button>
+        {% endif %}
+      {% endfor %}
     </div>
 
     <a href="mailto:{{ site.email }}"
@@ -67,6 +88,8 @@
 <script>
   // Language switch. Kept inline and dependency-free so it responds before
   // Alpine has loaded; base.njk applies the stored value on first paint.
+  // The links only remember the choice and then navigate; the buttons (pages
+  // without a fixed language) flip the visible variant in place.
   (function () {
     // Text nodes are swapped by CSS, but attributes need JS. Elements opt in
     // with data-ph-en/data-ph-de (placeholder) or data-title-en/data-title-de.
@@ -90,11 +113,12 @@
     });
 
     document.addEventListener('click', function (event) {
-      var button = event.target.closest('[data-set-lang]');
-      if (!button) return;
-      var lang = button.dataset.setLang;
-      document.documentElement.setAttribute('data-lang', lang);
+      var control = event.target.closest('[data-set-lang]');
+      if (!control) return;
+      var lang = control.dataset.setLang;
       try { localStorage.setItem('site-lang', lang); } catch (e) {}
+      if (control.tagName === 'A') return;
+      document.documentElement.setAttribute('data-lang', lang);
       applyAttributes(lang);
     });
 

@@ -1,15 +1,20 @@
 {#
   Bilingual text helpers.
 
-  Both language variants are rendered into the HTML; `html[data-lang]` plus the
-  rules in style.css decide which one is visible. That keeps the switch instant
-  and keeps every string in the static output for search and crawlers.
+  A page that declares `docLang` (posts, project pages, the legal pages, and the
+  /de/ twins of the homepage, blog and certificates) is written in one language,
+  so only that variant is rendered. Google decides a page's language from its
+  visible text, and every hidden translation would only blur it.
 
-  Each variant carries its own `lang`, so `<html lang>` can stay the document's
-  build-time language — which is what Pagefind keys its index on.
+  Pages without `docLang` (tag pages, 404) still ship both variants;
+  `html[data-lang]` plus the rules in style.css decide which one is visible.
+  Each variant carries its own `lang` for screen readers and Pagefind.
 
-  Usage:  {% import "partials/i18n.njk" as i18n %}
+  Usage:  {% import "partials/i18n.njk" as i18n with context %}
           {{ i18n.t("Certificates", "Zertifikate") }}
+
+  `with context` is what lets the macros see the page's `docLang`; without it
+  they always render both variants.
 
   `de` may be empty — the English string is then used for both languages, which
   is what the CMS-managed data files rely on for untranslated fields.
@@ -18,7 +23,7 @@
   render as written instead of collapsing into one run-on block.
 #}
 
-{% macro t(en, de) %}<span data-lang-en lang="en">{{ en | nl2br | safe }}</span><span data-lang-de lang="de">{{ (de if de else en) | nl2br | safe }}</span>{% endmacro %}
+{% macro t(en, de) %}{% if docLang == "de" %}{{ (de if de else en) | nl2br | safe }}{% elif docLang == "en" %}{{ en | nl2br | safe }}{% else %}<span data-lang-en lang="en">{{ en | nl2br | safe }}</span><span data-lang-de lang="de">{{ (de if de else en) | nl2br | safe }}</span>{% endif %}{% endmacro %}
 
 {#- Same, but for pre-rendered HTML (e.g. markdown output). -#}
-{% macro tHtml(en, de) %}<span data-lang-en lang="en">{{ en | safe }}</span><span data-lang-de lang="de">{{ (de if de else en) | safe }}</span>{% endmacro %}
+{% macro tHtml(en, de) %}{% if docLang == "de" %}{{ (de if de else en) | safe }}{% elif docLang == "en" %}{{ en | safe }}{% else %}<span data-lang-en lang="en">{{ en | safe }}</span><span data-lang-de lang="de">{{ (de if de else en) | safe }}</span>{% endif %}{% endmacro %}

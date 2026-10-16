@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 ---
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 {#
   A detail page for one entry in src/_data/projects.json — the long version of a
@@ -22,7 +22,7 @@ layout: base.njk
   <div class="shell py-12 sm:py-16">
     <div class="mx-auto max-w-3xl">
 
-      <a href="/#work" class="link-arrow mb-8">
+      <a href="{{ '/#work' | localeUrl(docLang) }}" class="link-arrow mb-8">
         <span aria-hidden="true">&larr;</span> {{ i18n.t("All work", "Alle Projekte") }}
       </a>
 

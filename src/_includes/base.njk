@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ docLang or lang or 'en' }}" data-lang="en">
+<html lang="{{ docLang or lang or 'en' }}" data-lang="{{ docLang or 'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,21 +23,26 @@
         {% set generatedCard = true %}
     {% endif %}
 
-    <title>{{ title }}{% if page.url != '/' %} | {{ site.author }}{% endif %}</title>
+    {# The homepage titles already lead with the name. #}
+    <title>{{ title }}{% if page.url not in ['/', '/de/'] %} | {{ site.author }}{% endif %}</title>
     <meta name="description" content="{{ pageDescription }}">
     <meta name="author" content="{{ site.author }}">
     <link rel="canonical" href="{{ pageUrl }}">
     {#
-      Posts and project pages exist in English and German. hreflang tells Google
-      they are translations of each other, not duplicates, and which one to show
-      a reader. Every version lists all of them, itself included; English is the
-      fallback for any other language.
+      Posts, project pages, the homepage, the blog and the certificates exist in
+      English and German. hreflang tells Google they are translations of each
+      other, not duplicates, and which one to show a reader. Every version lists
+      all of them, itself included; English is the fallback for any other
+      language. The header's language switch links to the same `versions`.
     #}
     {% set pageLang = docLang or lang or 'en' %}
     {% if layout == 'post.njk' %}
         {% set versions = collections.post | translations(page.inputPath) %}
     {% elif layout == 'project.njk' %}
         {% set versions = collections.projectPage | translations(page.inputPath) %}
+    {% elif locales %}
+        {# Built once per language from one template (see index.njk). #}
+        {% set versions = collections.all | where("inputPath", page.inputPath) %}
     {% else %}
         {% set versions = [] %}
     {% endif %}
@@ -73,6 +78,7 @@
     <meta name="robots" content="{{ robots }}">
     {% endif %}
 
+    {% if page.url == '/' or page.url == '/de/' %}
     {% if page.url == '/' %}
     {# Google reads the site name shown above results from WebSite data on the homepage. #}
     <script type="application/ld+json">
@@ -84,6 +90,7 @@
       "url": "{{ site.url }}/"
     }
     </script>
+    {% endif %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -174,25 +181,25 @@
     <meta name="theme-color" content="#101418">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog" href="{{ site.url }}/feed.xml">
 
+    {% if not docLang %}
     <script>
-        // Stamp the reader's language before first paint so the inactive
-        // variant of every bilingual string is hidden without a flash.
+        // Only pages without a fixed language (tag pages, 404) ship both
+        // variants of their strings. Stamp the reader's stored choice before
+        // first paint so the inactive variant is hidden without a flash.
         // Only data-lang changes: `lang` stays the document's own language,
         // which is what Pagefind keys its search index on. Individual
         // bilingual fragments carry their own `lang` (see partials/i18n.njk).
+        // Every other page's language comes from its URL and is never
+        // overridden here.
         (function () {
-            // ?lang=de wins over the stored choice, so a link can carry a language.
-            var requested = new URLSearchParams(location.search).get('lang');
             var stored = null;
             try { stored = localStorage.getItem('site-lang'); } catch (e) {}
-            var choice = requested === 'de' || requested === 'en' ? requested : stored;
-            var lang = choice === 'de' || choice === 'en' ? choice : 'en';
-            document.documentElement.setAttribute('data-lang', lang);
-            if (requested === lang) {
-                try { localStorage.setItem('site-lang', lang); } catch (e) {}
+            if (stored === 'de' || stored === 'en') {
+                document.documentElement.setAttribute('data-lang', stored);
             }
         })();
     </script>
+    {% endif %}
 
     {#
       Start the above-the-fold faces downloading with the CSS rather than after

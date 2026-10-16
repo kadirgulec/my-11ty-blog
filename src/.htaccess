@@ -7,4 +7,12 @@ ErrorDocument 404 /404.html
     RewriteEngine On
     RewriteCond %{HTTP_HOST} ^(www\.)?kadirguelec\.de$ [NC]
     RewriteRule ^(.*)$ https://kadir.guelec.eu/$1 [R=301,L]
+
+    # ?lang=de used to switch these pages to German in the browser. They now
+    # have their own German URLs, so old shared links move there for good.
+    # The trailing "?" drops the query string from the target.
+    RewriteCond %{QUERY_STRING} (^|&)lang=de(&|$) [NC]
+    RewriteRule ^(blog/|certificates/)?$ /de/$1? [R=301,L]
+    RewriteCond %{QUERY_STRING} (^|&)lang=en(&|$) [NC]
+    RewriteRule ^(blog/|certificates/)?$ /$1? [R=301,L]
 </IfModule>

@@ -1,4 +1,4 @@
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 {% set visibleProjects = projects.items | published %}
 
@@ -74,11 +74,8 @@
               {% if project.url or project.note or detailEn %}
                 <div class="mt-0.5 flex flex-wrap items-center gap-3">
                   {% if detailEn %}
-                    <a href="{{ detailEn.url }}" class="btn-small" data-lang-en lang="en">
-                      Read the write-up <span aria-hidden="true">&rarr;</span>
-                    </a>
-                    <a href="{{ detailDe.url }}" class="btn-small" data-lang-de lang="de">
-                      Mehr erfahren <span aria-hidden="true">&rarr;</span>
+                    <a href="{{ (detailDe if docLang == 'de' else detailEn).url }}" class="btn-small">
+                      {{ i18n.t("Read the write-up", "Mehr erfahren") }} <span aria-hidden="true">&rarr;</span>
                     </a>
                   {% endif %}
                   {% if project.url %}

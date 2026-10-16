@@ -328,6 +328,20 @@ module.exports = function(eleventyConfig) {
         (posts || []).filter(post => (post.data.docLang || "en") === lang)
     );
 
+    // The pages that are built once per language (`locales` in their front
+    // matter) and live under /de/ in German. Keep in sync with those templates.
+    const LOCALIZED_PATHS = new Set(["/", "/blog/", "/certificates/"]);
+
+    // "/blog/" -> "/de/blog/" and "/#work" -> "/de/#work" on German pages, so a
+    // link never drops the reader back into the other language. Pages without
+    // a German twin (tags, legal pages, the feed) keep their one URL.
+    eleventyConfig.addFilter("localeUrl", (url, lang) => {
+        if (lang !== "de") return url;
+        const [path, hash] = String(url).split("#");
+        if (!LOCALIZED_PATHS.has(path)) return url;
+        return `/de${path}${hash === undefined ? "" : "#" + hash}`;
+    });
+
     // A post and its translation share a key: `translationKey` when set (the
     // CMS names files after the title, so new pairs need it), else the project
     // slug for project pages, else the filename without its -de/-en suffix.

@@ -19,7 +19,7 @@ eleventyComputed:
   title: "Tag: {{ tag }}"
   description: "Posts tagged {{ tag }} on Kadir Gülec's blog."
 ---
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 <section class="section-alt border-t-0">
   <div class="shell pt-14 pb-10 sm:pt-20 sm:pb-12">
@@ -30,8 +30,12 @@ eleventyComputed:
     <p class="lede mt-4 text-[17px]">
       {{ i18n.t("All posts about " + tag + ".", "Alle Beiträge zu " + tag + ".") }}
     </p>
-    <a href="/blog/" class="link-arrow mt-6">
-      <span aria-hidden="true">&larr;</span> {{ i18n.t("All posts", "Alle Beiträge") }}
+    {# Tag pages are shared by both languages, so the way back exists in each. #}
+    <a href="/blog/" class="link-arrow mt-6" data-lang-en lang="en">
+      <span aria-hidden="true">&larr;</span> All posts
+    </a>
+    <a href="/de/blog/" class="link-arrow mt-6" data-lang-de lang="de">
+      <span aria-hidden="true">&larr;</span> Alle Beiträge
     </a>
   </div>
 </section>
