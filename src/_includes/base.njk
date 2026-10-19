@@ -62,7 +62,18 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     {% endif %}
-    {% if imageAlt %}<meta property="og:image:alt" content="{{ imageAlt }}">{% endif %}
+    {#
+      ogp.me: a page with og:image should give og:image:alt. A post's generated
+      card shows its title; the shared home card shows the name and role.
+    #}
+    {% if generatedCard and layout == 'post.njk' %}
+        {% set pageImageAlt = title %}
+    {% elif generatedCard %}
+        {% set pageImageAlt = site.author + ' — Webentwickler & Software Developer, Düren' %}
+    {% else %}
+        {% set pageImageAlt = imageAlt or title %}
+    {% endif %}
+    <meta property="og:image:alt" content="{{ pageImageAlt }}">
     <meta property="og:site_name" content="{{ site.name }}">
     <meta property="og:locale" content="{{ 'de_DE' if pageLang == 'de' else 'en_US' }}">
     {% for version in versions %}{% if (version.data.docLang or 'en') != pageLang %}
@@ -73,10 +84,13 @@
     <meta name="twitter:title" content="{{ title }}">
     <meta name="twitter:description" content="{{ pageDescription }}">
     <meta name="twitter:image" content="{{ pageImage }}">
+    <meta name="twitter:image:alt" content="{{ pageImageAlt }}">
 
-    {% if robots %}
-    <meta name="robots" content="{{ robots }}">
-    {% endif %}
+    {#
+      Without a page-specific rule, allow Google to show large image previews
+      (Discover and image-rich results need max-image-preview:large).
+    #}
+    <meta name="robots" content="{{ robots or 'max-image-preview:large' }}">
 
     {% if page.url == '/' or page.url == '/de/' %}
     {% if page.url == '/' %}

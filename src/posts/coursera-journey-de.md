@@ -4,7 +4,7 @@ urlSlug: mein-weg-durch-coursera-und-meine-zertifikate
 date: 2025-10-02
 docLang: de
 image: /assets/images/posts/coursera.svg
-imageAlt: ''
+imageAlt: "Coursera-Logo, weiße Schrift auf Blau"
 description: "Google IT Support, Python for Everybody, PHP-Webanwendungen und Object Oriented Design: meine Coursera-Zertifikate und drei Lektionen jenseits des Codes."
 tags:
   - post

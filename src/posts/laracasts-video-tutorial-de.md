@@ -4,7 +4,7 @@ urlSlug: modernes-php-meistern-mit-laracasts
 date: 2025-10-15
 docLang: de
 image: /assets/images/posts/laracasts.png
-imageAlt: ''
+imageAlt: "Startseite von Laracasts mit der Überschrift „Learn to Build, Not Just Prompt“"
 description: "Die Laracasts-Serien, die mein PHP und Laravel geprägt haben: OOP-Prinzipien, Laravel From Scratch, die API Master Class, PhpStorm und was als Nächstes kommt."
 tags:
   - post

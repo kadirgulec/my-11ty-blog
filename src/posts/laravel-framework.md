@@ -4,7 +4,7 @@ urlSlug: why-laravel-is-still-king-of-php
 date: 2025-12-05
 docLang: en
 image: /assets/images/hero-1.jpg
-imageAlt: ''
+imageAlt: "Code editor on a laptop screen in the dark, with red and blue light trails behind it"
 description: Exploring the Developer Experience (DX) of the Laravel ecosystem.
 tags:
   - post

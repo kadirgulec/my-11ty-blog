@@ -2,6 +2,7 @@
 title: Mastering Modern PHP with Laracasts
 urlSlug: mastering-modern-php-with-laracasts
 image: /assets/images/posts/laracasts.png
+imageAlt: "Laracasts homepage with the headline “Learn to Build, Not Just Prompt”"
 date: 2025-10-15
 docLang: en
 description: "The Laracasts series that shaped how I write PHP and Laravel: OOP principles, Laravel From Scratch, the API Master Class, PhpStorm, and what is next on my list."

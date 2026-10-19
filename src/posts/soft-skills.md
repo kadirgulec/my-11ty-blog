@@ -4,7 +4,7 @@ urlSlug: soft-skills-are-hard-skills
 date: 2025-07-22
 docLang: en
 image: /assets/images/hero-1.jpg
-imageAlt: ''
+imageAlt: "Code editor on a laptop screen in the dark, with red and blue light trails behind it"
 description: Why communication is just as important as coding.
 tags:
   - post

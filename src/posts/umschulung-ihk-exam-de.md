@@ -4,7 +4,7 @@ urlSlug: umschulung-ueberstanden-und-die-ihk-pruefung-gemeistert
 date: 2025-08-20
 docLang: de
 image: /assets/images/hero-1.jpg
-imageAlt: ''
+imageAlt: "Code-Editor auf einem Laptop im Dunkeln, dahinter rote und blaue Lichtspuren"
 description: Ein Rückblick auf meine Umschulung zum Fachinformatiker.
 tags:
   - post

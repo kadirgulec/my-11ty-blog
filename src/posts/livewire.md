@@ -2,7 +2,7 @@
 title: Building Dynamic UIs with Livewire
 urlSlug: building-dynamic-uis-with-livewire
 image: /assets/images/posts/livewire.png
-imageAlt: Oficial livewire logo
+imageAlt: Official Livewire logo
 date: 2026-01-10
 docLang: en
 description: Writing JavaScript-grade interactivity without writing JavaScript. A look at how Livewire makes Laravel feel reactive end-to-end.

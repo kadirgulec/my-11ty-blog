@@ -2,6 +2,7 @@
 title: My Coursera Journey and Certificates
 urlSlug: my-coursera-journey-and-certificates
 image: /assets/images/posts/coursera.svg
+imageAlt: "Coursera logo, white lettering on blue"
 date: 2025-10-02
 docLang: en
 description: "Google IT Support, Python for Everybody, PHP web apps and Object Oriented Design: the Coursera certificates I earned, and three lessons beyond the code."

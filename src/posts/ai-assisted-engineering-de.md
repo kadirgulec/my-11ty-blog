@@ -4,7 +4,7 @@ urlSlug: ki-gestuetzte-entwicklung
 date: 2026-03-01
 docLang: de
 image: /assets/images/posts/ai-assisted-engineering.jpg
-imageAlt: ''
+imageAlt: "Aufgerissenes Packpapier gibt die Tasten A und I einer Laptop-Tastatur frei"
 description: "Vibe Coding liefert Prototypen, keine Produktivsysteme. Warum KI-gestützte Entwicklung mit dem Entwickler als Architekt und Reviewer der neue Standard ist."
 tags:
   - post

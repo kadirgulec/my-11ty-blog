@@ -4,7 +4,7 @@ urlSlug: ai-assisted-engineering
 date: 2026-03-01
 docLang: en
 image: /assets/images/posts/ai-assisted-engineering.jpg
-imageAlt: ''
+imageAlt: "Torn brown paper revealing the A and I keys of a laptop keyboard"
 description: "Vibe coding gets you a prototype, not a production system. Why AI-assisted engineering, with the developer as architect and reviewer, is the 2026 standard."
 tags:
   - post

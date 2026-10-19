@@ -4,7 +4,7 @@ urlSlug: warum-ich-kein-eigenes-css-mehr-schreibe
 date: 2025-06-15
 docLang: de
 image: /assets/images/hero-1.jpg
-imageAlt: ''
+imageAlt: "Code-Editor auf einem Laptop im Dunkeln, dahinter rote und blaue Lichtspuren"
 description: Von BEM und Bootstrap zu Utility-First-CSS.
 tags:
   - post

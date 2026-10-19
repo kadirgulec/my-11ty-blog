@@ -4,7 +4,7 @@ urlSlug: why-i-stopped-writing-custom-css
 date: 2025-06-15
 docLang: en
 image: /assets/images/hero-1.jpg
-imageAlt: ''
+imageAlt: "Code editor on a laptop screen in the dark, with red and blue light trails behind it"
 description: Moving from BEM and Bootstrap to Utility-First CSS.
 tags:
   - post

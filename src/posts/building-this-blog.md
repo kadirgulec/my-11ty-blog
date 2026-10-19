@@ -2,6 +2,7 @@
 title: How I Built This Static Blog
 urlSlug: how-i-built-this-static-blog
 image: /assets/images/posts/eleventy.jpeg
+imageAlt: "The 11ty logo next to the Eleventy possum mascot floating on a red balloon"
 date: 2026-02-07
 docLang: en
 description: "Why I built this blog as a static site: Eleventy and Nunjucks for the pages, Tailwind CSS v4 and Alpine.js for the UI, and GitHub Actions to deploy every push."

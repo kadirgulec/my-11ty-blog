@@ -4,7 +4,7 @@ urlSlug: wie-ich-diesen-statischen-blog-gebaut-habe
 date: 2026-02-07
 docLang: de
 image: /assets/images/posts/eleventy.jpeg
-imageAlt: ''
+imageAlt: "Das 11ty-Logo neben dem Eleventy-Opossum, das an einem roten Ballon schwebt"
 description: "Warum dieser Blog statisch ist: Eleventy und Nunjucks für die Seiten, Tailwind CSS v4 und Alpine.js für die Oberfläche, GitHub Actions fürs Deployment."
 tags:
   - post
