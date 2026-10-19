@@ -1,5 +1,6 @@
 ---
 title: Mastering Modern PHP with Laracasts
+urlSlug: mastering-modern-php-with-laracasts
 image: /assets/images/posts/laracasts.png
 date: 2025-10-15
 docLang: en

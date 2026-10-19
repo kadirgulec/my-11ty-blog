@@ -1,5 +1,6 @@
 ---
 title: How I Built This Static Blog
+urlSlug: how-i-built-this-static-blog
 image: /assets/images/posts/eleventy.jpeg
 date: 2026-02-07
 docLang: en

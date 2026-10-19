@@ -1,5 +1,6 @@
 ---
 title: Alpine.js - das jQuery für das moderne Web
+urlSlug: alpine-js-das-jquery-fuer-das-moderne-web
 date: 2026-01-15
 docLang: de
 image: /assets/images/posts/alpine-js.jpg

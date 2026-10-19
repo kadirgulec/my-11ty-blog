@@ -1,5 +1,6 @@
 ---
 title: Mein Weg durch Coursera und meine Zertifikate
+urlSlug: mein-weg-durch-coursera-und-meine-zertifikate
 date: 2025-10-02
 docLang: de
 image: /assets/images/posts/coursera.svg

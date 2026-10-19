@@ -1,5 +1,6 @@
 ---
 title: Why Laravel is Still King of PHP
+urlSlug: why-laravel-is-still-king-of-php
 date: 2025-12-05
 docLang: en
 image: /assets/images/hero-1.jpg

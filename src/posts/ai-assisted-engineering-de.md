@@ -1,5 +1,6 @@
 ---
 title: KI-gestützte Entwicklung
+urlSlug: ki-gestuetzte-entwicklung
 date: 2026-03-01
 docLang: de
 image: /assets/images/posts/ai-assisted-engineering.jpg

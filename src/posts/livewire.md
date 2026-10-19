@@ -1,5 +1,6 @@
 ---
 title: Building Dynamic UIs with Livewire
+urlSlug: building-dynamic-uis-with-livewire
 image: /assets/images/posts/livewire.png
 imageAlt: Oficial livewire logo
 date: 2026-01-10

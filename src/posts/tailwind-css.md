@@ -1,5 +1,6 @@
 ---
 title: Why I Stopped Writing Custom CSS
+urlSlug: why-i-stopped-writing-custom-css
 date: 2025-06-15
 docLang: en
 image: /assets/images/hero-1.jpg

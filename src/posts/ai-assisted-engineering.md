@@ -1,5 +1,6 @@
 ---
 title: AI-Assisted Engineering
+urlSlug: ai-assisted-engineering
 date: 2026-03-01
 docLang: en
 image: /assets/images/posts/ai-assisted-engineering.jpg

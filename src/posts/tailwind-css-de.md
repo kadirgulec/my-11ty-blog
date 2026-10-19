@@ -1,5 +1,6 @@
 ---
 title: Warum ich kein eigenes CSS mehr schreibe
+urlSlug: warum-ich-kein-eigenes-css-mehr-schreibe
 date: 2025-06-15
 docLang: de
 image: /assets/images/hero-1.jpg

@@ -1,5 +1,6 @@
 ---
 title: Soft Skills sind Hard Skills
+urlSlug: soft-skills-sind-hard-skills
 date: 2025-07-22
 docLang: de
 image: /assets/images/hero-1.jpg

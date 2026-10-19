@@ -1,5 +1,6 @@
 ---
 title: Surviving the Umschulung and Acing the IHK Exam
+urlSlug: surviving-the-umschulung-and-acing-the-ihk-exam
 date: 2025-08-20
 docLang: en
 image: /assets/images/hero-1.jpg

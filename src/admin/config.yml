@@ -13,7 +13,10 @@ collections:
     label_singular: "Blog Post"
     folder: "src/posts"
     create: true
-    slug: "{{slug}}"          # matches permalink: /posts/{{ title | slugify }}/
+    # The filename comes from the title once, at creation, and never changes.
+    # The URL uses `urlSlug` when set, else this filename (src/posts/posts.json),
+    # so editing a title later never moves a published post.
+    slug: "{{slug}}"
     extension: md
     format: frontmatter
 
@@ -42,6 +45,11 @@ collections:
 
     fields:
       - { label: Title,       name: title,       widget: string }
+      - label: "URL slug (optional; the part after /posts/ — never change it once the post is published, old links would break)"
+        name: urlSlug
+        widget: string
+        required: false
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "Lowercase letters, digits and hyphens only"]
       - { label: Date,        name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - label: "Language (which version of the site this post appears in)"
         name: docLang

@@ -1,5 +1,6 @@
 ---
 title: My Coursera Journey and Certificates
+urlSlug: my-coursera-journey-and-certificates
 image: /assets/images/posts/coursera.svg
 date: 2025-10-02
 docLang: en

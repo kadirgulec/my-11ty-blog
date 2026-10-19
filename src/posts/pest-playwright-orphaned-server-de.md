@@ -1,5 +1,6 @@
 ---
 title: Warum Playwright nach Pest-Browsertests weiterläuft
+urlSlug: warum-playwright-nach-pest-browsertests-weiterlaeuft
 date: 2026-10-05
 docLang: de
 image: /assets/images/posts/pest-playwright-orphaned-server-de.png

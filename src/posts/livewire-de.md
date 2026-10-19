@@ -1,5 +1,6 @@
 ---
 title: Dynamische Oberflächen bauen mit Livewire
+urlSlug: dynamische-oberflaechen-bauen-mit-livewire
 date: 2026-01-10
 docLang: de
 image: /assets/images/posts/livewire.png
