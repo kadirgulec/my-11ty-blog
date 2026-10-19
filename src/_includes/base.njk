@@ -179,7 +179,7 @@
     <link rel="manifest" href="/assets/site.webmanifest">
     <meta name="color-scheme" content="dark">
     <meta name="theme-color" content="#101418">
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog" href="{{ site.url }}/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog{{ ' (Deutsch)' if pageLang == 'de' }}" href="{{ site.url }}{{ '/feed.xml' | localeUrl(pageLang) }}">
 
     {% if not docLang %}
     <script>

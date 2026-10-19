@@ -217,24 +217,47 @@ module.exports = function(eleventyConfig) {
 
 
 
-    eleventyConfig.addPlugin(feedPlugin, {
-        type: "rss",
-        outputPath: "/feed.xml",
-        collection: {
-            name: "post",
-            limit: 10,
-        },
-        metadata: {
-            language: "en",
+    // One feed per language, so a feed's <language> is true for every item and
+    // a reader never gets each post twice. Each page advertises its own one.
+    eleventyConfig.addCollection("postEn", (api) =>
+        api.getFilteredByTag("post").filter(post => (post.data.docLang || "en") === "en")
+    );
+    eleventyConfig.addCollection("postDe", (api) =>
+        api.getFilteredByTag("post").filter(post => post.data.docLang === "de")
+    );
+
+    const feeds = [
+        {
+            lang: "en", collection: "postEn", outputPath: "/feed.xml",
             title: "Kadir Gülec — Blog",
             subtitle: "Notes on web development, the TALL stack, and the road from Umschulung to software developer.",
-            base: `${site.url}/`,
-            author: {
-                name: "Kadir Gülec",
-                email: "",
+        },
+        {
+            lang: "de", collection: "postDe", outputPath: "/de/feed.xml",
+            title: "Kadir Gülec — Blog (Deutsch)",
+            subtitle: "Notizen zu Webentwicklung, dem TALL-Stack und dem Weg von der Umschulung zum Softwareentwickler.",
+        },
+    ];
+    for (const feed of feeds) {
+        eleventyConfig.addPlugin(feedPlugin, {
+            type: "rss",
+            outputPath: feed.outputPath,
+            collection: {
+                name: feed.collection,
+                limit: 10,
+            },
+            metadata: {
+                language: feed.lang,
+                title: feed.title,
+                subtitle: feed.subtitle,
+                base: `${site.url}/`,
+                author: {
+                    name: "Kadir Gülec",
+                    email: "",
+                }
             }
-        }
-    });
+        });
+    }
 
     // Accepts a Date or anything Date can parse (front-matter `updated`).
     eleventyConfig.addFilter("isoDate", (dateObj) => {
@@ -345,8 +368,9 @@ module.exports = function(eleventyConfig) {
     );
 
     // The pages that are built once per language (`locales` in their front
-    // matter) and live under /de/ in German. Keep in sync with those templates.
-    const LOCALIZED_PATHS = new Set(["/", "/blog/", "/certificates/"]);
+    // matter) and live under /de/ in German, plus the per-language feed.
+    // Keep in sync with those templates and the feed setup above.
+    const LOCALIZED_PATHS = new Set(["/", "/blog/", "/certificates/", "/feed.xml"]);
 
     // "/blog/" -> "/de/blog/" and "/#work" -> "/de/#work" on German pages, so a
     // link never drops the reader back into the other language. Pages without
