@@ -1,0 +1,7 @@
+---
+# IndexNow proves a submission comes from the site owner by fetching this file
+# from the site. The key is public by design; scripts/indexnow.mjs sends it.
+permalink: "/{{ site.indexNowKey }}.txt"
+eleventyExcludeFromCollections: true
+---
+{{- site.indexNowKey -}}

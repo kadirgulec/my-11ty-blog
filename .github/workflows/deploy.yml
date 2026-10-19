@@ -32,6 +32,14 @@ jobs:
       - name: 🏗️ Build Site
         run: npm run build
 
+      # Fetch the live manifest before rsync replaces it, so the notify step
+      # below can tell which pages this deploy actually changed.
+      - name: 🧾 IndexNow page manifest
+        run: |
+          curl -fsS https://kadir.guelec.eu/indexnow-manifest.json -o "$RUNNER_TEMP/indexnow-prev.json" \
+            || echo '{}' > "$RUNNER_TEMP/indexnow-prev.json"
+          node scripts/indexnow.mjs manifest _site > _site/indexnow-manifest.json
+
       - name: 🔑 Set up SSH
         run: |
           mkdir -p ~/.ssh
@@ -46,3 +54,9 @@ jobs:
             --exclude '.well-known' \
             -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.HESTIA_PORT || 22 }}" \
             ./_site/ "${{ secrets.HESTIA_USER }}@${{ secrets.HESTIA_HOST }}:${{ secrets.HESTIA_PATH }}/"
+
+      # Bing, Yandex, Seznam, Naver and others learn about new, changed and
+      # deleted pages right away. A failure here never fails the deploy.
+      - name: 📣 Notify IndexNow
+        continue-on-error: true
+        run: node scripts/indexnow.mjs submit "$RUNNER_TEMP/indexnow-prev.json" _site/indexnow-manifest.json
