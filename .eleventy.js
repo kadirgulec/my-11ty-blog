@@ -12,7 +12,10 @@ const site = require('./src/_data/site.json');
 // "https://kadir.guelec.eu" -> "kadir.guelec.eu", printed on the OG cards.
 const SITE_HOST = new URL(site.url).host;
 
-async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100vw, 800px") {
+// `eager` is for the one image that is the page's LCP element (the largest
+// thing in the first viewport). Lazy-loading it delays the paint Google
+// measures, so it loads immediately and ahead of other images instead.
+async function imageShortcode(src, alt, cls = "", sizes = "(max-width: 768px) 100vw, 800px", eager = false) {
     let metadata = await Image(src, {
         widths: [300, 600, 900, 1200, 2000],
         formats: ["avif", "webp", "jpeg"],
@@ -29,8 +32,9 @@ async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100
         alt,
         sizes,
         class: cls,
-        loading: "lazy",
+        loading: eager ? "eager" : "lazy",
         decoding: "async",
+        ...(eager && { fetchpriority: "high" }),
     }
 
     return Image.generateHTML(metadata, imageAttributes);

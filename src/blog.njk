@@ -73,7 +73,8 @@ eleventyComputed:
           </div>
 
           <div class="bg-well">
-            {% image "src" + (lead.data.image | default('/assets/images/hero-2.jpg')), lead.data.imageAlt | default(lead.data.title), "h-full w-full object-cover", "(max-width: 768px) 100vw, 560px" %}
+            {# The lead image is the LCP element on every viewport, so it loads eagerly. #}
+        {% image "src" + (lead.data.image | default('/assets/images/hero-2.jpg')), lead.data.imageAlt | default(lead.data.title), "h-full w-full object-cover", "(max-width: 768px) 100vw, 560px", true %}
           </div>
         </div>
       </article>
