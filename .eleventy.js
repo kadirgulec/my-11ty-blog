@@ -270,6 +270,18 @@ module.exports = function(eleventyConfig) {
         new Date(item.data.updated || item.date)
     );
 
+    // Certificates as schema.org credentials for the Person JSON-LD. Google
+    // has no rich result for them; they only tell crawlers what the person
+    // holds and who issued it.
+    eleventyConfig.addFilter("credentials", (items) =>
+        (items || []).filter(item => !item.draft).map(item => ({
+            "@type": "EducationalOccupationalCredential",
+            name: item.name,
+            recognizedBy: { "@type": "Organization", name: item.issuer },
+            ...(item.url && item.url !== "#" && { url: item.url }),
+        }))
+    );
+
     // Newest change among `items`, for listings whose content is those items.
     eleventyConfig.addFilter("latestModified", (items) =>
         new Date(Math.max(...(items || []).map(item => new Date(item.data.updated || item.date))))

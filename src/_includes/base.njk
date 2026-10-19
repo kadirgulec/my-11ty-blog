@@ -97,7 +97,7 @@
       "@type": "Person",
       "@id": "{{ site.url }}/#person",
       "name": "{{ site.author }}",
-      "url": "{{ site.url }}",
+      "url": "{{ site.url }}/",
       "email": "mailto:{{ site.email }}",
       "image": {
         "@type": "ImageObject",
@@ -122,19 +122,20 @@
         "@type": "Organization",
         "name": "aks-Service GmbH"
       },
-      "hasCredential": {
-        "@type": "EducationalOccupationalCredential",
-        "name": "Fachinformatiker für Anwendungsentwicklung",
-        "credentialCategory": "IHK-Abschluss",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "IHK Bonn/Rhein-Sieg"
-        }
-      },
+      "hasCredential": {{ certificates.items | credentials | dump | safe }},
       "sameAs": ["{{ site.github }}"]
     }
     </script>
     {% elif layout == 'post.njk' %}
+    {#
+      Google recommends several images and advises against images with text
+      as the preferred one, so the post's own photo leads and the generated
+      card (which carries the title) follows.
+    #}
+    {% set postImages = [site.url + '/assets/og/' + (page.url | ogSlug) + '.png'] %}
+    {% if image and not (image | lower).endsWith('.svg') %}
+        {% set postImages = [site.url + image, postImages[0]] %}
+    {% endif %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -142,13 +143,15 @@
       "headline": {{ title | dump | safe }},
       "description": {{ pageDescription | dump | safe }},
       "url": "{{ pageUrl }}",
-      "image": "{{ pageImage }}",
+      "image": {{ postImages | dump | safe }},
       "datePublished": "{{ page.date | isoDate }}",
+      "dateModified": "{{ (updated or page.date) | isoDate }}",
       "inLanguage": "{{ docLang or 'en' }}",
       "author": {
         "@type": "Person",
+        "@id": "{{ site.url }}/#person",
         "name": "{{ site.author }}",
-        "url": "{{ site.url }}"
+        "url": "{{ site.url }}/"
       },
       "mainEntityOfPage": "{{ pageUrl }}"
     }
@@ -163,11 +166,13 @@
       "url": "{{ pageUrl }}",
       "image": "{{ pageImage }}",
       "datePublished": "{{ page.date | isoDate }}",
+      "dateModified": "{{ (updated or page.date) | isoDate }}",
       "inLanguage": "{{ docLang or 'en' }}",
       "author": {
         "@type": "Person",
+        "@id": "{{ site.url }}/#person",
         "name": "{{ site.author }}",
-        "url": "{{ site.url }}"
+        "url": "{{ site.url }}/"
       }
     }
     </script>
