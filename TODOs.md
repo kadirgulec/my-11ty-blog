@@ -40,32 +40,36 @@
 
 - [ ] **QR Invites screenshot** — the design project's `assets/invite-card.png` exceeded the 256 KiB import limit and came back truncated, so it was not committed. Upload it via the CMS (Site Data → Projects → QR Invites → Screenshot); until then the card shows a "Screenshot coming soon" placeholder.
 
-## Open — SEO follow-ups
+## Open — SEO
 
-- [x] **HTTP → HTTPS redirect** — `http://kadir.guelec.eu/…` answers 301 to HTTPS (checked with `curl -sI` on 2026-10-16).
-- [ ] **Outdated "How I Built This Static Blog" post** — still describes Hetzner webhosting and an FTP deploy; the site now deploys to HestiaCP via rsync.
-- [ ] **4 MB share image** — `assets/images/posts/ai-assisted-engineering.jpg` is the `og:image` of both AI posts; shrinking it to ~1200 px wide would keep it well under the platforms' 5 MB limits.
-- [ ] **A German page about the work itself** — the blog is all English technical/career writing, so nothing targets a local service intent.
-
-## Next steps — SEO plan
-
-Ordered work list from `SEO-RESEARCH.md` (the numbers refer to its prioritized summary; each section there has the sources and file:line details). #1–#3 are done on branch `seo/german-landing-pages`.
+Details and sources for every item: `SEO-RESEARCH.md` (numbers refer to its prioritized summary).
 
 1. [ ] **Merge `seo/german-landing-pages` into `master`** — that triggers the deploy. Then check on the live site:
-   - `curl -sI "https://kadir.guelec.eu/?lang=de"` → `301` to `/de/` (the rule in `src/.htaccess` was only tested on a local Apache; HestiaCP puts nginx in front).
-   - `/de/`, `/de/blog/`, `/de/certificates/` answer 200 and are in `/sitemap.xml`.
-2. [ ] **Search Console + Bing Webmaster Tools (#7)** — submit `/sitemap.xml` (and `/feed.xml`), file a Change of Address for `kadirguelec.de` and `www.kadirguelec.de`, then watch the Page indexing report for the new `/de/` URLs. Leave the "Search generative AI" control on *Include*.
-3. [ ] **Eager LCP image on `/blog/` (#4)** — the lead image is the LCP element but gets `loading="lazy"` from `imageShortcode` (`.eleventy.js:32`). Give the shortcode an option for `loading="eager"` + `fetchpriority="high"` and use it for the lead image in `src/blog.njk`. Pages are single-language now, so no hidden duplicate image downloads.
-4. [ ] **Freeze post URLs (#8)** — permalinks come from `title | slugify` (`src/posts/posts.json:5`), so renaming a post in the CMS moves its URL and the old one 404s. Use a fixed `slug` front-matter field (fallback: the file slug) and set it on every existing post so no URL changes.
-5. [ ] **Duplicate font files (#5)** — several weights in `src/assets/fonts/` are byte-identical copies (~156 KB wasted on the homepage). Check first whether they are variable fonts (`fonttools ttx -t fvar`), then collapse to one `@font-face` per family with a weight range (`src/assets/fonts/fonts.css:34-150`, preloads in `base.njk`).
-6. [ ] **Byline and real dates (#6, #9)** — visible author byline linked to the about section, an optional `updated` front-matter field shown on posts and used for `dateModified` and sitemap `<lastmod>`. Drop the per-build "Updated <timestamp>" from `footer.njk` and the build-time `lastmod` for aggregate pages; remove `changefreq`/`priority` from `src/sitemap.xml.njk` (ignored by Google and Bing).
-7. [ ] **IndexNow after deploy (#10)** — post-rsync step in `.github/workflows/deploy.yml` that submits only changed URLs; sketch and key-file setup are in section 6 of `SEO-RESEARCH.md`. Reaches Bing/Yandex/Seznam, not Google.
-8. [ ] **Small fixes (#14, #15)** — `/admin/` is both `Disallow`ed (`src/robots.njk:7`) and `noindex`, so Google never sees the noindex: drop the Disallow or send `X-Robots-Tag` from `src/.htaccess`. Add `featured` to the pagination filter in `src/tags.njk` so `/tags/featured/` is no longer built.
-9. [ ] **RSS per language (#12)** — `/feed.xml` says `<language>en</language>` but carries German posts too. Split into `/feed.xml` (en) and `/de/feed.xml` (de), each linked from its language's pages.
-10. [ ] **JSON-LD gaps (#11)** — `dateModified`, author `@id`/`url`, `image` array on `BlogPosting`; certificates as `hasCredential[]` (schema.org only, no Google rich result).
-11. [ ] **Images and share cards (#13)** — `max-image-preview:large`, `og:image:alt`/`twitter:image:alt`; 13 posts have `imageAlt: ''` and 3 have none. Together with the 4 MB share image above.
-12. [ ] **Impressum** — still cites "§ 5 TMG"; the DDG replaced the TMG in 2024 (§ 5 DDG).
-13. [ ] **Header links on tag pages and the 404** — these pages are shared by both languages and toggle in place; their header nav always links to the English pages, even after switching to German. Low priority: tag pages are noindex and the 404 is never indexed.
+   - `curl -sI "https://kadir.guelec.eu/?lang=de"` → `301` to `/de/` (the rules in `src/.htaccess` were tested on a local Apache only; HestiaCP puts nginx in front).
+   - `curl -sI https://kadir.guelec.eu/admin/` → `X-Robots-Tag: noindex, nofollow` (needs Apache's `mod_headers`; nginx may serve `.yml`/`.js` under `/admin/` without it, which is fine because the page itself is noindex).
+   - `/de/`, `/de/blog/`, `/de/certificates/` and `/de/feed.xml` answer 200; `/a0a9e5610cddefa8bc72f936ae819f70.txt` shows the IndexNow key.
+   - The "📣 Notify IndexNow" step in the Actions log: the first run submits every page (HTTP 200 or 202).
+2. [ ] **Search Console + Bing Webmaster Tools (#7)** — submit `/sitemap.xml` (and `/feed.xml`, `/de/feed.xml`), file a Change of Address for `kadirguelec.de` and `www.kadirguelec.de`, then watch the Page indexing report for the new `/de/` URLs. Leave the "Search generative AI" control on *Include*. In Bing, import the site from Search Console.
+3. [ ] **Impressum address** — § 5 DDG asks for a *ladungsfähige Anschrift*; the Impressum lists only "52351 Düren". Add a street address (or a service address) — a legal question, not an SEO one.
+4. [ ] **A German page about the work itself** — nothing targets a local service intent ("Webentwickler Düren" only matches the homepage). Needs the content first: what is offered, to whom, and whether freelance work is possible next to the job.
+5. [ ] **Optional: `/about/` page as `ProfilePage`** (#11) — the byline and the `BlogPosting` author currently point at the homepage's About section. A dedicated page marked up as `ProfilePage` is what Google's docs describe; worth it only together with real content.
+
+### Done on `seo/german-landing-pages`
+
+- [x] German URLs for the homepage, blog and certificates; one language per page; hreflang; `?lang=` redirects (#1–#3).
+- [x] Lead image on `/blog/` loads eagerly with `fetchpriority="high"` (#4).
+- [x] Post URLs frozen: `urlSlug` in every post, fallback to the filename, field in the CMS (#8).
+- [x] Variable fonts declared once per subset: 5 font files on the homepage instead of 10 (#5).
+- [x] Byline with labelled Published/Updated dates; optional `updated` field (CMS + front matter); no build-time footer stamp; truthful sitemap `lastmod`, no `changefreq`/`priority` (#6, #9).
+- [x] IndexNow after each deploy: `scripts/indexnow.mjs`, key in `site.json`, steps in `deploy.yml` (#10).
+- [x] `/admin/` no longer disallowed, `X-Robots-Tag` from `.htaccess`; no `/tags/featured/` (#14, #15).
+- [x] RSS split into `/feed.xml` (en) and `/de/feed.xml` (de) (#12).
+- [x] JSON-LD: `dateModified`, author `@id`, image list, all certificates as `hasCredential` (#11).
+- [x] `og:image:alt`/`twitter:image:alt` everywhere, real alt texts, `max-image-preview:large`, share image 4.2 MB → 405 KB (#13).
+- [x] Impressum cites § 5 DDG and Art. 8 DSA instead of the TMG.
+- [x] Header and footer links follow the chosen language on tag pages and the 404.
+- [x] "How I Built This Static Blog" describes the current HestiaCP/rsync setup (both languages).
+- [x] **HTTP → HTTPS redirect** — `http://kadir.guelec.eu/…` answers 301 to HTTPS (checked with `curl -sI` on 2026-10-16).
 
 ## Ideas for later
 
