@@ -15,7 +15,7 @@
 <header class="sticky top-0 z-50 border-b border-line bg-ink/[0.88] backdrop-blur-md">
   <div class="shell flex flex-nowrap items-center gap-x-3 py-3 sm:gap-x-4 md:gap-x-6">
 
-    <a href="{{ '/' | localeUrl(docLang) }}" class="-m-1.5 shrink-0 p-1.5 text-fg transition-colors hover:text-white">
+    <a {{ i18n.href('/') }} class="-m-1.5 shrink-0 p-1.5 text-fg transition-colors hover:text-white">
       <span class="sr-only">Kadir Gülec — {{ i18n.t("Home", "Startseite") }}</span>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"
            preserveAspectRatio="xMidYMid meet" class="size-9" aria-hidden="true">
@@ -31,7 +31,7 @@
          class="-mx-1 mr-auto flex min-w-0 flex-nowrap items-center gap-x-3 overflow-x-auto px-1 [scrollbar-width:none] sm:gap-x-4 md:gap-x-[22px] [&::-webkit-scrollbar]:hidden">
       {% for item in navigation %}
         {% set itemUrl = item.url | localeUrl(docLang) %}
-        <a href="{{ itemUrl }}"
+        <a {{ i18n.href(item.url) }}
            {% if itemUrl == page.url %}aria-current="page"{% endif %}
            class="text-[14.5px] whitespace-nowrap transition-colors hover:text-fg
                   {{ 'text-fg' if itemUrl == page.url else 'text-fg-dim' }}
@@ -92,7 +92,8 @@
   // without a fixed language) flip the visible variant in place.
   (function () {
     // Text nodes are swapped by CSS, but attributes need JS. Elements opt in
-    // with data-ph-en/data-ph-de (placeholder) or data-title-en/data-title-de.
+    // with data-ph-en/data-ph-de (placeholder), data-title-en/data-title-de
+    // or data-href-en/data-href-de (links with a German twin, see i18n.href).
     function applyAttributes(lang) {
       var suffix = lang === 'de' ? 'De' : 'En';
       document.querySelectorAll('[data-ph-en]').forEach(function (el) {
@@ -100,6 +101,9 @@
       });
       document.querySelectorAll('[data-title-en]').forEach(function (el) {
         el.setAttribute('title', el.dataset['title' + suffix]);
+      });
+      document.querySelectorAll('[data-href-en]').forEach(function (el) {
+        el.setAttribute('href', el.dataset['href' + suffix]);
       });
     }
 

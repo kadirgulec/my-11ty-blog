@@ -27,3 +27,10 @@
 
 {#- Same, but for pre-rendered HTML (e.g. markdown output). -#}
 {% macro tHtml(en, de) %}{% if docLang == "de" %}{{ (de if de else en) | safe }}{% elif docLang == "en" %}{{ en | safe }}{% else %}<span data-lang-en lang="en">{{ en | safe }}</span><span data-lang-de lang="de">{{ (de if de else en) | safe }}</span>{% endif %}{% endmacro %}
+
+{#-
+  href attribute for an internal link that has a German twin (see localeUrl).
+  On pages without a language it carries both targets, and the header script
+  swaps href along with the visible language.
+-#}
+{% macro href(url) %}{% if docLang %}href="{{ url | localeUrl(docLang) }}"{% else %}href="{{ url }}" data-href-en="{{ url }}" data-href-de="{{ url | localeUrl('de') }}"{% endif %}{% endmacro %}
