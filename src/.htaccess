@@ -1,5 +1,13 @@
 ErrorDocument 404 /404.html
 
+# Keep the CMS out of search results. robots.txt does not block /admin/, so
+# crawlers can fetch it and see this header (and the page's own noindex).
+<IfModule mod_headers.c>
+    <If "%{REQUEST_URI} =~ m#^/admin/#">
+        Header set X-Robots-Tag "noindex, nofollow"
+    </If>
+</IfModule>
+
 # kadirguelec.de is retired: send every request on the old host, path and
 # query string included, permanently to the same page on the new domain.
 # Both servers get this file; the condition makes it a no-op on the new one.
