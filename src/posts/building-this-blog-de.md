@@ -2,6 +2,7 @@
 title: Wie ich diesen statischen Blog gebaut habe
 urlSlug: wie-ich-diesen-statischen-blog-gebaut-habe
 date: 2026-02-07
+updated: 2026-10-19
 docLang: de
 image: /assets/images/posts/eleventy.jpeg
 imageAlt: "Das 11ty-Logo neben dem Eleventy-Opossum, das an einem roten Ballon schwebt"
@@ -11,7 +12,7 @@ tags:
   - 11ty
   - AlpineJS
   - TailwindCSS
-  - Hetzner
+  - HestiaCP
   - GitHub
   - Projects
 draft: false
@@ -49,8 +50,8 @@ Ich bin auf **Tailwind CSS v4** umgestiegen. Es ist schneller und schlanker als 
 ### 3. Interaktivität: Alpine.js
 Für die kleinen interaktiven Sprenkel — mobiles Menü, Suche ein- und ausklappen — setze ich auf **Alpine.js**, oft „Tailwind für JavaScript" genannt. Es bietet die deklarative Kraft von Vue oder React bei einem Bruchteil der Größe.
 
-### 4. Das Zuhause: Hetzner Webhosting S
-Das fertige Build liegt bei **Hetzner**: zuverlässig, in Europa und ideal für eine leichtgewichtige statische Seite.
+### 4. Das Zuhause: mein eigener Server mit HestiaCP
+Das fertige Build liegt auf einem Server, den ich mit **HestiaCP** verwalte, einem Open-Source-Hosting-Panel. nginx liefert die statischen Dateien direkt von der Platte aus, das Panel kümmert sich um die Domain und das Let’s-Encrypt-Zertifikat. (Die erste Version lief auf einem Hetzner-Webhosting-Paket und kam per FTP dorthin.)
 
 ---
 
@@ -59,15 +60,15 @@ Das fertige Build liegt bei **Hetzner**: zuverlässig, in Europa und ideal für 
 Das eigentlich Schöne an diesem Setup ist der Arbeitsablauf. Ich schiebe keine Dateien mehr per FTP hin und her, als wäre es 2005. Stattdessen läuft alles über **GitHub Actions**.
 
 **Der Ablauf ist simpel:**
-1.  Ich schreibe einen neuen Beitrag in **Markdown**.
-2.  Ich schicke die Änderungen mit `git push` zu GitHub.
+1.  Ich schreibe einen neuen Beitrag in **Markdown**, im Editor oder im Browser über **Sveltia CMS**, das direkt ins Repository committet.
+2.  Die Änderung landet auf GitHub (per `git push` oder als Commit aus dem CMS).
 3.  Eine GitHub Action startet und:
     * installiert die Abhängigkeiten,
-    * baut die Seite mit Eleventy,
-    * minifiziert das CSS,
-    * **lädt die fertigen Dateien automatisch** per FTP auf meinen Hetzner-Server.
+    * baut die Seite mit Eleventy und minifiziert das CSS,
+    * baut den **Pagefind**-Suchindex,
+    * **synchronisiert** die fertigen Dateien per `rsync` über SSH auf meinen Server und löscht, was es nicht mehr gibt.
 
-Das Ergebnis? Ich kann mich ganz aufs Schreiben konzentrieren. Keine Server zu patchen, keine Datenbanken zu optimieren — nur Inhalte.
+Das Ergebnis? Ich kann mich ganz aufs Schreiben konzentrieren. Keine CMS-Plugins zu patchen, keine Datenbanken zu optimieren — nur Inhalte.
 
 ---
 

@@ -4,6 +4,7 @@ urlSlug: how-i-built-this-static-blog
 image: /assets/images/posts/eleventy.jpeg
 imageAlt: "The 11ty logo next to the Eleventy possum mascot floating on a red balloon"
 date: 2026-02-07
+updated: 2026-10-19
 docLang: en
 description: "Why I built this blog as a static site: Eleventy and Nunjucks for the pages, Tailwind CSS v4 and Alpine.js for the UI, and GitHub Actions to deploy every push."
 tags:
@@ -11,7 +12,7 @@ tags:
   - 11ty
   - AlpineJS
   - TailwindCSS
-  - Hetzner
+  - HestiaCP
   - GitHub
   - Projects
 draft: false
@@ -48,8 +49,8 @@ I’ve upgraded to the latest **Tailwind CSS v4**. It’s faster and even more s
 ### 3. Interactivity: Alpine.js
 For the small bits of "sprinkle" interactivity (like mobile menus or search toggles), I went with **Alpine.js**. It’s often called "Tailwind for JavaScript." It gives you the declarative power of Vue or React but with a much smaller footprint.
 
-### 4. The Home: Hetzner Webhosting S
-I’m hosting the final build on **Hetzner**. It’s reliable, European-based, and perfect for a lightweight static site.
+### 4. The Home: My Own Server with HestiaCP
+The finished build lives on a server I manage with **HestiaCP**, an open-source hosting control panel. nginx serves the static files straight from disk, and the panel takes care of the domain and the Let’s Encrypt certificate. (The first version ran on a shared Hetzner webhosting plan, uploaded via FTP.)
 
 ---
 
@@ -60,15 +61,15 @@ The real beauty of this setup is the workflow. I don’t use an FTP client to ma
 
 
 **The process is simple:**
-1.  I write a new post in **Markdown**.
-2.  I `git push` my changes to GitHub.
+1.  I write a new post in **Markdown**, either in my editor or in the browser through **Sveltia CMS**, which commits straight to the repository.
+2.  The change lands on GitHub (`git push`, or the CMS’s own commit).
 3.  A GitHub Action triggers, which:
     * Installs dependencies.
-    * Builds the site using Eleventy.
-    * Minifies the CSS.
-    * **Automatically uploads** the finished files to my Hetzner server via FTP.
+    * Builds the site using Eleventy and minifies the CSS.
+    * Builds the **Pagefind** search index.
+    * **Syncs** the finished files to my server with `rsync` over SSH, deleting anything that no longer exists.
 
-The result? I get to focus entirely on writing. No servers to patch, no databases to optimize—just pure, simple content.
+The result? I get to focus entirely on writing. No CMS plugins to patch, no databases to optimize—just pure, simple content.
 
 ---
 
