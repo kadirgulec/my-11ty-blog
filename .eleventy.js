@@ -236,9 +236,21 @@ module.exports = function(eleventyConfig) {
         }
     });
 
+    // Accepts a Date or anything Date can parse (front-matter `updated`).
     eleventyConfig.addFilter("isoDate", (dateObj) => {
-        return dateObj.toISOString();
+        return new Date(dateObj).toISOString();
     });
+
+    // The date a page last changed in substance: `updated` when the front
+    // matter sets one, else its publish date. Feeds dateModified and lastmod.
+    eleventyConfig.addFilter("modifiedDate", (item) =>
+        new Date(item.data.updated || item.date)
+    );
+
+    // Newest change among `items`, for listings whose content is those items.
+    eleventyConfig.addFilter("latestModified", (items) =>
+        new Date(Math.max(...(items || []).map(item => new Date(item.data.updated || item.date))))
+    );
 
     eleventyConfig.addFilter("readingTime", (content) => {
         const words = String(content).replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length;
@@ -369,17 +381,6 @@ module.exports = function(eleventyConfig) {
         String(html || "").replace(/<(\/?)h1(?=[\s>])/g, "<$1h2")
     );
 
-    eleventyConfig.addShortcode("lastUpdated", () => {
-        return new Date().toLocaleDateString('de-DE', {
-            timeZone: 'Europe/Berlin',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        });
-    })
 
     eleventyConfig.addGlobalData("year", () => new Date().getFullYear());
 

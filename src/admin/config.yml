@@ -51,6 +51,13 @@ collections:
         required: false
         pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "Lowercase letters, digits and hyphens only"]
       - { label: Date,        name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - label: "Updated (optional; only after a substantial edit — shown on the post and sent to search engines)"
+        name: updated
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        required: false
       - label: "Language (which version of the site this post appears in)"
         name: docLang
         widget: select
@@ -115,6 +122,13 @@ collections:
           - { label: "Deutsch", value: de }
       - { label: "Page title",   name: title,       widget: string }
       - { label: Date,           name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - label: "Updated (optional; only after a substantial edit)"
+        name: updated
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        required: false
       - { label: Description,    name: description, widget: text }
       - { label: "Share image",  name: image,       widget: image,  required: false }
       - { label: "Image alt",    name: imageAlt,    widget: string, required: false }
