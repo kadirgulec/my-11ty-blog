@@ -2,7 +2,7 @@
 title: Why HTTP 200 Is Not Enough After a WordPress Update
 date: 2026-11-07
 docLang: en
-description: "After a routine WordPress update every page returned 200, but the registration form was gone. How I now test a whole site in a real browser before and after every update."
+description: "Every page returned 200 after a WordPress update, but the registration form was gone. How I now test whole sites in a real browser before and after updates."
 tags:
   - post
   - WordPress

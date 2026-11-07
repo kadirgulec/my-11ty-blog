@@ -2,7 +2,7 @@
 title: Warum HTTP 200 nach einem WordPress-Update nicht reicht
 date: 2026-11-07
 docLang: de
-description: "Nach einem WordPress-Update lieferte jede Seite 200, aber das Anmeldeformular war weg. Wie ich heute vor und nach jedem Update die ganze Website in einem echten Browser teste."
+description: "Nach einem WordPress-Update lieferte jede Seite 200, aber das Anmeldeformular war weg. So teste ich Websites heute vor und nach Updates im echten Browser."
 tags:
   - post
   - WordPress
