@@ -9,6 +9,8 @@ tags:
   - Puppeteer
   - Testing
   - ACF
+image: /assets/images/posts/wordpress-update-browser-check.png
+imageAlt: "Terminal: every page answers HTTP 200 and has no PHP errors, but the before/after comparison flags an event page as WORSE because its form and submit button are gone"
 draft: false
 ---
 
