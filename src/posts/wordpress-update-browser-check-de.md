@@ -9,8 +9,8 @@ tags:
   - Puppeteer
   - Testing
   - ACF
-image: /assets/images/posts/wordpress-update-browser-check-de.png
-imageAlt: "Terminal: Jede Seite antwortet mit HTTP 200 und zeigt keine PHP-Fehler, aber der Vorher-nachher-Vergleich meldet eine Veranstaltungsseite als WORSE, weil Formular und Absenden-Button fehlen"
+image: /assets/images/posts/wordpress-update-browser-check.jpg
+imageAlt: "Hände tippen auf einem Laptop, im Browser ist der WordPress-Beitragseditor geöffnet (Foto: StockSnap, Pixabay)"
 draft: false
 ---
 
