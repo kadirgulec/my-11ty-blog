@@ -9,7 +9,7 @@ tags:
   - Puppeteer
   - Testing
   - ACF
-draft: true
+draft: false
 ---
 
 Zu meiner Arbeit gehört es, WordPress-Websites aktuell zu halten. Vor einiger Zeit habe ich eine Veranstaltungs-Website aktualisiert: WordPress selbst, rund zwanzig Plugins, Übersetzungen. Nach jedem Schritt habe ich die wichtigen Seiten von außen geprüft. Jede Seite antwortete mit HTTP 200, im HTML stand kein PHP-Fehler, und der Page Builder gab genauso viele Elemente aus wie vorher. Alles sah gut aus.

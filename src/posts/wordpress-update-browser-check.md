@@ -9,7 +9,7 @@ tags:
   - Puppeteer
   - Testing
   - ACF
-draft: true
+draft: false
 ---
 
 Part of my job is keeping WordPress sites up to date. Some time ago I updated an events website: WordPress core, around twenty plugins, translations. After every step I checked the important pages from the outside. Every page answered with HTTP 200, there were no PHP errors in the HTML, and the page builder rendered the same number of elements as before. Everything looked fine.
