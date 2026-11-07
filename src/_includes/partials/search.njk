@@ -1,4 +1,4 @@
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 <div x-data="searchComponent()"
      @open-search.window="openModal()"
@@ -40,9 +40,13 @@
                     <input type="text"
                            x-ref="searchInput"
                            class="h-14 w-full border-0 bg-transparent pr-4 pl-11 text-fg outline-none placeholder:text-fg-faint"
+                           {% if docLang %}
+                           placeholder="{{ 'Beiträge, Projekte, Zertifikate suchen…' if docLang == 'de' else 'Search posts, projects, certificates…' }}"
+                           {% else %}
                            placeholder="Search posts, projects, certificates…"
                            data-ph-en="Search posts, projects, certificates…"
                            data-ph-de="Beiträge, Projekte, Zertifikate suchen…"
+                           {% endif %}
                            x-model="query"
                            @input.debounce.300ms="performSearch()">
                 </div>

@@ -4,7 +4,7 @@ layout: base.njk
 permalink: 404.html
 eleventyExcludeFromCollections: true
 ---
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 <section class="section border-t-0">
   <div class="shell grid place-items-center py-[clamp(5rem,14vw,10rem)] text-center">
@@ -20,8 +20,11 @@ eleventyExcludeFromCollections: true
         ) }}
       </p>
       <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
-        <a href="/" class="btn-primary">{{ i18n.t("Go back home", "Zur Startseite") }}</a>
-        <a href="/blog/" class="btn-ghost">{{ i18n.t("Read the blog", "Zum Blog") }}</a>
+        {# One server-wide 404 page, so each link exists once per language. #}
+        <a href="/" class="btn-primary" data-lang-en lang="en">Go back home</a>
+        <a href="/de/" class="btn-primary" data-lang-de lang="de">Zur Startseite</a>
+        <a href="/blog/" class="btn-ghost" data-lang-en lang="en">Read the blog</a>
+        <a href="/de/blog/" class="btn-ghost" data-lang-de lang="de">Zum Blog</a>
       </div>
     </div>
   </div>

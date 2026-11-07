@@ -1,4 +1,4 @@
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 <section id="blog" class="section-alt scroll-mt-20">
   <div class="section-body">
@@ -8,42 +8,35 @@
       <h2>{{ i18n.t("From the blog", "Aus dem Blog") }}</h2>
     </div>
 
-    {#
-      Each language gets its own three latest posts, so the preview never shows
-      an article the reader cannot read. Both lists ship; CSS reveals one.
-    #}
-    {% for locale in ["en", "de"] %}
-      {% set localePosts = collections.post | byLang(locale) | reverse %}
-      <div {% if locale == "en" %}data-lang-en{% else %}data-lang-de{% endif %}>
-        {% if localePosts.length %}
-          <div class="mb-7 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
-            {% for post in localePosts %}
-              {% if loop.index <= 3 %}
-                <a href="{{ post.url }}" class="card-link">
-                  <span class="font-mono text-xs text-fg-faint">
-                    {{ post.date | postDate("en-GB" if locale == "en" else "de-DE") }}
-                  </span>
-                  <span class="font-display text-[19px] leading-[1.3] font-semibold">{{ post.data.title }}</span>
-                  <span class="font-mono text-[13px] text-accent">
-                    {%- for tag in post.data.tags | visibleTags %} #{{ tag }}{% endfor -%}
-                  </span>
-                </a>
-              {% endif %}
-            {% endfor %}
-          </div>
-          <a href="/blog/" class="link-arrow">
-            {{ i18n.t("All posts", "Alle Beiträge") }} <span aria-hidden="true">&rarr;</span>
-          </a>
-        {% else %}
-          <p class="lede">
-            {{ i18n.t(
-              "No English posts published yet.",
-              "Noch keine deutschsprachigen Beiträge veröffentlicht."
-            ) }}
-          </p>
-        {% endif %}
+    {# The page's own language only, so the preview never shows an article the reader cannot read. #}
+    {% set localePosts = collections.post | byLang(docLang) | reverse %}
+    {% if localePosts.length %}
+      <div class="mb-7 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
+        {% for post in localePosts %}
+          {% if loop.index <= 3 %}
+            <a href="{{ post.url }}" class="card-link">
+              <span class="font-mono text-xs text-fg-faint">
+                {{ post.date | postDate("en-GB" if docLang == "en" else "de-DE") }}
+              </span>
+              <span class="font-display text-[19px] leading-[1.3] font-semibold">{{ post.data.title }}</span>
+              <span class="font-mono text-[13px] text-accent">
+                {%- for tag in post.data.tags | visibleTags %} #{{ tag }}{% endfor -%}
+              </span>
+            </a>
+          {% endif %}
+        {% endfor %}
       </div>
-    {% endfor %}
+      <a href="{{ '/blog/' | localeUrl(docLang) }}" class="link-arrow">
+        {{ i18n.t("All posts", "Alle Beiträge") }} <span aria-hidden="true">&rarr;</span>
+      </a>
+    {% else %}
+      <p class="lede">
+        {{ i18n.t(
+          "No English posts published yet.",
+          "Noch keine deutschsprachigen Beiträge veröffentlicht."
+        ) }}
+      </p>
+    {% endif %}
 
   </div>
 </section>

@@ -1,4 +1,4 @@
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 {% set footerLinks = [
   { en: 'Impressum',   de: 'Impressum',   url: '/impressum/' },
@@ -20,14 +20,11 @@
         <span class="text-fg-faint/60">·</span>
         <a href="mailto:{{ site.email }}" class="transition-colors hover:text-fg">{{ site.email }}</a>
       </address>
-      <span class="font-mono text-[11.5px] text-fg-faint">
-        {{ i18n.t("Updated", "Aktualisiert") }} {% lastUpdated %}
-      </span>
     </div>
 
     <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
       {% for link in footerLinks %}
-        <a href="{{ link.url }}" class="text-[13.5px] text-fg-dim transition-colors hover:text-fg">
+        <a {{ i18n.href(link.url) }} class="text-[13.5px] text-fg-dim transition-colors hover:text-fg">
           {{ i18n.t(link.en, link.de) }}
         </a>
       {% endfor %}

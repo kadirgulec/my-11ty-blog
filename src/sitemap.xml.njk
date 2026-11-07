@@ -4,6 +4,12 @@ eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{#-
+  Google and Bing use <lastmod> only while it is truthful, so it comes from
+  content dates, never the build time: a post's `updated` or publish date,
+  a blog listing's newest post. Pages without such a date get none.
+  <changefreq> and <priority> are ignored by both engines and left out.
+-#}
 {%- for entry in collections.all %}
   {#
     HTML pages only. The RSS feed and the Sveltia CMS admin app travel through
@@ -16,11 +22,19 @@ eleventyExcludeFromCollections: true
         and not entry.url.startsWith("/admin/")
         and not entry.data.excludeFromSitemap
         and not ("noindex" in (entry.data.robots or "")) %}
+  {%- set entryLang = entry.data.docLang or "en" %}
+  {%- if entry.data.layout in ["post.njk", "project.njk"] %}
+    {%- set lastmod = entry | modifiedDate %}
+  {%- elif entry.data.locales and entry.url.endsWith("/blog/") %}
+    {%- set lastmod = collections.post | byLang(entryLang) | latestModified %}
+  {%- else %}
+    {%- set lastmod = false %}
+  {%- endif %}
   <url>
     <loc>{{ site.url }}{{ entry.url | url }}</loc>
-    <lastmod>{{ entry.date | isoDate }}</lastmod>
-    <changefreq>{{ entry.data.changefreq or "monthly" }}</changefreq>
-    <priority>{{ entry.data.priority or "0.5" }}</priority>
+    {%- if lastmod %}
+    <lastmod>{{ lastmod | isoDate }}</lastmod>
+    {%- endif %}
   </url>
   {%- endif %}
 {%- endfor %}

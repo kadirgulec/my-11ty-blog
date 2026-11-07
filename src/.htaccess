@@ -1,5 +1,13 @@
 ErrorDocument 404 /404.html
 
+# Keep the CMS out of search results. robots.txt does not block /admin/, so
+# crawlers can fetch it and see this header (and the page's own noindex).
+<IfModule mod_headers.c>
+    <If "%{REQUEST_URI} =~ m#^/admin/#">
+        Header set X-Robots-Tag "noindex, nofollow"
+    </If>
+</IfModule>
+
 # kadirguelec.de is retired: send every request on the old host, path and
 # query string included, permanently to the same page on the new domain.
 # Both servers get this file; the condition makes it a no-op on the new one.
@@ -7,4 +15,12 @@ ErrorDocument 404 /404.html
     RewriteEngine On
     RewriteCond %{HTTP_HOST} ^(www\.)?kadirguelec\.de$ [NC]
     RewriteRule ^(.*)$ https://kadir.guelec.eu/$1 [R=301,L]
+
+    # ?lang=de used to switch these pages to German in the browser. They now
+    # have their own German URLs, so old shared links move there for good.
+    # The trailing "?" drops the query string from the target.
+    RewriteCond %{QUERY_STRING} (^|&)lang=de(&|$) [NC]
+    RewriteRule ^(blog/|certificates/)?$ /de/$1? [R=301,L]
+    RewriteCond %{QUERY_STRING} (^|&)lang=en(&|$) [NC]
+    RewriteRule ^(blog/|certificates/)?$ /$1? [R=301,L]
 </IfModule>

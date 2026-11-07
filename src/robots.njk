@@ -2,9 +2,13 @@
 permalink: /robots.txt
 eleventyExcludeFromCollections: true
 ---
+{#
+  /admin/ is deliberately not disallowed: it says noindex (in its HTML and in
+  an X-Robots-Tag header from .htaccess), and a crawler that may not fetch a
+  page never sees its noindex, so a Disallow could keep it in the index.
+-#}
 User-agent: *
 Allow: /
-Disallow: /admin/
 Disallow: /pagefind/
 
 Sitemap: {{ site.url }}/sitemap.xml

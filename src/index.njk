@@ -1,7 +1,23 @@
 ---
 layout: base.njk
-title: Kadir Gülec — Webentwickler & Software Developer in Düren
-description: Webentwickler und Software Developer in Düren — Full-Stack-Webentwicklung mit PHP, Laravel, Livewire und Alpine.js. Fachinformatiker AE (IHK Bonn 2025).
+# One page per language: / in English, /de/ in German. Every section renders
+# only the page's language (see partials/i18n.njk).
+pagination:
+  data: locales
+  size: 1
+  alias: docLang
+  addAllPagesToCollections: true
+locales: [en, de]
+permalink: "{{ '/de/' if docLang == 'de' else '/' }}"
+titles:
+  en: Kadir Gülec — Web & Software Developer in Düren
+  de: Kadir Gülec — Webentwickler & Software Developer in Düren
+descriptions:
+  en: Web and software developer in Düren, Germany — full-stack web development with PHP, Laravel, Livewire and Alpine.js. Certified IT specialist for application development (IHK Bonn 2025).
+  de: Webentwickler und Software Developer in Düren — Full-Stack-Webentwicklung mit PHP, Laravel, Livewire und Alpine.js. Fachinformatiker AE (IHK Bonn 2025).
+eleventyComputed:
+  title: "{{ titles[docLang] | safe }}"
+  description: "{{ descriptions[docLang] | safe }}"
 ---
 
 {% include "sections/hero.njk" %}

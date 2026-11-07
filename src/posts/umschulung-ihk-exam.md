@@ -1,9 +1,10 @@
 ---
 title: Surviving the Umschulung and Acing the IHK Exam
+urlSlug: surviving-the-umschulung-and-acing-the-ihk-exam
 date: 2025-08-20
 docLang: en
 image: /assets/images/hero-1.jpg
-imageAlt: ''
+imageAlt: "Code editor on a laptop screen in the dark, with red and blue light trails behind it"
 description: A look back at my retraining as a Fachinformatiker.
 tags:
   - post

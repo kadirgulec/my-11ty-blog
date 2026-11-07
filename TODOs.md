@@ -28,24 +28,48 @@
 - [x] **Contact section** — "Get in touch" on the homepage with mailto (info@kadirguelec.de, already public on the Impressum) + GitHub, in `sections/contact.njk`.
 - [x] **A11y/PWA** — skip-to-content link, `apple-touch-icon` + `icon-192/512` (generated from `logo.svg`), `site.webmanifest`, `theme-color` metas, per-page `lang` (Impressum/Datenschutz now `lang: de`).
 - [x] **Dark-only redesign from the Claude Design project** — new palette (`#101418` / accent `#f0801f`), Space Grotesk + IBM Plex Sans/Mono self-hosted in `src/assets/fonts/`, design tokens in `src/css/style.css`. The light/dark switcher is gone; the site is dark-only.
-- [x] **EN/DE language switch** — both variants ship in the HTML, `html[data-lang]` reveals one (`src/_includes/partials/i18n.njk`). Choice persists in `localStorage` under `site-lang`, and `?lang=de` forces it for shareable links. Posts declare `docLang: en|de`; `/blog/` groups them so a reader only sees posts in their language. German posts live under `/de/posts/<slug>/` so a translation can keep its original title without colliding with the English permalink.
+- [x] **EN/DE language switch** — every page that has a language (`docLang`) renders only that language (`src/_includes/partials/i18n.njk`, imported `with context`), and the header switch links to the same page in the other language. Posts declare `docLang: en|de`; German posts live under `/de/posts/<slug>/` so a translation can keep its original title without colliding with the English permalink. Tag pages and the 404 page are shared by both languages, so they still ship both variants and toggle them in place via `html[data-lang]`, remembering the choice in `localStorage` under `site-lang`.
 - [x] **Optional detail pages for projects** — a project can have a long-form write-up at `/projects/<slug>/` (and `/de/projects/<slug>/`) for work that cannot be handed out as a live demo. Set "Detail page slug" on the project, then add the page under **Project Pages** in the CMS; the card links to it only once the page is published. Projects without one are unchanged.
 - [x] **Projects, skills, certificates and history in Sveltia CMS** — both editable as file collections ("Site Data") in `src/admin/config.yml`. Data files were restructured from a root array to `{ "items": [...] }` for CMS compatibility.
 - [x] **Article styles actually apply** — the `.prose-site` overrides sat in `@layer components`, but the typography plugin emits `.prose` in `@layer utilities`, and a later layer wins regardless of specificity. So the site palette never reached articles: links and inline code were white, inline code bold and wrapped in backticks. Moved to `@layer utilities` (`src/css/style.css`).
-- [x] **One language per search excerpt** — Pagefind indexed both variants of every bilingual string, so excerpts read "5 min readLesezeit" or "…under control.Ich baue…". A transform in `.eleventy.js` marks the variant that does not match `<html lang>` with `data-pagefind-ignore`. (`exclude_selectors` cannot do it: it only matches inside the indexed body.) Trade-off: the German half of the homepage and `/blog/` is no longer searchable; German posts are, on their own pages.
+- [x] **One language per search excerpt** — Pagefind indexed both variants of every bilingual string, so excerpts read "5 min readLesezeit" or "…under control.Ich baue…". A transform in `.eleventy.js` marks the variant that does not match `<html lang>` with `data-pagefind-ignore`. (`exclude_selectors` cannot do it: it only matches inside the indexed body.) Since the German landing pages exist, only tag pages and the 404 still carry both variants.
 - [x] **Consistent years in public service** — the hero said eleven years, the About section and the timeline seven (2009–2016). The hero now says seven too.
+- [x] **German landing pages** — `/de/`, `/de/blog/` and `/de/certificates/` are built from the same templates as their English pages (pagination over `locales: [en, de]` with `alias: docLang`), each in one language, paired with `hreflang` and listed in the sitemap. Internal links stay in the page's language through the `localeUrl` filter in `.eleventy.js`. Old `?lang=de` / `?lang=en` links 301 to the matching URL (`src/.htaccess`). The homepage title and description now match its language (English on `/`, German on `/de/`).
 
 ## Open
 
 - [ ] **QR Invites screenshot** — the design project's `assets/invite-card.png` exceeded the 256 KiB import limit and came back truncated, so it was not committed. Upload it via the CMS (Site Data → Projects → QR Invites → Screenshot); until then the card shows a "Screenshot coming soon" placeholder.
 
-## Open — SEO follow-ups
+## Open — SEO
 
-- [ ] **German landing pages** — there is no `/de/` homepage or `/de/blog/` (posts and project pages have `hreflang` now). The homepage ships both languages in one `lang="en"` document with CSS hiding one, which dilutes relevance for both.
-- [ ] **HTTP → HTTPS redirect** — `http://kadir.guelec.eu/…` answers 200 instead of redirecting. Enable "automatic HTTPS redirection" for the web domain in HestiaCP (nginx-level, no `.htaccess` rule needed). `kadirguelec.de` already 301s to the new host.
-- [ ] **Outdated "How I Built This Static Blog" post** — still describes Hetzner webhosting and an FTP deploy; the site now deploys to HestiaCP via rsync.
-- [ ] **4 MB share image** — `assets/images/posts/ai-assisted-engineering.jpg` is the `og:image` of both AI posts; shrinking it to ~1200 px wide would keep it well under the platforms' 5 MB limits.
-- [ ] **A German page about the work itself** — the blog is all English technical/career writing, so nothing targets a local service intent.
+Details and sources for every item: `SEO-RESEARCH.md` (numbers refer to its prioritized summary).
+
+1. [ ] **Merge `seo/german-landing-pages` into `master`** — that triggers the deploy. Then check on the live site:
+   - `curl -sI "https://kadir.guelec.eu/?lang=de"` → `301` to `/de/` (the rules in `src/.htaccess` were tested on a local Apache only; HestiaCP puts nginx in front).
+   - `curl -sI https://kadir.guelec.eu/admin/` → `X-Robots-Tag: noindex, nofollow` (needs Apache's `mod_headers`; nginx may serve `.yml`/`.js` under `/admin/` without it, which is fine because the page itself is noindex).
+   - `/de/`, `/de/blog/`, `/de/certificates/` and `/de/feed.xml` answer 200; `/a0a9e5610cddefa8bc72f936ae819f70.txt` shows the IndexNow key.
+   - The "📣 Notify IndexNow" step in the Actions log: the first run submits every page (HTTP 200 or 202).
+2. [ ] **Search Console + Bing Webmaster Tools (#7)** — submit `/sitemap.xml` (and `/feed.xml`, `/de/feed.xml`), file a Change of Address for `kadirguelec.de` and `www.kadirguelec.de`, then watch the Page indexing report for the new `/de/` URLs. Leave the "Search generative AI" control on *Include*. In Bing, import the site from Search Console.
+3. [ ] **Impressum address** — § 5 DDG asks for a *ladungsfähige Anschrift*; the Impressum lists only "52351 Düren". Add a street address (or a service address) — a legal question, not an SEO one.
+4. [ ] **A German page about the work itself** — nothing targets a local service intent ("Webentwickler Düren" only matches the homepage). Needs the content first: what is offered, to whom, and whether freelance work is possible next to the job.
+5. [ ] **Optional: `/about/` page as `ProfilePage`** (#11) — the byline and the `BlogPosting` author currently point at the homepage's About section. A dedicated page marked up as `ProfilePage` is what Google's docs describe; worth it only together with real content.
+
+### Done on `seo/german-landing-pages`
+
+- [x] German URLs for the homepage, blog and certificates; one language per page; hreflang; `?lang=` redirects (#1–#3).
+- [x] Lead image on `/blog/` loads eagerly with `fetchpriority="high"` (#4).
+- [x] Post URLs frozen: `urlSlug` in every post, fallback to the filename, field in the CMS (#8).
+- [x] Variable fonts declared once per subset: 5 font files on the homepage instead of 10 (#5).
+- [x] Byline with labelled Published/Updated dates; optional `updated` field (CMS + front matter); no build-time footer stamp; truthful sitemap `lastmod`, no `changefreq`/`priority` (#6, #9).
+- [x] IndexNow after each deploy: `scripts/indexnow.mjs`, key in `site.json`, steps in `deploy.yml` (#10).
+- [x] `/admin/` no longer disallowed, `X-Robots-Tag` from `.htaccess`; no `/tags/featured/` (#14, #15).
+- [x] RSS split into `/feed.xml` (en) and `/de/feed.xml` (de) (#12).
+- [x] JSON-LD: `dateModified`, author `@id`, image list, all certificates as `hasCredential` (#11).
+- [x] `og:image:alt`/`twitter:image:alt` everywhere, real alt texts, `max-image-preview:large`, share image 4.2 MB → 405 KB (#13).
+- [x] Impressum cites § 5 DDG and Art. 8 DSA instead of the TMG.
+- [x] Header and footer links follow the chosen language on tag pages and the 404.
+- [x] "How I Built This Static Blog" describes the current HestiaCP/rsync setup (both languages).
+- [x] **HTTP → HTTPS redirect** — `http://kadir.guelec.eu/…` answers 301 to HTTPS (checked with `curl -sI` on 2026-10-16).
 
 ## Ideas for later
 

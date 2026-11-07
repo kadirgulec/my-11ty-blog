@@ -1,9 +1,10 @@
 ---
 title: Warum Laravel nach wie vor die erste Wahl in PHP ist
+urlSlug: warum-laravel-nach-wie-vor-die-erste-wahl-in-php-ist
 date: 2025-12-05
 docLang: de
 image: /assets/images/hero-1.jpg
-imageAlt: ''
+imageAlt: "Code-Editor auf einem Laptop im Dunkeln, dahinter rote und blaue Lichtspuren"
 description: Ein Blick auf die Developer Experience (DX) im Laravel-Ökosystem.
 tags:
   - post

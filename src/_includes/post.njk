@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 ---
-{% import "partials/i18n.njk" as i18n %}
+{% import "partials/i18n.njk" as i18n with context %}
 
 {% set dateLocale = "de-DE" if docLang == "de" else "en-GB" %}
 
@@ -13,12 +13,23 @@ layout: base.njk
   <div class="shell py-12 sm:py-16">
     <div class="mx-auto max-w-3xl">
 
-      <a href="/blog/" class="link-arrow mb-8">
+      <a href="{{ '/blog/' | localeUrl(docLang) }}" class="link-arrow mb-8">
         <span aria-hidden="true">&larr;</span> {{ i18n.t("All posts", "Alle Beiträge") }}
       </a>
 
       <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[12.5px] text-fg-faint">
-        <time datetime="{{ page.date | isoDate }}">{{ page.date | postDate(dateLocale) }}</time>
+        {#
+          Byline and labelled dates, as Google's byline-date guidance asks:
+          who wrote it, when it was published, and when it last changed in
+          substance (`updated` in the front matter, set only for real edits).
+        #}
+        <span>{{ i18n.t("By", "Von") }} <a href="{{ '/#about' | localeUrl(docLang) }}" rel="author" class="text-fg-dim transition-colors hover:text-accent">{{ site.author }}</a></span>
+        <span>·</span>
+        <span>{{ i18n.t("Published", "Veröffentlicht") }} <time datetime="{{ page.date | isoDate }}">{{ page.date | postDate(dateLocale) }}</time></span>
+        {% if updated %}
+        <span>·</span>
+        <span>{{ i18n.t("Updated", "Aktualisiert") }} <time datetime="{{ updated | isoDate }}">{{ updated | postDate(dateLocale) }}</time></span>
+        {% endif %}
         <span>·</span>
         <span>{{ content | readingTime }} min {{ i18n.t("read", "Lesezeit") }}</span>
         <span class="badge">{{ (docLang or "en") | upper }}</span>
@@ -85,7 +96,7 @@ layout: base.njk
                   data-emit-metadata="0"
                   data-input-position="bottom"
                   data-theme="dark"
-                  data-lang="en"
+                  data-lang="{{ docLang or 'en' }}"
                   data-loading="lazy"
                   crossorigin="anonymous"
                   async>

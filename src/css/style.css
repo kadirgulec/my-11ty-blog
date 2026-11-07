@@ -80,9 +80,10 @@
 }
 
 /*
- * Language switching. The inline script in base.njk stamps data-lang on <html>
- * before first paint, so the wrong language never flashes. Every bilingual
- * fragment ships both variants and CSS hides the inactive one.
+ * Language switching. Pages with a fixed language (`docLang`) render only that
+ * language. The rest (tag pages, 404) ship both variants of every bilingual
+ * fragment; the inline script in base.njk stamps data-lang on <html> before
+ * first paint, and CSS hides the inactive variant without a flash.
  */
 @layer base {
     html[data-lang="en"] [data-lang-de],
@@ -202,12 +203,14 @@
         @apply flex overflow-hidden rounded-lg border border-line-2 font-mono text-[12.5px];
     }
 
+    /* Links to the other language's page, or toggle buttons on pages that have none. */
+    .lang-switch a,
     .lang-switch button {
         @apply cursor-pointer border-0 bg-transparent px-2.5 py-[7px] text-fg-dim transition-colors hover:text-fg;
     }
 
-    html[data-lang="en"] .lang-switch button[data-set-lang="en"],
-    html[data-lang="de"] .lang-switch button[data-set-lang="de"] {
+    html[data-lang="en"] .lang-switch [data-set-lang="en"],
+    html[data-lang="de"] .lang-switch [data-set-lang="de"] {
         @apply bg-accent text-ink hover:text-ink;
     }
 }

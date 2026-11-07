@@ -1,5 +1,6 @@
 ---
 title: Alpine.js - The jQuery for the Modern Web
+urlSlug: alpine-js-the-jquery-for-the-modern-web
 image: /assets/images/posts/alpine-js.jpg
 imageAlt: The official logo of Alpine.js, a lightweight JavaScript framework.
 date: 2026-01-15

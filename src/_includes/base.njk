@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ docLang or lang or 'en' }}" data-lang="en">
+<html lang="{{ docLang or lang or 'en' }}" data-lang="{{ docLang or 'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,21 +23,26 @@
         {% set generatedCard = true %}
     {% endif %}
 
-    <title>{{ title }}{% if page.url != '/' %} | {{ site.author }}{% endif %}</title>
+    {# The homepage titles already lead with the name. #}
+    <title>{{ title }}{% if page.url not in ['/', '/de/'] %} | {{ site.author }}{% endif %}</title>
     <meta name="description" content="{{ pageDescription }}">
     <meta name="author" content="{{ site.author }}">
     <link rel="canonical" href="{{ pageUrl }}">
     {#
-      Posts and project pages exist in English and German. hreflang tells Google
-      they are translations of each other, not duplicates, and which one to show
-      a reader. Every version lists all of them, itself included; English is the
-      fallback for any other language.
+      Posts, project pages, the homepage, the blog and the certificates exist in
+      English and German. hreflang tells Google they are translations of each
+      other, not duplicates, and which one to show a reader. Every version lists
+      all of them, itself included; English is the fallback for any other
+      language. The header's language switch links to the same `versions`.
     #}
     {% set pageLang = docLang or lang or 'en' %}
     {% if layout == 'post.njk' %}
         {% set versions = collections.post | translations(page.inputPath) %}
     {% elif layout == 'project.njk' %}
         {% set versions = collections.projectPage | translations(page.inputPath) %}
+    {% elif locales %}
+        {# Built once per language from one template (see index.njk). #}
+        {% set versions = collections.all | where("inputPath", page.inputPath) %}
     {% else %}
         {% set versions = [] %}
     {% endif %}
@@ -57,7 +62,18 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     {% endif %}
-    {% if imageAlt %}<meta property="og:image:alt" content="{{ imageAlt }}">{% endif %}
+    {#
+      ogp.me: a page with og:image should give og:image:alt. A post's generated
+      card shows its title; the shared home card shows the name and role.
+    #}
+    {% if generatedCard and layout == 'post.njk' %}
+        {% set pageImageAlt = title %}
+    {% elif generatedCard %}
+        {% set pageImageAlt = site.author + ' — Webentwickler & Software Developer, Düren' %}
+    {% else %}
+        {% set pageImageAlt = imageAlt or title %}
+    {% endif %}
+    <meta property="og:image:alt" content="{{ pageImageAlt }}">
     <meta property="og:site_name" content="{{ site.name }}">
     <meta property="og:locale" content="{{ 'de_DE' if pageLang == 'de' else 'en_US' }}">
     {% for version in versions %}{% if (version.data.docLang or 'en') != pageLang %}
@@ -68,11 +84,15 @@
     <meta name="twitter:title" content="{{ title }}">
     <meta name="twitter:description" content="{{ pageDescription }}">
     <meta name="twitter:image" content="{{ pageImage }}">
+    <meta name="twitter:image:alt" content="{{ pageImageAlt }}">
 
-    {% if robots %}
-    <meta name="robots" content="{{ robots }}">
-    {% endif %}
+    {#
+      Without a page-specific rule, allow Google to show large image previews
+      (Discover and image-rich results need max-image-preview:large).
+    #}
+    <meta name="robots" content="{{ robots or 'max-image-preview:large' }}">
 
+    {% if page.url == '/' or page.url == '/de/' %}
     {% if page.url == '/' %}
     {# Google reads the site name shown above results from WebSite data on the homepage. #}
     <script type="application/ld+json">
@@ -84,13 +104,14 @@
       "url": "{{ site.url }}/"
     }
     </script>
+    {% endif %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "@id": "{{ site.url }}/#person",
       "name": "{{ site.author }}",
-      "url": "{{ site.url }}",
+      "url": "{{ site.url }}/",
       "email": "mailto:{{ site.email }}",
       "image": {
         "@type": "ImageObject",
@@ -115,19 +136,20 @@
         "@type": "Organization",
         "name": "aks-Service GmbH"
       },
-      "hasCredential": {
-        "@type": "EducationalOccupationalCredential",
-        "name": "Fachinformatiker für Anwendungsentwicklung",
-        "credentialCategory": "IHK-Abschluss",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "IHK Bonn/Rhein-Sieg"
-        }
-      },
+      "hasCredential": {{ certificates.items | credentials | dump | safe }},
       "sameAs": ["{{ site.github }}"]
     }
     </script>
     {% elif layout == 'post.njk' %}
+    {#
+      Google recommends several images and advises against images with text
+      as the preferred one, so the post's own photo leads and the generated
+      card (which carries the title) follows.
+    #}
+    {% set postImages = [site.url + '/assets/og/' + (page.url | ogSlug) + '.png'] %}
+    {% if image and not (image | lower).endsWith('.svg') %}
+        {% set postImages = [site.url + image, postImages[0]] %}
+    {% endif %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -135,13 +157,15 @@
       "headline": {{ title | dump | safe }},
       "description": {{ pageDescription | dump | safe }},
       "url": "{{ pageUrl }}",
-      "image": "{{ pageImage }}",
+      "image": {{ postImages | dump | safe }},
       "datePublished": "{{ page.date | isoDate }}",
+      "dateModified": "{{ (updated or page.date) | isoDate }}",
       "inLanguage": "{{ docLang or 'en' }}",
       "author": {
         "@type": "Person",
+        "@id": "{{ site.url }}/#person",
         "name": "{{ site.author }}",
-        "url": "{{ site.url }}"
+        "url": "{{ site.url }}/"
       },
       "mainEntityOfPage": "{{ pageUrl }}"
     }
@@ -156,11 +180,13 @@
       "url": "{{ pageUrl }}",
       "image": "{{ pageImage }}",
       "datePublished": "{{ page.date | isoDate }}",
+      "dateModified": "{{ (updated or page.date) | isoDate }}",
       "inLanguage": "{{ docLang or 'en' }}",
       "author": {
         "@type": "Person",
+        "@id": "{{ site.url }}/#person",
         "name": "{{ site.author }}",
-        "url": "{{ site.url }}"
+        "url": "{{ site.url }}/"
       }
     }
     </script>
@@ -172,35 +198,35 @@
     <link rel="manifest" href="/assets/site.webmanifest">
     <meta name="color-scheme" content="dark">
     <meta name="theme-color" content="#101418">
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog" href="{{ site.url }}/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — Blog{{ ' (Deutsch)' if pageLang == 'de' }}" href="{{ site.url }}{{ '/feed.xml' | localeUrl(pageLang) }}">
 
+    {% if not docLang %}
     <script>
-        // Stamp the reader's language before first paint so the inactive
-        // variant of every bilingual string is hidden without a flash.
+        // Only pages without a fixed language (tag pages, 404) ship both
+        // variants of their strings. Stamp the reader's stored choice before
+        // first paint so the inactive variant is hidden without a flash.
         // Only data-lang changes: `lang` stays the document's own language,
         // which is what Pagefind keys its search index on. Individual
         // bilingual fragments carry their own `lang` (see partials/i18n.njk).
+        // Every other page's language comes from its URL and is never
+        // overridden here.
         (function () {
-            // ?lang=de wins over the stored choice, so a link can carry a language.
-            var requested = new URLSearchParams(location.search).get('lang');
             var stored = null;
             try { stored = localStorage.getItem('site-lang'); } catch (e) {}
-            var choice = requested === 'de' || requested === 'en' ? requested : stored;
-            var lang = choice === 'de' || choice === 'en' ? choice : 'en';
-            document.documentElement.setAttribute('data-lang', lang);
-            if (requested === lang) {
-                try { localStorage.setItem('site-lang', lang); } catch (e) {}
+            if (stored === 'de' || stored === 'en') {
+                document.documentElement.setAttribute('data-lang', stored);
             }
         })();
     </script>
+    {% endif %}
 
     {#
       Start the above-the-fold faces downloading with the CSS rather than after
       it. Without this the headline first paints in the fallback, then reflows
       when Space Grotesk arrives — a visible jump on every uncached load.
     #}
-    <link rel="preload" href="/assets/fonts/space-grotesk-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/assets/fonts/ibm-plex-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Link to the Splide CSS file (before style.css so site overrides win) -->
     <link rel="stylesheet" href="/assets/vendor/splide.min.css">

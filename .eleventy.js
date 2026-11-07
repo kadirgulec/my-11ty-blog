@@ -12,7 +12,10 @@ const site = require('./src/_data/site.json');
 // "https://kadir.guelec.eu" -> "kadir.guelec.eu", printed on the OG cards.
 const SITE_HOST = new URL(site.url).host;
 
-async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100vw, 800px") {
+// `eager` is for the one image that is the page's LCP element (the largest
+// thing in the first viewport). Lazy-loading it delays the paint Google
+// measures, so it loads immediately and ahead of other images instead.
+async function imageShortcode(src, alt, cls = "", sizes = "(max-width: 768px) 100vw, 800px", eager = false) {
     let metadata = await Image(src, {
         widths: [300, 600, 900, 1200, 2000],
         formats: ["avif", "webp", "jpeg"],
@@ -29,8 +32,9 @@ async function imageShortcode(src, alt,cls = "", sizes = "(max-width: 768px) 100
         alt,
         sizes,
         class: cls,
-        loading: "lazy",
+        loading: eager ? "eager" : "lazy",
         decoding: "async",
+        ...(eager && { fetchpriority: "high" }),
     }
 
     return Image.generateHTML(metadata, imageAttributes);
@@ -213,28 +217,75 @@ module.exports = function(eleventyConfig) {
 
 
 
-    eleventyConfig.addPlugin(feedPlugin, {
-        type: "rss",
-        outputPath: "/feed.xml",
-        collection: {
-            name: "post",
-            limit: 10,
-        },
-        metadata: {
-            language: "en",
+    // One feed per language, so a feed's <language> is true for every item and
+    // a reader never gets each post twice. Each page advertises its own one.
+    eleventyConfig.addCollection("postEn", (api) =>
+        api.getFilteredByTag("post").filter(post => (post.data.docLang || "en") === "en")
+    );
+    eleventyConfig.addCollection("postDe", (api) =>
+        api.getFilteredByTag("post").filter(post => post.data.docLang === "de")
+    );
+
+    const feeds = [
+        {
+            lang: "en", collection: "postEn", outputPath: "/feed.xml",
             title: "Kadir Gülec — Blog",
             subtitle: "Notes on web development, the TALL stack, and the road from Umschulung to software developer.",
-            base: `${site.url}/`,
-            author: {
-                name: "Kadir Gülec",
-                email: "",
+        },
+        {
+            lang: "de", collection: "postDe", outputPath: "/de/feed.xml",
+            title: "Kadir Gülec — Blog (Deutsch)",
+            subtitle: "Notizen zu Webentwicklung, dem TALL-Stack und dem Weg von der Umschulung zum Softwareentwickler.",
+        },
+    ];
+    for (const feed of feeds) {
+        eleventyConfig.addPlugin(feedPlugin, {
+            type: "rss",
+            outputPath: feed.outputPath,
+            collection: {
+                name: feed.collection,
+                limit: 10,
+            },
+            metadata: {
+                language: feed.lang,
+                title: feed.title,
+                subtitle: feed.subtitle,
+                base: `${site.url}/`,
+                author: {
+                    name: "Kadir Gülec",
+                    email: "",
+                }
             }
-        }
+        });
+    }
+
+    // Accepts a Date or anything Date can parse (front-matter `updated`).
+    eleventyConfig.addFilter("isoDate", (dateObj) => {
+        return new Date(dateObj).toISOString();
     });
 
-    eleventyConfig.addFilter("isoDate", (dateObj) => {
-        return dateObj.toISOString();
-    });
+    // The date a page last changed in substance: `updated` when the front
+    // matter sets one, else its publish date. Feeds dateModified and lastmod.
+    eleventyConfig.addFilter("modifiedDate", (item) =>
+        new Date(item.data.updated || item.date)
+    );
+
+    // Certificates as schema.org credentials for the Person JSON-LD. Google
+    // has no rich result for them; they only tell crawlers what the person
+    // holds and who issued it.
+    eleventyConfig.addFilter("credentials", (items) =>
+        (items || []).filter(item => !item.draft).map(item => ({
+            "@type": "EducationalOccupationalCredential",
+            name: item.name,
+            recognizedBy: { "@type": "Organization", name: item.issuer },
+            ...(item.url && item.url !== "#" && { url: item.url }),
+        }))
+    );
+
+    // Newest change among `items`, for listings whose content is those items.
+    eleventyConfig.addFilter("latestModified", (items) =>
+        new Date(Math.max(...(items || []).map(item => new Date(item.data.updated || item.date))))
+    );
 
     eleventyConfig.addFilter("readingTime", (content) => {
         const words = String(content).replace(/<[^>]*>/g, " ").split(/\s+/).filter(Boolean).length;
@@ -328,6 +379,21 @@ module.exports = function(eleventyConfig) {
         (posts || []).filter(post => (post.data.docLang || "en") === lang)
     );
 
+    // The pages that are built once per language (`locales` in their front
+    // matter) and live under /de/ in German, plus the per-language feed.
+    // Keep in sync with those templates and the feed setup above.
+    const LOCALIZED_PATHS = new Set(["/", "/blog/", "/certificates/", "/feed.xml"]);
+
+    // "/blog/" -> "/de/blog/" and "/#work" -> "/de/#work" on German pages, so a
+    // link never drops the reader back into the other language. Pages without
+    // a German twin (tags, legal pages, the feed) keep their one URL.
+    eleventyConfig.addFilter("localeUrl", (url, lang) => {
+        if (lang !== "de") return url;
+        const [path, hash] = String(url).split("#");
+        if (!LOCALIZED_PATHS.has(path)) return url;
+        return `/de${path}${hash === undefined ? "" : "#" + hash}`;
+    });
+
     // A post and its translation share a key: `translationKey` when set (the
     // CMS names files after the title, so new pairs need it), else the project
     // slug for project pages, else the filename without its -de/-en suffix.
@@ -351,17 +417,6 @@ module.exports = function(eleventyConfig) {
         String(html || "").replace(/<(\/?)h1(?=[\s>])/g, "<$1h2")
     );
 
-    eleventyConfig.addShortcode("lastUpdated", () => {
-        return new Date().toLocaleDateString('de-DE', {
-            timeZone: 'Europe/Berlin',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-        });
-    })
 
     eleventyConfig.addGlobalData("year", () => new Date().getFullYear());
 
