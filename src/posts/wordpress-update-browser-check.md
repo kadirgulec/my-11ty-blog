@@ -1,5 +1,6 @@
 ---
 title: Why HTTP 200 Is Not Enough After a WordPress Update
+urlSlug: why-http-200-is-not-enough-after-a-wordpress-update
 date: 2026-11-07
 docLang: en
 description: "Every page returned 200 after a WordPress update, but the registration form was gone. How I now test whole sites in a real browser before and after updates."
