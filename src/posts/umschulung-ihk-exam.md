@@ -1,11 +1,13 @@
 ---
-title: "From Public Administration to Software Development: My Umschulung and the IHK Exam"
+translationKey: ''
+title: 'From Public Administration to Software Development: My Umschulung and the IHK Exam'
 urlSlug: from-public-administration-to-software-development-my-umschulung-and-the-ihk-exam
 date: 2025-08-20
+updated: ''
 docLang: en
 image: /assets/images/hero-1.jpg
-imageAlt: "Code editor on a laptop screen in the dark, with red and blue light trails behind it"
-description: "Seven years in public administration in Turkey, then a move to Germany and a two-year retraining. How I prepared for both IHK exams, and what the examiners asked me."
+imageAlt: Code editor on a laptop screen in the dark, with red and blue light trails behind it
+description: Seven years in public administration in Turkey, then a move to Germany and a two-year retraining. How I prepared for both IHK exams, and what the examiners asked me.
 tags:
   - post
   - Career
@@ -14,7 +16,7 @@ tags:
 draft: true
 ---
 
-For seven years I worked as a specialist at the Turkish Ministry of Interior. Files, procedures, people. In 2016 I moved from Ankara to Düren with one suitcase and a new language to learn. The next years were language courses, first jobs and evenings of teaching myself to code. In 2022 I started a retraining as a **Fachinformatiker für Anwendungsentwicklung**, an application developer, and passed both IHK exams. Today I build web applications with Laravel, Livewire and Alpine.js at aks-Service in Düren.
+For seven years I worked as a specialist at the Turkish Ministry of Interior. Files, procedures, people. In 2016 I moved from Ankara to Düren with one suitcase and a new language to learn. The next years were language courses, first jobs and evenings of teaching myself to code. In 2022 I started a retraining as a **Fachinformatiker für Anwendungsentwicklung**, an application developer, and passed both IHK exams. Today I build web applications with Laravel, Livewire and Alpine.js at [aks-Service](https://aks-service.de/) in Nideggen.
 
 This post is for anyone thinking about the same step: what an Umschulung is, how the IHK exam works, how I prepared, and what the examiners asked me.
 
@@ -22,7 +24,7 @@ This post is for anyone thinking about the same step: what an Umschulung is, how
 
 In Germany, most IT jobs start with an apprenticeship (Ausbildung) that takes three years. An Umschulung is the same qualification for adults who change careers, with the same IHK exam at the end, in about two years. It is usually funded by the Arbeitsagentur or the Jobcenter.
 
-Mine had two halves. In the school, EVB Training, I learned the theory. And over the two years I had to spend about six months as an intern in a company. Finding that internship was the hardest part of the first year: I collected a lot of rejections, and they hurt. In the end an IT company in Düren, aks-Service, took me.
+Mine had two halves. In the school, [EVB Training](https://evbtraining.de/), I learned the theory. And over the two years I had to spend about six months as an intern in a company. Finding that internship was the hardest part of the first year: I collected a lot of rejections, and they hurt. In the end an IT company in Nideggen, aks-Service, took me.
 
 In the internship I learned Tailwind CSS, PHP and Laravel, and I worked on three projects: a sick-leave reporting system for the company's intranet, a product database for a client, and a website for managing an organisation. At first the hardest part was not the code but the German, and finding my place in the team. Both came with time. After the internship I stayed, and Laravel and Tailwind are still the tools I use every day.
 
@@ -35,7 +37,7 @@ The exam is defined by the training regulation for IT specialists ([FIAusbV](htt
 **Part 2** comes at the end and has four areas. For application developers they are:
 
 | Area | Format |
-|---|---|
+| --- | --- |
 | Planning and carrying out a software project | Company project, documentation, presentation and technical interview |
 | Planning a software product | Written, 90 minutes |
 | Developing and implementing algorithms | Written, 90 minutes |
@@ -56,7 +58,7 @@ I prepared in three phases:
 In the exam itself, a few things helped me:
 
 - **Make a time plan before you start.** I gave each question 20 minutes and kept 10 for checking, and it worked out exactly.
-- **Watch the small words.** The IHK likes to write numbers as words. Write the digits next to them, because you will usually need them later. Underline the keywords, and look out for small words like *jede*, *eine* and *jeweils*.
+- **Watch the small words.** The IHK likes to write numbers as words. Write the digits next to them, because you will usually need them later. Underline the keywords, and look out for small words like _jede_, _eine_ and _jeweils_.
 - **Skip what blocks you.** Note the skipped question and its points, and come back later, highest points first. Sometimes a later question gives you the idea.
 - **Never leave an answer empty.**
 - **Use the dictionary strategically.** Only for words that really decide the question. But when you know a word in your own language and the German one just won't come, look it up. Trying to remember costs more time.
@@ -74,7 +76,7 @@ I took Part 2 in December 2024 and passed with an average grade of 2 ("gut"; in 
 
 My project was an employee portal (Mitarbeiterportal), or more precisely, the sick-leave reporting system from my internship. Before, sick notes went around on paper. The company still needs a printed form, so the portal now produces it as a PDF: nobody fills in the form by hand anymore. You download the PDF and email it to whoever needs it.
 
-I built it with Laravel and [FilamentPHP](https://filamentphp.com/). I picked Filament to get the admin interface up quickly, and partly as an experiment. That experiment paid off later: when I started working at the company, I was the only one who knew Filament, and the client projects built with it still land on my desk.
+I built it with Laravel and [FilamentPHP](https://filamentphp.com/). I picked Filament to get the admin interface up quickly, and partly as an experiment. That experiment paid off later: when I started working at the company, I was the one who knew Filament, and the client projects built with it still land on my desk.
 
 For the PDFs I first tried dompdf, but it could not handle Tailwind CSS. So I switched to [spatie/browsershot](https://github.com/spatie/browsershot), which opens the page in a real headless Chrome and prints it to PDF. The PDF looks exactly like the page I designed with Tailwind.
 
@@ -88,22 +90,22 @@ The Fachgespräch was in German, so here are the questions as they were asked, a
 
 **Project management**
 
-- *Was ist ein Projekt?* I said: a one-time, complex undertaking, limited in time and resources, with a fixed start and end. Missing: a project also has a clear goal.
-- *Wie kann man den Zeitablauf in einem Projekt darstellen?* Gantt chart and network diagram (Netzplan).
-- *Wofür ist ein Netzplan am besten geeignet?* I said "to see parallel phases". The examiners said that's not quite it. A Netzplan shows the dependencies between tasks, so you can calculate the critical path, the buffer times and the earliest end date. Parallel work is easier to see in a Gantt chart.
-- *Haben Sie schon vom kritischen Pfad gehört?* Yes: the path without buffer time. If a task on it is late, the whole project is late.
+- _Was ist ein Projekt?_ I said: a one-time, complex undertaking, limited in time and resources, with a fixed start and end. Missing: a project also has a clear goal.
+- _Wie kann man den Zeitablauf in einem Projekt darstellen?_ Gantt chart and network diagram (Netzplan).
+- _Wofür ist ein Netzplan am besten geeignet?_ I said "to see parallel phases". The examiners said that's not quite it. A Netzplan shows the dependencies between tasks, so you can calculate the critical path, the buffer times and the earliest end date. Parallel work is easier to see in a Gantt chart.
+- _Haben Sie schon vom kritischen Pfad gehört?_ Yes: the path without buffer time. If a task on it is late, the whole project is late.
 
 **PHP and programming languages**
 
-- *Was ist eine Skriptsprache?* The key point, which I only said at the end: script languages are not compiled in advance but run by an interpreter.
-- *Was ist der Unterschied zwischen einem Interpreter und einem Compiler?* I said an interpreter makes finding errors easier. The examiners disagreed, and they were right: a compiler catches many errors before the program even runs.
-- *Warum ist Java trotzdem plattformunabhängig?* Java compiles to bytecode, and the Java Virtual Machine runs that bytecode on every platform.
+- _Was ist eine Skriptsprache?_ The key point, which I only said at the end: script languages are not compiled in advance but run by an interpreter.
+- _Was ist der Unterschied zwischen einem Interpreter und einem Compiler?_ I said an interpreter makes finding errors easier. The examiners disagreed, and they were right: a compiler catches many errors before the program even runs.
+- _Warum ist Java trotzdem plattformunabhängig?_ Java compiles to bytecode, and the Java Virtual Machine runs that bytecode on every platform.
 
 **Object-oriented programming**
 
-- *Was ist OOP?* Classes as blueprints for objects, and the pillars: inheritance, polymorphism, encapsulation, and for some, abstraction.
-- *Sie haben bei der Kapselung etwas vergessen.* I had forgotten the access modifiers: private, protected, public.
-- *Warum brauchen wir einen Setter?* Here my time ran out. The answer: a setter keeps a change under the class's control. It can check the new value first, so the object never ends up in an invalid state.
+- _Was ist OOP?_ Classes as blueprints for objects, and the pillars: inheritance, polymorphism, encapsulation, and for some, abstraction.
+- _Sie haben bei der Kapselung etwas vergessen._ I had forgotten the access modifiers: private, protected, public.
+- _Warum brauchen wir einen Setter?_ Here my time ran out. The answer: a setter keeps a change under the class's control. It can check the new value first, so the object never ends up in an invalid state.
 
 One pattern stood out: **when an answer had a gap, the next question went straight into that gap.** After the Netzplan they asked about the critical path. After encapsulation, about the access modifiers. A weak answer is not the end. Usually you get a second chance right away.
 
@@ -121,4 +123,4 @@ My years in public administration were not wasted. They taught me to document wh
 
 If you are thinking about a career change into IT: it is possible, also later in life and in a second language. It is a lot of work, and it is worth it.
 
-*I wrote about both exams in more detail in Turkish: [IHK 1. Sınav](https://kadir.gulec.tr/yazilar/ihk-1-sinav) and [IHK 2. Sınav](https://kadir.gulec.tr/yazilar/ihk-2-sinav-nasil-calistim-sunumda-neler-soruldu). For Turkish-speaking trainees preparing for Part 1, I also built a free practice site: [ap1.guelec.eu](https://ap1.guelec.eu).*
+_I wrote about both exams in more detail in Turkish:_ _[IHK 1. Sınav](https://kadir.gulec.tr/yazilar/ihk-1-sinav)_ _and_ [_IHK 2. Sınav_](https://kadir.gulec.tr/yazilar/ihk-2-sinav-nasil-calistim-sunumda-neler-soruldu)*. For Turkish-speaking trainees preparing for Part 1, I also built a free practice site:* [_ap1.guelec.eu_](https://ap1.guelec.eu)*.*

@@ -14,7 +14,7 @@ tags:
 draft: true
 ---
 
-Sieben Jahre lang war ich Sachbearbeiter im türkischen Innenministerium. Akten, Verfahren, Menschen. 2016 bin ich mit einem Koffer und einer neuen Sprache von Ankara nach Düren gezogen. Die Jahre danach waren Sprachkurse, erste Jobs und Abende, an denen ich mir selbst das Programmieren beigebracht habe. 2022 habe ich eine Umschulung zum **Fachinformatiker für Anwendungsentwicklung** begonnen und beide IHK-Prüfungen bestanden. Heute entwickle ich bei der aks-Service in Düren Webanwendungen mit Laravel, Livewire und Alpine.js.
+Sieben Jahre lang war ich Sachbearbeiter im türkischen Innenministerium. Akten, Verfahren, Menschen. 2016 bin ich mit einem Koffer und einer neuen Sprache von Ankara nach Düren gezogen. Die Jahre danach waren Sprachkurse, erste Jobs und Abende, an denen ich mir selbst das Programmieren beigebracht habe. 2022 habe ich eine Umschulung zum **Fachinformatiker für Anwendungsentwicklung** begonnen und beide IHK-Prüfungen bestanden. Heute entwickle ich bei der [aks-Service](https://aks-service.de/) in Nideggen Webanwendungen mit Laravel, Livewire und Alpine.js.
 
 Dieser Beitrag ist für alle, die über denselben Schritt nachdenken: was eine Umschulung ist, wie die IHK-Prüfung abläuft, wie ich mich vorbereitet habe und was mich der Prüfungsausschuss gefragt hat.
 
@@ -22,7 +22,7 @@ Dieser Beitrag ist für alle, die über denselben Schritt nachdenken: was eine U
 
 Der klassische Weg in einen IT-Beruf ist in Deutschland eine Ausbildung, die drei Jahre dauert. Eine Umschulung führt Erwachsene, die den Beruf wechseln, zum selben Abschluss, mit derselben IHK-Prüfung am Ende, in etwa zwei Jahren. Meist wird sie von der Arbeitsagentur oder dem Jobcenter gefördert.
 
-Meine hatte zwei Hälften. In der Schule, bei EVB Training, habe ich die Theorie gelernt. Und innerhalb der zwei Jahre musste ich rund sechs Monate Praktikum in einem Betrieb machen. Diesen Praktikumsplatz zu finden, war das Schwerste im ersten Jahr: Ich habe viele Absagen gesammelt, und sie haben wehgetan. Am Ende hat mich ein IT-Unternehmen in Düren genommen, die aks-Service.
+Meine hatte zwei Hälften. In der Schule, bei [EVB Training](https://evbtraining.de/), habe ich die Theorie gelernt. Und innerhalb der zwei Jahre musste ich rund sechs Monate Praktikum in einem Betrieb machen. Diesen Praktikumsplatz zu finden, war das Schwerste im ersten Jahr: Ich habe viele Absagen gesammelt, und sie haben wehgetan. Am Ende hat mich ein IT-Unternehmen in Nideggen genommen, die aks-Service.
 
 Im Praktikum habe ich Tailwind CSS, PHP und Laravel gelernt und an drei Projekten mitgearbeitet: einem System für Krankmeldungen im Intranet der Firma, einer Produktdatenbank für einen Kunden und einer Website zur Verwaltung einer Organisation. Am schwersten war anfangs nicht der Code, sondern das Deutsch und das Ankommen im Team. Beides kam mit der Zeit. Nach dem Praktikum bin ich geblieben, und Laravel und Tailwind sind bis heute meine täglichen Werkzeuge.
 
@@ -74,7 +74,7 @@ Teil 2 habe ich im Dezember 2024 geschrieben und mit einem Durchschnitt von 2 (�
 
 Mein Projekt war ein Mitarbeiterportal, genauer gesagt das System für Krankmeldungen aus meinem Praktikum. Vorher liefen Krankmeldungen auf Papier. Die Firma braucht weiterhin ein ausgedrucktes Formular, also erzeugt das Portal es jetzt als PDF: Niemand füllt das Formular mehr von Hand aus. Man lädt das PDF herunter und schickt es per E-Mail dorthin, wo es hin muss.
 
-Gebaut habe ich es mit Laravel und [FilamentPHP](https://filamentphp.com/). Filament habe ich gewählt, um die Oberfläche schnell aufzusetzen, und auch als Experiment. Das hat sich später ausgezahlt: Als ich in der Firma anfing, war ich der Einzige, der Filament kannte, und die Kundenprojekte mit Filament landen bis heute bei mir.
+Gebaut habe ich es mit Laravel und [FilamentPHP](https://filamentphp.com/). Filament habe ich gewählt, um die Oberfläche schnell aufzusetzen, und auch als Experiment. Das hat sich später ausgezahlt: Als ich in der Firma anfing, war ich derjenige, der Filament kannte, und die Kundenprojekte mit Filament landen bis heute bei mir.
 
 Für die PDFs habe ich zuerst dompdf ausprobiert, aber es kam mit Tailwind CSS nicht zurecht. Also bin ich auf [spatie/browsershot](https://github.com/spatie/browsershot) umgestiegen. Es öffnet die Seite in einem echten Headless Chrome und druckt sie als PDF. Das PDF sieht genauso aus wie die Seite, die ich mit Tailwind gestaltet habe.
 
