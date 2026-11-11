@@ -9,6 +9,8 @@ tags:
   - 11ty
   - SEO
   - Multilingual
+image: /assets/images/posts/seo-bilingual-eleventy-blog.png
+imageAlt: "Wortwolke um das Wort SEO mit einer Lupe: Google, Bing, Yahoo!, Meta, Title, Tags, URL, Ranking (Illustration: Tumisu, Pixabay)"
 draft: true
 ---
 

@@ -9,6 +9,8 @@ tags:
   - 11ty
   - SEO
   - Multilingual
+image: /assets/images/posts/seo-bilingual-eleventy-blog.png
+imageAlt: "Word cloud around the word SEO with a magnifying glass: Google, Bing, Yahoo!, meta, title, tags, URL, ranking (illustration: Tumisu, Pixabay)"
 draft: true
 ---
 
