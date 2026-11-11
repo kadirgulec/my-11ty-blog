@@ -1,7 +1,7 @@
 ---
 title: "Von der Verwaltung in die Softwareentwicklung: meine Umschulung und die IHK-Prüfung"
 urlSlug: von-der-verwaltung-in-die-softwareentwicklung-meine-umschulung-und-die-ihk-pruefung
-date: 2025-08-20
+date: 2026-11-11
 docLang: de
 image: /assets/images/posts/umschulung-ihk-exam.jpg
 imageAlt: 'Kreideschrift „Learning never ends“ auf einer Tafel (Bild: geralt, Pixabay)'
@@ -11,7 +11,7 @@ tags:
   - Career
   - Germany
   - Education
-draft: true
+draft: false
 ---
 
 Sieben Jahre lang war ich Sachbearbeiter im türkischen Innenministerium. Akten, Verfahren, Menschen. 2016 bin ich mit einem Koffer und einer neuen Sprache von Ankara nach Düren gezogen. Die Jahre danach waren Sprachkurse, erste Jobs und Abende, an denen ich mir selbst das Programmieren beigebracht habe. 2022 habe ich eine Umschulung zum **Fachinformatiker für Anwendungsentwicklung** begonnen und beide IHK-Prüfungen bestanden. Heute entwickle ich bei der [aks-Service](https://aks-service.de/) in Nideggen Webanwendungen mit Laravel, Livewire und Alpine.js.

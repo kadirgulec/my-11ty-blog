@@ -11,7 +11,7 @@ tags:
   - Multilingual
 image: /assets/images/posts/seo-bilingual-eleventy-blog.png
 imageAlt: "Word cloud around the word SEO with a magnifying glass: Google, Bing, Yahoo!, meta, title, tags, URL, ranking (illustration: Tumisu, Pixabay)"
-draft: true
+draft: false
 ---
 
 This site exists in English and German. I live and work in Düren, and I want people here to find me when they search for "Webentwickler Düren", so the German side matters. For a long time I thought the bilingual setup was fine: an EN/DE switch in the header, the choice saved in the browser, and every page available in both languages.

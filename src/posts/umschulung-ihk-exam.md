@@ -2,7 +2,7 @@
 translationKey: ''
 title: 'From Public Administration to Software Development: My Umschulung and the IHK Exam'
 urlSlug: from-public-administration-to-software-development-my-umschulung-and-the-ihk-exam
-date: 2025-08-20
+date: 2026-11-11
 updated: ''
 docLang: en
 image: /assets/images/posts/umschulung-ihk-exam.jpg
@@ -13,7 +13,7 @@ tags:
   - Career
   - Germany
   - Education
-draft: true
+draft: false
 ---
 
 For seven years I worked as a specialist at the Turkish Ministry of Interior. Files, procedures, people. In 2016 I moved from Ankara to Düren with one suitcase and a new language to learn. The next years were language courses, first jobs and evenings of teaching myself to code. In 2022 I started a retraining as a **Fachinformatiker für Anwendungsentwicklung**, an application developer, and passed both IHK exams. Today I build web applications with Laravel, Livewire and Alpine.js at [aks-Service](https://aks-service.de/) in Nideggen.

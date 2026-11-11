@@ -11,7 +11,7 @@ tags:
   - Multilingual
 image: /assets/images/posts/seo-bilingual-eleventy-blog.png
 imageAlt: "Wortwolke um das Wort SEO mit einer Lupe: Google, Bing, Yahoo!, Meta, Title, Tags, URL, Ranking (Illustration: Tumisu, Pixabay)"
-draft: true
+draft: false
 ---
 
 Diese Website gibt es auf Englisch und auf Deutsch. Ich lebe und arbeite in Düren und möchte, dass Menschen hier mich finden, wenn sie nach „Webentwickler Düren“ suchen. Die deutsche Seite ist mir also wichtig. Lange dachte ich, die Zweisprachigkeit sei sauber gelöst: ein EN/DE-Umschalter im Header, die Wahl im Browser gespeichert, und jede Seite in beiden Sprachen.
