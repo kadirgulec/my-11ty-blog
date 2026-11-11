@@ -80,7 +80,7 @@ I built it with Laravel and [FilamentPHP](https://filamentphp.com/). I picked Fi
 
 For the PDFs I first tried dompdf, but it could not handle Tailwind CSS. So I switched to [spatie/browsershot](https://github.com/spatie/browsershot), which opens the page in a real headless Chrome and prints it to PDF. The PDF looks exactly like the page I designed with Tailwind.
 
-For the documentation I used Stefan Macke's template for IT project documentation (a paid Word and LibreOffice version; there is also a free LaTeX version). It comes with the full chapter structure and examples, and I can recommend it. In the presentation I didn't do a live demo. I used screenshots of the portal.
+For the documentation I used Stefan Macke's template for IT project documentation (a paid [Word and LibreOffice version](https://dieperfekteprojektdokumentation.de/); there is also a free [LaTeX version](https://github.com/StefanMacke/latex-vorlage-fiae)). It comes with the full chapter structure and examples, and I can recommend it. In the presentation I didn't do a live demo. I used screenshots of the portal.
 
 I got 96 points for the presentation, which is a 1 ("sehr gut"), despite the gaps you'll see below. The portal has been in use ever since and keeps getting new features.
 

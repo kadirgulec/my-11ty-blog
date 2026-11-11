@@ -78,7 +78,7 @@ Gebaut habe ich es mit Laravel und [FilamentPHP](https://filamentphp.com/). Fila
 
 Für die PDFs habe ich zuerst dompdf ausprobiert, aber es kam mit Tailwind CSS nicht zurecht. Also bin ich auf [spatie/browsershot](https://github.com/spatie/browsershot) umgestiegen. Es öffnet die Seite in einem echten Headless Chrome und druckt sie als PDF. Das PDF sieht genauso aus wie die Seite, die ich mit Tailwind gestaltet habe.
 
-Für die Projektdokumentation habe ich die Vorlage von Stefan Macke für die IT-Berufe genutzt (kostenpflichtig für Word und LibreOffice; es gibt auch eine kostenlose LaTeX-Version). Sie bringt die komplette Gliederung und Beispiele mit, ich kann sie empfehlen. In der Präsentation habe ich keine Live-Demo gemacht, sondern Screenshots des Portals gezeigt.
+Für die Projektdokumentation habe ich die Vorlage von Stefan Macke für die IT-Berufe genutzt (kostenpflichtig für [Word und LibreOffice](https://dieperfekteprojektdokumentation.de/); es gibt auch eine kostenlose [LaTeX-Version](https://github.com/StefanMacke/latex-vorlage-fiae)). Sie bringt die komplette Gliederung und Beispiele mit, ich kann sie empfehlen. In der Präsentation habe ich keine Live-Demo gemacht, sondern Screenshots des Portals gezeigt.
 
 Für die Präsentation habe ich 96 Punkte bekommen, also eine 1 („sehr gut“), trotz der Lücken, die gleich kommen. Das Portal ist seitdem im Einsatz und bekommt laufend neue Funktionen.
 
