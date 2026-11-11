@@ -3,8 +3,8 @@ title: "Von der Verwaltung in die Softwareentwicklung: meine Umschulung und die 
 urlSlug: von-der-verwaltung-in-die-softwareentwicklung-meine-umschulung-und-die-ihk-pruefung
 date: 2025-08-20
 docLang: de
-image: /assets/images/hero-1.jpg
-imageAlt: "Code-Editor auf einem Laptop im Dunkeln, dahinter rote und blaue Lichtspuren"
+image: /assets/images/posts/umschulung-ihk-exam.jpg
+imageAlt: 'Kreideschrift „Learning never ends“ auf einer Tafel (Bild: geralt, Pixabay)'
 description: "Sieben Jahre Verwaltung in der Türkei, dann der Umzug nach Deutschland und zwei Jahre Umschulung. Wie ich mich auf beide IHK-Prüfungen vorbereitet habe und was gefragt wurde."
 tags:
   - post

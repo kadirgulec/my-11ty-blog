@@ -5,8 +5,8 @@ urlSlug: from-public-administration-to-software-development-my-umschulung-and-th
 date: 2025-08-20
 updated: ''
 docLang: en
-image: /assets/images/hero-1.jpg
-imageAlt: Code editor on a laptop screen in the dark, with red and blue light trails behind it
+image: /assets/images/posts/umschulung-ihk-exam.jpg
+imageAlt: 'Chalk lettering "Learning never ends" on a blackboard (image: geralt, Pixabay)'
 description: Seven years in public administration in Turkey, then a move to Germany and a two-year retraining. How I prepared for both IHK exams, and what the examiners asked me.
 tags:
   - post
