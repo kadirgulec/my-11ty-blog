@@ -16,7 +16,7 @@ tags:
 draft: false
 ---
 
-For seven years I worked as a specialist at the Turkish Ministry of Interior. Files, procedures, people. In 2016 I moved from Ankara to Düren with one suitcase and a new language to learn. The next years were language courses, first jobs and evenings of teaching myself to code. In 2022 I started a retraining as a **Fachinformatiker für Anwendungsentwicklung**, an application developer, and passed both IHK exams. Today I build web applications with Laravel, Livewire and Alpine.js at [aks-Service](https://aks-service.de/) in Nideggen.
+For seven years I worked as a specialist at the Turkish Ministry of Interior. Files, procedures, people. In 2016 I moved from Ankara to Düren with one suitcase and a new language to learn. The next years were language courses, first jobs and evenings of teaching myself to code. In 2023 I started a retraining as a **Fachinformatiker für Anwendungsentwicklung**, an application developer, and passed both IHK exams. Today I build web applications with Laravel, Livewire and Alpine.js at [aks-Service](https://aks-service.de/) in Nideggen.
 
 This post is for anyone thinking about the same step: what an Umschulung is, how the IHK exam works, how I prepared, and what the examiners asked me.
 
