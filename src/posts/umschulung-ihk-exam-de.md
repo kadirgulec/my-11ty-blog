@@ -2,6 +2,7 @@
 title: "Von der Verwaltung in die Softwareentwicklung: meine Umschulung und die IHK-Prüfung"
 urlSlug: von-der-verwaltung-in-die-softwareentwicklung-meine-umschulung-und-die-ihk-pruefung
 date: 2026-11-11
+updated: 2026-11-16
 docLang: de
 image: /assets/images/posts/umschulung-ihk-exam.jpg
 imageAlt: 'Kreideschrift „Learning never ends“ auf einer Tafel (Bild: geralt, Pixabay)'
@@ -63,7 +64,7 @@ In der Prüfung selbst hat mir einiges geholfen:
 
 ## Teil 2: so habe ich mich vorbereitet
 
-Teil 2 habe ich im Dezember 2024 geschrieben und mit einem Durchschnitt von 2 („gut“) bestanden.
+Teil 2 habe ich im Dezember 2024 geschrieben und mit insgesamt 77 Punkten („befriedigend“) bestanden. Meine Projektarbeit wurde mit „gut“ (81 Punkte) bewertet.
 
 - **Algorithmen und Pseudocode:** Viel Zeit mit alten Prüfungsaufgaben, die ich mit unserem Dozenten durchgegangen bin. Die einfachsten Sortier- und Suchalgorithmen habe ich mir an ihrer Form gemerkt („zwei verschachtelte for-Schleifen“), aber auch ihre Logik verstanden.
 - **SQL:** Für mich bringen Algorithmen und SQL in Teil 2 die meisten Punkte. Ich habe die Datenbanken aus alten Prüfungsaufgaben mithilfe von KI nachgebaut und die Abfragen selbst geschrieben. War das Ergebnis falsch, habe ich am falschen Ergebnis meinen Denkfehler gesucht. So habe ich gelernt, wie SQL funktioniert, nicht nur die Lösungen.

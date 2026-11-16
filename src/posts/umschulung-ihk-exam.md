@@ -3,7 +3,7 @@ translationKey: ''
 title: 'From Public Administration to Software Development: My Umschulung and the IHK Exam'
 urlSlug: from-public-administration-to-software-development-my-umschulung-and-the-ihk-exam
 date: 2026-11-11
-updated: ''
+updated: 2026-11-16
 docLang: en
 image: /assets/images/posts/umschulung-ihk-exam.jpg
 imageAlt: 'Chalk lettering "Learning never ends" on a blackboard (image: geralt, Pixabay)'
@@ -65,7 +65,7 @@ In the exam itself, a few things helped me:
 
 ## Part 2: how I prepared
 
-I took Part 2 in December 2024 and passed with an average grade of 2 ("gut"; in Germany 1 is the best and 6 the worst).
+I took Part 2 in December 2024 and passed with 77 points overall ("befriedigend", grade 3; in Germany 1 is the best and 6 the worst). My final project got "gut" (81 points).
 
 - **Algorithms and pseudocode:** I spent a lot of time on old exam questions and went through them with our teacher. I learned the simplest sorting and search algorithms by their shape ("two nested for loops") and also by their logic.
 - **SQL:** For me, algorithms and SQL bring the most points in Part 2. I rebuilt the databases from old exam questions, with the help of AI, and wrote the queries myself. When the result was wrong, I used the wrong result to find the mistake in my logic. That way I learned how SQL works, not just the answers.
