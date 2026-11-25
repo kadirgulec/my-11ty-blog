@@ -105,6 +105,58 @@
       "frame": "browser"
     },
     {
+      "title": "Julia's Ballettträume",
+      "titleDe": "",
+      "detailSlug": "julias-ballettraeume",
+      "draft": true,
+      "status": "live",
+      "statusLabel": "LIVE · CLIENT PROJECT",
+      "statusLabelDe": "LIVE · KUNDENPROJEKT",
+      "tagline": "Helping a great ballet teacher in Düren reach more children.",
+      "taglineDe": "Damit eine großartige Ballettlehrerin in Düren mehr Kinder erreicht.",
+      "description": "My daughters take ballet lessons with Julia, and she is a great teacher. I wanted more families to find her, so I built her school a website: courses, timetable and performances in one place, and parents can ask for free trial lessons straight from their phone.",
+      "descriptionDe": "Meine Töchter tanzen bei Julia Ballett, und sie ist eine großartige Lehrerin. Ich wollte, dass mehr Familien sie finden, also habe ich ihrer Schule eine Website gebaut: Kurse, Stundenplan und Auftritte an einem Ort, und Eltern fragen kostenlose Probestunden direkt vom Handy aus an.",
+      "features": [
+        {
+          "text": "Courses from early ballet for toddlers to adults",
+          "textDe": "Kurse vom Früherziehungsballett bis zu den Erwachsenen"
+        },
+        {
+          "text": "Weekly timetable that is easy to keep up to date",
+          "textDe": "Wochenstundenplan, der sich leicht aktuell halten lässt"
+        },
+        {
+          "text": "Trial-lesson form with spam protection",
+          "textDe": "Probestunden-Formular mit Spamschutz"
+        },
+        {
+          "text": "Performance galleries with the children's faces blurred",
+          "textDe": "Auftritts-Galerien mit unkenntlich gemachten Kindergesichtern"
+        }
+      ],
+      "meta": [
+        {
+          "label": "STACK",
+          "labelDe": "STACK",
+          "value": "Eleventy · Sveltia CMS · PHP · own server",
+          "valueDe": "Eleventy · Sveltia CMS · PHP · eigener Server"
+        },
+        {
+          "label": "ROLE",
+          "labelDe": "ROLLE",
+          "value": "Solo — design, development, hosting, launch",
+          "valueDe": "Alleine — Design, Entwicklung, Hosting, Launch"
+        }
+      ],
+      "url": "https://juliasballett.de",
+      "urlLabel": "juliasballett.de",
+      "note": "Live since November 2026 · the site is in German.",
+      "noteDe": "Live seit November 2026.",
+      "image": "/assets/images/projects/julias-ballettraeume-home.png",
+      "imageAlt": "Home page of Julia's Ballettträume: a ballet teacher stretching with young pupils, the heading „Wo Träume tanzen lernen\" and a button for free trial lessons",
+      "frame": "browser"
+    },
+    {
       "title": "QR Invites",
       "titleDe": "QR-Einladungen",
       "draft": true,
