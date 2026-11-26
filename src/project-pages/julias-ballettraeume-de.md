@@ -6,7 +6,7 @@ date: 2026-11-25
 description: "Warum ich für Julia's Ballettträume in Düren — die Ballettschule meiner Töchter — eine Website gebaut habe und worauf es mir dabei ankam."
 image: /assets/images/projects/julias-ballettraeume-home.png
 imageAlt: "Startseite von Julia's Ballettträume: eine Ballettlehrerin dehnt sich mit kleinen Schülerinnen, die Überschrift „Wo Träume tanzen lernen“ und ein Button für kostenlose Probestunden"
-draft: true
+draft: false
 ---
 
 ## Warum dieses Projekt
